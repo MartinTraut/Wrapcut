@@ -1,0 +1,482 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+    --font-display: var(--font-display);
+    --font-sans: var(--font-sans);
+    --font-mono: var(--font-mono);
+
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+    --color-card: var(--card);
+    --color-card-foreground: var(--card-foreground);
+    --color-primary: var(--primary);
+    --color-primary-foreground: var(--primary-foreground);
+    --color-secondary: var(--secondary);
+    --color-secondary-foreground: var(--secondary-foreground);
+    --color-muted: var(--muted);
+    --color-muted-foreground: var(--muted-foreground);
+    --color-brand: var(--brand);
+    --color-brand-foreground: var(--brand-foreground);
+    --color-signal: var(--signal);
+    --color-destructive: var(--destructive);
+    --color-border: var(--border);
+    --color-input: var(--input);
+    --color-ring: var(--ring);
+
+    /* Alle Stufen auf denselben Wert: bei --radius: 0 erzeugten die früheren
+       px-Offsets 1–2 px Restrundung, und genau die machte den Unterschied
+       zwischen einer kantigen und einer „fast kantigen" Fläche sichtbar.
+       Echte Pillen benutzen `rounded-full` und sind davon unberührt. */
+    --radius-sm: var(--radius);
+    --radius-md: var(--radius);
+    --radius-lg: var(--radius);
+    --radius-xl: var(--radius);
+    --radius-2xl: var(--radius);
+    --radius-3xl: var(--radius);
+
+    --ease-premium: cubic-bezier(0.22, 1, 0.36, 1);
+    --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/*
+ * ─────────────────────────────────────────────────────────────────────────
+ * Designsystem "Carbon & Lime" — WrapCut
+ * ─────────────────────────────────────────────────────────────────────────
+ * Ablösung von "Obsidian & Racing Green". Der Kern des Umbaus:
+ *
+ * 1. NEUTRALE GRAUSTUFEN. Vorher lag ein Grünstich (Chroma 0.011–0.013) auf
+ *    jedem Grau — Hintergrund, Karten, Ränder. Das ließ die Seite stumpf
+ *    wirken und nahm dem Akzent die Wirkung. Jetzt: echtes Karbon-Schwarz
+ *    ohne Chroma. Farbe erscheint nur dort, wo sie etwas bedeutet.
+ * 2. EIN LAUTER AKZENT statt drei mittellauter. `--signal` ist deutlich
+ *    heller und gesättigter (0.79 / 0.165) — auf neutralem Schwarz wirkt es
+ *    wie beleuchtetes Vinyl, ohne ins Neon zu kippen. Bleibt in der
+ *    Logo-Farbfamilie (Hue 146).
+ * 3. KANTE STATT KACHEL. `--radius: 0` — Flächen sind Schnitte, keine
+ *    Buttons. Nur echte Pillen (CTA, Badge) bekommen `rounded-full`.
+ *    Das ist die Folien-Metapher: geschnitten, nicht abgerundet.
+ * 4. HAARLINIEN TRAGEN DAS RASTER. Struktur entsteht über 1px-Regeln, nicht
+ *    über Füllflächen — deshalb ist `--border` heller als zuvor.
+ */
+:root {
+    --background: oklch(0.135 0 0);
+    --foreground: oklch(0.975 0 0);
+
+    /* Karten sind fast unsichtbar aufgehellt — der Unterschied kommt aus
+       der Haarlinie, nicht aus dem Füllwert. */
+    --card: oklch(0.175 0 0);
+    --card-foreground: oklch(0.975 0 0);
+
+    /* Marken-Grün weiterhin exakt aus dem Logo abgeleitet (#29452b =
+       oklch(0.36 0.056 146)). Eine Farbtonfamilie, Hue 146 — nur
+       Helligkeit und Sättigung variieren. Kein zweiter Farbton auf der
+       gesamten Seite außer Fehler-Rot. */
+    --brand: oklch(0.42 0.085 146);
+    --brand-foreground: oklch(0.98 0.01 146);
+    --signal: oklch(0.79 0.165 146);
+
+    /* Primär-CTA = volles Signal auf dunklem Text. Kontrast gegen
+       --background liegt bei ~12:1, gegen das Hero-Foto immer noch >7:1. */
+    --primary: oklch(0.79 0.165 146);
+    --primary-foreground: oklch(0.16 0.03 146);
+
+    --secondary: oklch(0.225 0 0);
+    --secondary-foreground: oklch(0.975 0 0);
+    --muted: oklch(0.215 0 0);
+    --muted-foreground: oklch(0.715 0 0);
+
+    --destructive: oklch(0.66 0.2 25);
+
+    /* Deutlich sichtbarer als zuvor (9% → 14%): Haarlinien sind jetzt das
+       tragende Strukturelement und müssen lesbar sein. */
+    --border: oklch(1 0 0 / 14%);
+    /* Eigenes, kräftigeres Token für Bedienelement-Ränder — WCAG 1.4.11 (3:1) */
+    --input: oklch(1 0 0 / 34%);
+    --ring: oklch(0.79 0.165 146);
+
+    /* Schnitt statt Kachel. Kein Radius auf Flächen. */
+    --radius: 0rem;
+
+    /*
+     * Fluid-Type-Skala. Jeder Wert clamp(MIN, vw + rem, MAX) — der rem-Anteil
+     * sichert Zoom-/A11y-Verhalten.
+     *
+     * Deutlich größer und enger als zuvor: Display geht bis 8.5rem statt
+     * 6rem. Erst diese Spreizung zwischen Display und Fließtext erzeugt die
+     * Hierarchie, die eine Seite teuer aussehen lässt. Die Minima bleiben an
+     * das längste Wort der Seite gebunden ("Fahrzeugfolierung", 17 Zeichen),
+     * sonst reißt die Headline auf 375 px aus dem Viewport.
+     */
+    --text-display: clamp(2.1rem, 6.4vw + 0.6rem, 8.5rem);
+    --text-h2-hero: clamp(1.95rem, 5vw + 0.6rem, 6rem);
+    --text-h2: clamp(1.8rem, 2.6vw + 0.9rem, 4rem);
+    --text-h2-minor: clamp(1.5rem, 1.2vw + 1rem, 2.5rem);
+    --text-h3: clamp(1.15rem, 0.4vw + 1.02rem, 1.5rem);
+    --text-lead: clamp(1.05rem, 0.4vw + 0.95rem, 1.35rem);
+}
+
+@layer base {
+    * {
+        @apply border-border;
+    }
+    html {
+        @apply font-sans;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+        /*
+         * WCAG 2.2 SC 2.4.11 (Focus Not Obscured): Header und — unter lg —
+         * die fixierte CTA-Leiste überdecken sonst das gerade fokussierte
+         * Element. Gemessen: ein fokussierter Footer-Link lag bei bottom 809,
+         * die Leiste begann bei 771.
+         */
+        scroll-padding-top: 5.5rem;
+        scroll-padding-bottom: 6.5rem;
+    }
+    @media (min-width: 1024px) {
+        html {
+            scroll-padding-bottom: 2rem;
+        }
+    }
+    body {
+        @apply bg-background text-foreground;
+    }
+    ::selection {
+        background: var(--signal);
+        color: oklch(0.16 0.03 146);
+    }
+    h1,
+    h2,
+    h3,
+    h4 {
+        @apply font-display;
+        /* Sicherheitsnetz für lange Komposita auf schmalen Viewports */
+        overflow-wrap: break-word;
+    }
+    /* Haarfeine, neutrale Scrollbar — kein farbiger Balken mehr */
+    ::-webkit-scrollbar {
+        width: 9px;
+        height: 9px;
+    }
+    ::-webkit-scrollbar-track {
+        background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+        background: oklch(1 0 0 / 16%);
+    }
+    ::-webkit-scrollbar-thumb:hover {
+        background: oklch(1 0 0 / 26%);
+    }
+}
+
+@layer components {
+    /*
+     * Typo-Stufen. Tracking ist an die Größe gekoppelt: je größer, desto
+     * enger. In Display-Größen läuft Archivo bei -0.055em zu einem
+     * geschlossenen Block zusammen — genau die dichte, plakative Anmutung,
+     * die Motorsport-Typografie ausmacht.
+     */
+    .t-display {
+        font-size: var(--text-display);
+        line-height: 0.86;
+        letter-spacing: -0.055em;
+        font-weight: 700;
+    }
+    .t-h2-hero {
+        font-size: var(--text-h2-hero);
+        line-height: 0.9;
+        letter-spacing: -0.05em;
+        font-weight: 700;
+    }
+    .t-h2 {
+        font-size: var(--text-h2);
+        line-height: 0.95;
+        letter-spacing: -0.042em;
+        font-weight: 700;
+    }
+    .t-h2-minor {
+        font-size: var(--text-h2-minor);
+        line-height: 1.08;
+        letter-spacing: -0.03em;
+        font-weight: 600;
+    }
+    .t-h3 {
+        font-size: var(--text-h3);
+        line-height: 1.25;
+        letter-spacing: -0.02em;
+        font-weight: 600;
+    }
+    .t-lead {
+        font-size: var(--text-lead);
+        line-height: 1.62;
+        letter-spacing: -0.005em;
+    }
+
+    /*
+     * Technisches Label. Der Monospace ist die zweite und letzte Schrift der
+     * Seite und trägt ausschließlich Meta-Ebenen: Sektionsindizes, Maße,
+     * Preise, Laufzeiten. Diese Rollentrennung — Grotesk spricht, Mono misst —
+     * ist der stärkste einzelne Träger der Präzisions-Anmutung.
+     */
+    .t-mono {
+        font-family: var(--font-mono);
+        /* 0.73rem statt 0.7: die Klasse trägt auch die Hauptnavigation, und
+           unter ~11.5 px wird versaler Monospace bei diesem Tracking mühsam. */
+        font-size: 0.73rem;
+        line-height: 1;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        font-weight: 500;
+    }
+    .t-mono-sm {
+        font-family: var(--font-mono);
+        font-size: 0.78rem;
+        letter-spacing: 0.02em;
+        font-variant-numeric: tabular-nums;
+    }
+
+    /*
+     * Drei-stufige Vertikalskala, spürbar großzügiger als zuvor. Weißraum ist
+     * das billigste Premium-Signal, das es gibt.
+     */
+    /*
+     * Asymmetrisch, nicht symmetrisch. Bei gleichem oberen und unteren
+     * Innenabstand addieren sich zwei benachbarte Sections zu toten Zonen —
+     * gemessen stießen Galerie (208 unten) und Über-uns (208 oben) auf
+     * 416 px Leere. Oben viel Anlauf, unten knapper Abschluss: der Block
+     * bindet dadurch nach unten an den folgenden an.
+     */
+    .section-tight {
+        padding-top: 5rem;
+        padding-bottom: 3.5rem;
+    }
+    .section {
+        padding-top: 7rem;
+        padding-bottom: 5rem;
+    }
+    .section-loose {
+        padding-top: 8.5rem;
+        padding-bottom: 6rem;
+    }
+    @media (min-width: 1024px) {
+        .section-tight {
+            padding-top: 7rem;
+            padding-bottom: 4.5rem;
+        }
+        .section {
+            padding-top: 11rem;
+            padding-bottom: 7rem;
+        }
+        .section-loose {
+            padding-top: 13rem;
+            padding-bottom: 8rem;
+        }
+    }
+}
+
+@layer utilities {
+    /* Feines Filmkorn für Tiefe / Anti-Banding */
+    .bg-grain {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+    }
+    .text-balance {
+        text-wrap: balance;
+    }
+    .text-pretty {
+        text-wrap: pretty;
+    }
+    /* Ziffern in gleicher Laufweite */
+    .nums {
+        font-variant-numeric: tabular-nums;
+        font-feature-settings: "tnum";
+    }
+
+    /*
+     * Technisches Raster: feine Linien im Hintergrund einer Fläche. Ersetzt
+     * die früheren grünen Radial-Glows — ein Raster liest sich als
+     * Werkstatt/Messfläche, ein Glow als Template.
+     */
+    .bg-grid {
+        background-image:
+            linear-gradient(to right, oklch(1 0 0 / 4%) 1px, transparent 1px),
+            linear-gradient(to bottom, oklch(1 0 0 / 4%) 1px, transparent 1px);
+        background-size: 72px 72px;
+    }
+
+    /*
+     * Gebürstetes Metall im Text. Zurückhaltender als die Vorversion (weniger
+     * Stopps, geringerer Hub) — der frühere Verlauf flackerte in Bewegung.
+     * Klassenname bleibt, damit bestehende Aufrufe gültig sind.
+     */
+    .text-chrome {
+        background: linear-gradient(
+            105deg,
+            oklch(0.62 0 0) 0%,
+            oklch(0.99 0 0) 30%,
+            oklch(0.72 0 0) 52%,
+            oklch(0.96 0 0) 74%,
+            oklch(0.66 0 0) 100%
+        );
+        background-size: 220% 100%;
+        background-position: 100% 0;
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        /* Einmaliger Sweep statt Endlosschleife. `background-position` auf
+           `background-clip: text` ist nicht kompositierbar und kostete im
+           Dauerbetrieb rund zwei Style-Recalcs pro Frame — auf dem
+           LCP-Element. Ein Effekt, der neun Sekunden lang dasselbe sagt,
+           ist Dekoration mit laufender Rechnung. */
+        animation: sheen-sweep 1.5s var(--ease-out-expo) 0.3s 1 both;
+    }
+    @keyframes sheen-sweep {
+        from {
+            background-position: 100% 0;
+        }
+        to {
+            background-position: 0 0;
+        }
+    }
+
+    /*
+     * Marken-Gradient im Text. Als CSS-Animation statt via Framer Motion,
+     * damit der Effekt nicht in jedem Frame über den Main-Thread läuft
+     * (betrifft direkt das LCP-Element im Hero).
+     */
+    .text-flow {
+        background: linear-gradient(
+            100deg,
+            oklch(0.79 0.165 146) 0%,
+            oklch(0.94 0.12 150) 26%,
+            oklch(0.7 0.17 146) 50%,
+            oklch(0.94 0.12 150) 74%,
+            oklch(0.79 0.165 146) 100%
+        );
+        background-size: 220% 100%;
+        background-position: 100% 0;
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        /* Ebenfalls einmalig — siehe .text-chrome. */
+        animation: sheen-sweep 1.6s var(--ease-out-expo) 0.45s 1 both;
+    }
+
+    /*
+     * Konturschrift. Ein zweites Headline-Register neben Vollton: dieselbe
+     * Größe, aber nur der Umriss. Erzeugt Hierarchie innerhalb einer Zeile,
+     * ohne eine weitere Farbe oder Schriftgröße einzuführen.
+     */
+    .text-outline {
+        color: transparent;
+        /* 40 % Weiß ergab gemessen 3,75 : 1 — für Großtext gerade zulässig,
+           im Rendering aber kaum lesbar, obwohl die Kontur die halbe Aussage
+           jeder Headline trägt. 1,5 px bei 62 % bringt sie auf ~6,5 : 1. */
+        -webkit-text-stroke: 1.5px oklch(1 0 0 / 62%);
+        paint-order: stroke fill;
+    }
+    /* Unter 640 px ist die Kontur bei ~34 px Schriftgrad zu fein, um zu
+       tragen — dort auf Halbton umschalten statt auf Umriss. */
+    @media (max-width: 639px) {
+        .text-outline {
+            color: oklch(1 0 0 / 45%);
+            -webkit-text-stroke: 0;
+        }
+    }
+
+    /* Glanzstreifen über Buttons/Karten — die Marken-Metapher als Interaktion */
+    .sheen {
+        position: relative;
+        overflow: hidden;
+        isolation: isolate;
+    }
+    .sheen::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        pointer-events: none;
+        background: linear-gradient(
+            105deg,
+            transparent 35%,
+            oklch(1 0 0 / 30%) 50%,
+            transparent 65%
+        );
+        transform: translateX(-120%);
+        transition: transform 620ms var(--ease-out-expo);
+    }
+    .sheen:hover::after,
+    .sheen:focus-visible::after {
+        transform: translateX(120%);
+    }
+
+    .mask-fade-x {
+        mask-image: linear-gradient(
+            90deg,
+            transparent,
+            #000 8%,
+            #000 92%,
+            transparent
+        );
+    }
+
+    @keyframes marquee {
+        from {
+            transform: translateX(0);
+        }
+        to {
+            transform: translateX(-50%);
+        }
+    }
+    .animate-marquee {
+        animation: marquee 42s linear infinite;
+    }
+
+    @keyframes accordion-down {
+        from {
+            height: 0;
+            opacity: 0;
+        }
+        to {
+            height: var(--radix-accordion-content-height);
+            opacity: 1;
+        }
+    }
+    @keyframes accordion-up {
+        from {
+            height: var(--radix-accordion-content-height);
+            opacity: 1;
+        }
+        to {
+            height: 0;
+            opacity: 0;
+        }
+    }
+    .animate-accordion-down {
+        animation: accordion-down 0.3s var(--ease-premium);
+    }
+    .animate-accordion-up {
+        animation: accordion-up 0.25s var(--ease-premium);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+        scroll-behavior: auto !important;
+    }
+    .animate-marquee,
+    .text-chrome,
+    .text-flow {
+        animation: none !important;
+    }
+    .text-chrome,
+    .text-flow {
+        background-position: 0 0;
+    }
+}
