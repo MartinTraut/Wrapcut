@@ -27,7 +27,10 @@ export function LineReveal({
   delay = 0,
   stagger = 0.09,
 }: {
-  lines: string[]
+  /* `ReactNode`, nicht `string`: sonst lässt sich in einer animierten Headline
+     kein einzelnes Wort auszeichnen — genau das war in der Hero der Fall, wo
+     das farbige „Folie" nur in der Reduced-Motion-Variante existierte. */
+  lines: React.ReactNode[]
   className?: string
   lineClassName?: string
   delay?: number
@@ -38,8 +41,8 @@ export function LineReveal({
   if (reduce) {
     return (
       <span className={cn("block", className)}>
-        {lines.map((line) => (
-          <span key={line} className={cn("block", lineClassName)}>
+        {lines.map((line, i) => (
+          <span key={i} className={cn("block", lineClassName)}>
             {line}
           </span>
         ))}
@@ -56,13 +59,22 @@ export function LineReveal({
         show: { transition: { delayChildren: delay, staggerChildren: stagger } },
       }}
     >
-      {lines.map((line) => (
-        <span key={line} className="block overflow-hidden pb-[0.12em]">
+      {lines.map((line, i) => (
+        <span key={i} className="block overflow-hidden pb-[0.12em]">
           <motion.span
             className={cn("block", lineClassName)}
             variants={{
-              hidden: { y: "108%" },
-              show: { y: "0%", transition: { duration: 0.85, ease: EASE } },
+              /* Die Zeile kommt nicht nur hoch, sie kommt leicht schräg und
+                 von rechts unten — eine reine Vertikale liest sich wie ein
+                 Textmarker, die Kombination wie gesetzt. Alles auf
+                 `transform`, also compositor-seitig. */
+              hidden: { y: "112%", x: "2.5%", skewY: 2.5 },
+              show: {
+                y: "0%",
+                x: "0%",
+                skewY: 0,
+                transition: { duration: 0.9, ease: EASE },
+              },
             }}
           >
             {line}
@@ -83,7 +95,7 @@ export function LineRevealInView({
   lineClassName,
   stagger = 0.09,
 }: {
-  lines: string[]
+  lines: React.ReactNode[]
   className?: string
   lineClassName?: string
   stagger?: number
@@ -93,8 +105,8 @@ export function LineRevealInView({
   if (reduce) {
     return (
       <span className={cn("block", className)}>
-        {lines.map((line) => (
-          <span key={line} className={cn("block", lineClassName)}>
+        {lines.map((line, i) => (
+          <span key={i} className={cn("block", lineClassName)}>
             {line}
           </span>
         ))}
@@ -110,13 +122,17 @@ export function LineRevealInView({
       viewport={{ once: true, amount: 0.5 }}
       variants={{ show: { transition: { staggerChildren: stagger } } }}
     >
-      {lines.map((line) => (
-        <span key={line} className="block overflow-hidden pb-[0.12em]">
+      {lines.map((line, i) => (
+        <span key={i} className="block overflow-hidden pb-[0.12em]">
           <motion.span
             className={cn("block", lineClassName)}
             variants={{
-              hidden: { y: "108%" },
-              show: { y: "0%", transition: { duration: 0.8, ease: EASE } },
+              hidden: { y: "110%", skewY: 2 },
+              show: {
+                y: "0%",
+                skewY: 0,
+                transition: { duration: 0.8, ease: EASE },
+              },
             }}
           >
             {line}

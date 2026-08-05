@@ -84,9 +84,20 @@ export function Reveal({
       variants={withDelay(variant, delay)}
       initial="hidden"
       whileInView="show"
-      // `amount` statt Pixel-Margin: bei sehr hohen Blöcken (Bildspalten,
-      // Prozessliste) ist ein Anteil des Elements das robustere Kriterium.
-      viewport={{ once: true, amount: 0.15 }}
+      /*
+       * `amount` statt Pixel-Margin: bei sehr hohen Blöcken (Bildspalten,
+       * Prozessliste) ist ein Anteil des Elements das robustere Kriterium.
+       *
+       * Ausnahme `curtain`, und die ist keine Geschmacksfrage: Der
+       * Ruhezustand clippt das Element per `clip-path` auf null Höhe. Der
+       * IntersectionObserver rechnet das Clipping mit — die sichtbare Fläche
+       * bleibt damit 0 und erreicht den Schwellwert 0.15 nie. Das Element
+       * wartet auf ein Sichtbarwerden, das erst die Animation herstellen
+       * würde, die auf genau dieses Signal wartet. Mit `amount: 0` genügt
+       * jede Berührung des Viewports, und die Schleife ist aufgelöst.
+       * (Symptom war die leere linke Spalte im Studio-Kapitel.)
+       */
+      viewport={{ once: true, amount: variant === "curtain" ? 0 : 0.15 }}
       {...(props as object)}
     >
       {children}

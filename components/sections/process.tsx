@@ -87,6 +87,7 @@ export function Process() {
         </div>
 
         <Reveal
+          as="figure"
           variant="rise"
           className="hidden lg:sticky lg:top-28 lg:col-span-5 lg:block lg:self-start"
         >
@@ -98,15 +99,24 @@ export function Process() {
               sizes="(min-width: 1024px) 38vw, 100vw"
               className="img-punch object-cover"
             />
-            <div
-              aria-hidden
-              className="absolute inset-x-0 bottom-0 h-1/3 bg-linear-to-t from-background/80 to-transparent"
-            />
-            <p className="absolute inset-x-7 bottom-7 text-[0.95rem] leading-relaxed text-white/85">
+          </div>
+
+          {/*
+            Die Bildunterschrift steht unter dem Foto, nicht darauf.
+
+            Im Bild lag sie auf einer hellen, grünstichigen Stelle der
+            Aufnahme — weißer Text auf wechselndem Untergrund ist immer ein
+            Kompromiss, und hier war er verloren. Unter dem Bild hat sie einen
+            definierten Grund, eine Farbe und eine Kante, die sie dem Foto
+            zuordnet.
+          */}
+          <figcaption className="mt-5 border-l-2 border-transparent pl-5 [border-image:var(--iris)_1] lg:mt-6">
+            <span className="t-label text-iris block">Unsere Halle</span>
+            <p className="mt-2 text-[0.98rem] leading-relaxed text-foreground/85">
               Staubarme Umgebung, saubere Kanten. Die Vorbereitung entscheidet
               über das Ergebnis, hier sparen wir nie.
             </p>
-          </div>
+          </figcaption>
         </Reveal>
       </Container>
     </section>

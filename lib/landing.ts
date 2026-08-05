@@ -76,7 +76,10 @@ export const serviceDetails: Record<string, ServiceDetail> = {
     price: {
       headline: "Preisrahmen Vollfolierung",
       items: [
-        { label: "Vollfolierung, je nach Fahrzeug und Folie", value: "1.600, 8.000 €" },
+        { label: "Vollfolierung, je nach Fahrzeug und Folie", // Der Halbgeviertstrich bleibt: „1.600, 8.000 €" las sich als zwei
+        // Festpreise statt als Spanne — bei einer Preisangabe ist das keine
+        // Typografie, sondern eine falsche Aussage.
+        value: "1.600 – 8.000 €" },
         { label: "Teilfolierung, Beratung & Angebot", value: "kostenlos" },
       ],
     },
@@ -146,9 +149,20 @@ export const serviceDetails: Record<string, ServiceDetail> = {
           "Für maximalen Schutz kombinieren viele Fahrzeugbesitzer die Lackschutzfolie zusätzlich mit einer Keramikversiegelung: PPF auf die beanspruchten Flächen, Keramik über den Rest.",
         ],
       },
+      {
+        heading: "Pflege, damit die Folie hält, was sie verspricht",
+        body: [
+          "Eine Lackschutzfolie ist pflegeleicht, aber nicht pflegefrei. Waschen Sie das Fahrzeug von Hand oder in einer schonenden Waschanlage und verzichten Sie auf aggressive Reiniger, die Kanten und Oberfläche angreifen.",
+          "Insektenreste und Vogelkot gehören zeitnah herunter, nicht erst beim nächsten Waschtermin: Beides ist sauer und arbeitet sich mit Sonne und Zeit in jede Oberfläche. Für die regelmäßige Pflege gibt es Produkte, die ausdrücklich für Folien gemacht sind, damit bleibt der schmutzabweisende Effekt erhalten.",
+        ],
+      },
     ],
     facts: [
-      { label: "Haltbarkeit", value: "7–12 Jahre" },
+      // Die Altseite (/faq-lackschutzfolie) nennt „etwa 7 bis 10 Jahre".
+      // Der frühere Wert 7–12 stammte aus einer älteren Fassung derselben
+      // Seite — bei einer Haltbarkeitsangabe zählt der Stand, den der Betrieb
+      // heute selbst veröffentlicht.
+      { label: "Haltbarkeit", value: "7–10 Jahre" },
       { label: "Dauer Frontpaket", value: "häufig an einem Tag" },
       { label: "Optik", value: "transparent, nahezu unsichtbar" },
       { label: "Besonderheit", value: "selbstheilend bei feinen Kratzern" },
@@ -179,7 +193,7 @@ export const serviceDetails: Record<string, ServiceDetail> = {
       },
       {
         q: "Wie lange hält eine Lackschutzfolie?",
-        a: "7 bis 12 Jahre bei fachgerechter Montage und regelmäßiger Pflege. Die tatsächliche Standzeit hängt an Qualität, Pflege und Beanspruchung, ein Fahrzeug mit hoher Autobahnlaufleistung fordert die Folie stärker als ein Wochenendwagen. Da die Folie das Opfer bringt und nicht der Lack, ist ein Austausch nach Jahren deutlich günstiger als eine Lackaufbereitung.",
+        a: "Etwa 7 bis 10 Jahre bei fachgerechter Montage und regelmäßiger Pflege. Die tatsächliche Standzeit hängt an Qualität, Pflege und Beanspruchung, ein Fahrzeug mit hoher Autobahnlaufleistung fordert die Folie stärker als ein Wochenendwagen. Da die Folie das Opfer bringt und nicht der Lack, ist ein Austausch nach Jahren deutlich günstiger als eine Lackaufbereitung.",
       },
       {
         q: "Ist die Lackschutzfolie wirklich unsichtbar?",
@@ -196,6 +210,22 @@ export const serviceDetails: Record<string, ServiceDetail> = {
       {
         q: "Was ist besser: Lackschutzfolie oder Keramikversiegelung?",
         a: "Sie lösen unterschiedliche Probleme. Eine Keramikversiegelung verbessert die Oberfläche, erleichtert die Reinigung und sorgt für Glanz und Abperleffekt. Eine Lackschutzfolie bietet zusätzlich physischen Schutz vor Steinschlägen und Kratzern, den keine Versiegelung leisten kann. Für maximalen Schutz kombinieren viele Fahrzeugbesitzer beides: PPF auf die beanspruchten Flächen, Keramik über den Rest.",
+      },
+      {
+        q: "Wie lange dauert die Montage einer Lackschutzfolie?",
+        a: "Eine Teilfront lässt sich häufig innerhalb eines Tages umsetzen. Ein kompletter Fahrzeugschutz braucht entsprechend mehr Zeit, weil jedes Bauteil einzeln zugeschnitten, verlegt und an den Kanten sauber abgesetzt wird. Wie lange es bei Ihrem Fahrzeug dauert, sagen wir Ihnen verbindlich mit dem Angebot, damit Sie planen können und nicht auf Zuruf ohne Auto dastehen.",
+      },
+      {
+        q: "Wie pflege ich ein Fahrzeug mit Lackschutzfolie richtig?",
+        a: "Handwäsche oder eine schonende Waschanlage, keine aggressiven Reiniger. Insektenreste sollten Sie regelmäßig und zeitnah entfernen, weil sie sauer sind und sich mit Sonne und Zeit in jede Oberfläche arbeiten. Für die laufende Pflege gibt es Produkte, die ausdrücklich für Folien gemacht sind, damit bleibt die schmutzabweisende Oberfläche erhalten und die Folie erreicht die Standzeit, für die Sie bezahlt haben.",
+      },
+      {
+        q: "Warum sollte Lackschutzfolie von einem Fachbetrieb verlegt werden?",
+        a: "Weil das Ergebnis fast vollständig an der Vorbereitung und an den Kanten hängt. Der Lack wird professionell gereinigt und von Wachs und Rückständen befreit, die Folie präzise auf das Bauteil zugeschnitten und, wo es geht, um die Kante herum verlegt. Sauber abgesetzte Kanten sind der Unterschied zwischen einer Folie, die nach Jahren noch unsichtbar ist, und einer, die sich an den Rändern löst und Schmutz zieht.",
+      },
+      {
+        q: "Für welche Fahrzeuge lohnt sich eine Lackschutzfolie besonders?",
+        a: "Für Neufahrzeuge, solange der Lack noch makellos ist, und für alles, dessen Lack teuer oder empfindlich ist: Sportwagen, hochwertige Fahrzeuge, Oldtimer und Liebhaberfahrzeuge. Bei Leasingfahrzeugen kommt ein handfestes Argument dazu, der Lack geht im Originalzustand zurück, und Steinschläge an der Front sind einer der häufigsten Abzugspunkte bei der Rückgabe.",
       },
     ],
     related: ["keramikversiegelung", "fahrzeugfolierung", "scheibentoenung"],

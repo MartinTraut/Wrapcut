@@ -24,6 +24,12 @@ import { usePathname } from "next/navigation"
  * 3. Der Abgleich läuft über `requestAnimationFrame`, nicht über ein
  *    Intervall: alles andere driftet gegen die Bildrate.
  */
+declare global {
+  interface Window {
+    __lenis?: Lenis
+  }
+}
+
 export function SmoothScroll() {
   const pathname = usePathname()
 
@@ -37,6 +43,14 @@ export function SmoothScroll() {
       easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       touchMultiplier: 1.6,
     })
+
+    /*
+     * Die Instanz wird am `window` hinterlegt, damit Overlays den Scroll
+     * anhalten können. `overflow: hidden` genügt dafür nicht: Lenis setzt
+     * `scrollTop` programmatisch und scrollt auch dann noch weiter. Ohne
+     * `lenis.stop()` scrollt die Seite hinter der geöffneten Lightbox mit.
+     */
+    window.__lenis = lenis
 
     let frame = 0
     const raf = (time: number) => {
@@ -103,6 +117,7 @@ export function SmoothScroll() {
       document.removeEventListener("click", onClick, true)
       cancelAnimationFrame(frame)
       lenis.destroy()
+      delete window.__lenis
     }
   }, [pathname])
 

@@ -47,11 +47,22 @@ export function SectionHead({
       <div className="relative pt-10 lg:pt-12">
         {/* Haarlinie plus brennender Kopf. Zwei Elemente statt eines Verlaufs
             über die volle Breite: der Kopf soll an der Satzkante sitzen, also
-            genau dort, wo die Headline darunter beginnt. */}
-        <span aria-hidden className="absolute inset-x-0 top-0 h-px bg-border" />
+            genau dort, wo die Headline darunter beginnt.
+
+            Die lange Linie läuft nach rechts aus, statt mit voller Deckung an
+            der Satzkante abzubrechen. Eine durchgezogene Linie mit hartem Ende
+            liest sich als Tabellenkante; eine auslaufende als Anfang eines
+            Kapitels. Unter dem farbigen Kopf liegt zusätzlich ein weicher
+            Schein, damit der Kapitelanfang im Vorbeiscrollen auch dann
+            auffällt, wenn die Haarlinie selbst schon aus dem Blick ist. */}
         <span
           aria-hidden
-          className="bg-iris absolute top-0 left-0 h-px w-24"
+          className="absolute inset-x-0 top-0 h-px bg-linear-to-r from-border via-border to-transparent"
+        />
+        <span aria-hidden className="bg-iris absolute top-0 left-0 h-px w-24" />
+        <span
+          aria-hidden
+          className="bg-iris absolute -top-1 left-0 h-2 w-24 rounded-full opacity-25 blur-[6px]"
         />
 
         <div className="grid gap-8 lg:grid-cols-12 lg:items-start lg:gap-12">

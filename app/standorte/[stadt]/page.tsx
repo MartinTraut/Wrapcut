@@ -96,7 +96,10 @@ export default async function LocationPage({
           <h2 id="anfahrt-titel" className="sr-only">
             Anfahrt aus {location.city}
           </h2>
-          <RevealGroup className="grid gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-3">
+          {/* Der Anfahrtsriegel trägt jetzt Farbe statt reiner Rasterlinien:
+              Er ist die erste harte Auskunft der Seite und war bisher als
+              graues Gitter genauso laut wie jede Fußzeile. */}
+          <RevealGroup className="bg-iris-wash grid gap-px overflow-hidden rounded-2xl border border-brand/25 sm:grid-cols-3">
             {[
               {
                 icon: MapPin,
@@ -106,11 +109,16 @@ export default async function LocationPage({
               { icon: Clock, label: "Fahrzeit", value: location.driveMinutes },
               { icon: Car, label: "Route", value: location.route },
             ].map((item) => (
-              <RevealItem key={item.label} className="bg-background p-6">
-                <item.icon className="size-5 text-brand" aria-hidden />
-                <dl className="mt-4">
-                  <dt className="t-label text-muted-foreground">{item.label}</dt>
-                  <dd className="mt-2 text-lg leading-snug font-semibold">
+              <RevealItem
+                key={item.label}
+                className="p-7 sm:border-l sm:border-brand/15 sm:first:border-l-0"
+              >
+                <span className="flex size-10 items-center justify-center rounded-full border border-brand/35 bg-brand/[0.08]">
+                  <item.icon className="size-4.5 text-brand" aria-hidden />
+                </span>
+                <dl className="mt-5">
+                  <dt className="t-label text-brand/85">{item.label}</dt>
+                  <dd className="nums mt-2 text-lg leading-snug font-semibold">
                     {item.value}
                   </dd>
                 </dl>
@@ -142,7 +150,7 @@ export default async function LocationPage({
                 {location.districts.map((district) => (
                   <li
                     key={district}
-                    className="rounded-full border border-border px-3.5 py-1.5 text-sm text-foreground/85"
+                    className="rounded-full border border-brand/30 bg-brand/[0.07] px-3.5 py-1.5 text-sm text-foreground/85"
                   >
                     {district}
                   </li>

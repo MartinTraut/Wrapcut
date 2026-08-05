@@ -4,7 +4,10 @@ import * as React from "react"
 import Image from "next/image"
 import { motion, useReducedMotion, useScroll, useSpring, useTransform } from "framer-motion"
 
+import { Maximize2 } from "lucide-react"
+
 import { InstagramIcon } from "@/components/shared/icons"
+import { Lightbox } from "@/components/shared/lightbox"
 import { SectionHead } from "@/components/shared/section-head"
 import { gallery, site } from "@/lib/site"
 
@@ -31,6 +34,8 @@ import { gallery, site } from "@/lib/site"
 export function Gallery() {
   const reduce = useReducedMotion()
   const pinRef = React.useRef<HTMLDivElement>(null)
+  /** Index des groß geöffneten Bildes, `null` heißt geschlossen. */
+  const [open, setOpen] = React.useState<number | null>(null)
 
   const { scrollYProgress } = useScroll({
     target: pinRef,
@@ -160,6 +165,24 @@ export function Gallery() {
                     {item.finish}
                   </span>
                 </figcaption>
+
+                {/* Die Schaltfläche liegt über der ganzen Kachel statt um sie
+                    herum: so bleibt das `figure` mit seiner Bildunterschrift
+                    intakt, und die Fläche ist trotzdem vollständig klick- und
+                    tastaturbedienbar. */}
+                <button
+                  type="button"
+                  onClick={() => setOpen(i)}
+                  aria-label={`${item.label}, ${item.finish} — größer ansehen`}
+                  className="absolute inset-0 z-10 cursor-zoom-in focus-ring"
+                >
+                  <span
+                    aria-hidden
+                    className="absolute top-5 right-5 flex size-10 items-center justify-center rounded-full border border-white/25 bg-background/55 text-white opacity-0 backdrop-blur-sm transition-opacity duration-300 group-hover:opacity-100"
+                  >
+                    <Maximize2 className="size-4" />
+                  </span>
+                </button>
               </figure>
               ))}
             </motion.div>
@@ -197,7 +220,7 @@ export function Gallery() {
           (reduce ? "" : "lg:hidden")
         }
       >
-        {gallery.map((item) => (
+        {gallery.map((item, i) => (
           <figure
             key={item.src}
             className="relative aspect-4/5 w-[74vw] shrink-0 snap-start overflow-hidden rounded-2xl bg-surface sm:w-[44vw]"
@@ -219,9 +242,29 @@ export function Gallery() {
                 {item.finish}
               </span>
             </figcaption>
+            <button
+              type="button"
+              onClick={() => setOpen(i)}
+              aria-label={`${item.label}, ${item.finish} — größer ansehen`}
+              className="absolute inset-0 z-10 focus-ring"
+            >
+              <span
+                aria-hidden
+                className="absolute top-4 right-4 flex size-9 items-center justify-center rounded-full border border-white/25 bg-background/55 text-white backdrop-blur-sm"
+              >
+                <Maximize2 className="size-4" />
+              </span>
+            </button>
           </figure>
         ))}
       </div>
+
+      <Lightbox
+        items={gallery}
+        index={open}
+        onClose={() => setOpen(null)}
+        onIndexChange={setOpen}
+      />
     </section>
   )
 }

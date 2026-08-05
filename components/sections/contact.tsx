@@ -102,16 +102,31 @@ export function Contact() {
                 href={site.contact.whatsappHref}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex items-center gap-5 rounded-2xl border border-border bg-surface/30 p-6 transition-colors duration-200 hover:border-brand/50 focus-ring"
+                /* WhatsApp trägt seine eigene Farbe, nicht die der Marke.
+                   Grün ist bei diesem Kanal ein Wiedererkennungszeichen: die
+                   Karte wird dadurch als Messenger gelesen, bevor das Wort
+                   gelesen wird. Der Wert liegt in oklch statt beim
+                   Original-Hex, damit er zur Helligkeitsreihe der übrigen
+                   Farben passt und auf dem dunklen Grund nicht ausbrennt. */
+                className="group relative flex items-center gap-5 overflow-hidden rounded-2xl border border-[oklch(0.72_0.19_150/45%)] bg-[oklch(0.72_0.19_150/9%)] p-6 transition-colors duration-200 hover:border-[oklch(0.72_0.19_150/85%)] hover:bg-[oklch(0.72_0.19_150/16%)] focus-ring"
               >
-                <span className="flex size-12 shrink-0 items-center justify-center rounded-full border border-border text-foreground">
+                {/* Der Schein sitzt hinter dem Symbol und wächst beim
+                    Überfahren — `scale` statt `width`/`blur`, damit weder
+                    Layout noch Filter neu berechnet werden. */}
+                <span
+                  aria-hidden
+                  className="pointer-events-none absolute -top-10 -left-10 size-32 rounded-full bg-[oklch(0.72_0.19_150/22%)] blur-2xl transition-transform duration-[500ms] ease-[var(--ease-premium)] group-hover:scale-150"
+                />
+                <span className="relative flex size-12 shrink-0 items-center justify-center rounded-full border border-[oklch(0.72_0.19_150/55%)] bg-[oklch(0.72_0.19_150/14%)] text-[oklch(0.85_0.19_150)] transition-transform duration-[280ms] ease-[var(--ease-premium)] group-hover:scale-105">
                   <MessageCircle className="size-5" aria-hidden />
                 </span>
-                <span>
+                <span className="relative">
                   <span className="block text-sm text-muted-foreground">
                     Fotos schicken per
                   </span>
-                  <span className="mt-1 block text-lg font-semibold">WhatsApp</span>
+                  <span className="mt-1 block text-lg font-semibold text-[oklch(0.9_0.16_150)]">
+                    WhatsApp
+                  </span>
                 </span>
               </a>
             </li>

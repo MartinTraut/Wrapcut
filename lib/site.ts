@@ -294,7 +294,9 @@ export type Stat = { value: string; label: string }
 export const stats: Stat[] = [
   { value: "5,0", label: "von 5 bei 24 Google-Bewertungen" },
   { value: "6", label: "Leistungen von Folierung bis Keramik" },
-  { value: "5–10", label: "Jahre Haltbarkeit bei Markenfolie" },
+  // Schmale Leerzeichen (U+2009) um den Halbgeviertstrich. Im Display-Grad
+  // klebt „5–10" sonst zu einem Zeichen zusammen und liest sich als Minus.
+  { value: "5 – 10", label: "Jahre Haltbarkeit bei Markenfolie" },
   { value: "0 €", label: "für Beratung und Festpreis-Angebot" },
 ]
 

@@ -40,6 +40,34 @@ import { gallery, site } from "@/lib/site"
 const EASE = [0.22, 1, 0.36, 1] as const
 const showroom = gallery.slice(0, 6)
 
+/**
+ * Schlusszeile der Headline: ein farbiges Wort, das sich nach dem Auftritt
+ * selbst unterstreicht.
+ *
+ * Der Strich fährt erst, wenn alle drei Zeilen stehen — er ist die Pointe,
+ * nicht Teil des Auftritts. `scaleX` auf `origin-left` statt einer animierten
+ * Breite: das läuft auf dem Compositor und erzwingt kein Layout.
+ */
+function Accent({ reduce }: { reduce: boolean }) {
+  return (
+    <>
+      <span className="text-iris relative inline-block">
+        Folie
+        {reduce ? null : (
+          <motion.span
+            aria-hidden
+            className="bg-iris absolute inset-x-0 -bottom-[0.03em] h-[0.055em] origin-left rounded-full"
+            initial={{ scaleX: 0 }}
+            animate={{ scaleX: 1 }}
+            transition={{ duration: 0.7, delay: 1.05, ease: EASE }}
+          />
+        )}
+      </span>{" "}
+      erkennt.
+    </>
+  )
+}
+
 /** Gemeinsame Auftrittskurve — ein Rhythmus für die ganze Bühne. */
 function enter(delay: number) {
   return {
@@ -85,7 +113,12 @@ export function Hero() {
       />
 
       <motion.div style={{ y: stageY, opacity: reduce ? restOpacity : rawFade }}>
-        <Container className="lg:grid lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end lg:gap-16">
+        {/* `items-stretch` statt `items-end`: die Bildspalte war vorher auf eine
+            feste Breite und ein festes Seitenverhältnis genagelt und stand
+            damit als kleine Kachel neben einer über 800 px hohen Headline. Jetzt
+            gibt die Textspalte die Zeilenhöhe vor, und das Foto füllt sie ganz —
+            die Proportion stimmt dadurch auf jeder Fensterbreite. */}
+        <Container className="lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,0.78fr)] lg:items-stretch lg:gap-12 xl:gap-16">
           <div>
             {/* Die Bewertung zuerst: der stärkste belegte Fakt des Betriebs,
                 und er kostet nur eine Zeile. */}
@@ -115,18 +148,15 @@ export function Hero() {
                 *innerhalb* ihrer Maske um und die Headline zerfiel in vier
                 ungleiche Stufen statt in drei gesetzte Zeilen. */}
             <h1 className="t-display sm:max-w-[16ch]">
-              {reduce ? (
-                <>
-                  Folierung, die man nicht als <span className="text-iris">Folie</span>{" "}
-                  erkennt.
-                </>
-              ) : (
-                <LineReveal
-                  lines={["Folierung, die man", "nicht als Folie", "erkennt."]}
-                  delay={0.1}
-                  stagger={0.085}
-                />
-              )}
+              <LineReveal
+                lines={[
+                  "Folierung, die",
+                  "man nicht als",
+                  <Accent key="accent" reduce={!!reduce} />,
+                ]}
+                delay={0.1}
+                stagger={0.085}
+              />
             </h1>
 
             <motion.p
@@ -172,7 +202,7 @@ export function Hero() {
             initial={reduce ? false : { opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.85, delay: 0.34, ease: EASE }}
-            className="ring-iris group relative hidden aspect-3/4 w-[19rem] overflow-hidden rounded-2xl bg-surface lg:block xl:w-[24rem] 2xl:w-[28rem]"
+            className="ring-iris group relative hidden h-full min-h-[30rem] w-full overflow-hidden rounded-3xl bg-surface lg:block"
           >
             <Image
               src="/originals/img-03.jpg"
@@ -183,7 +213,7 @@ export function Hero() {
               alt="Frontpartie eines in Satin Violett folierten Sportwagens, foliert bei WrapCut in Jüchen"
               fill
               priority
-              sizes="(min-width: 1536px) 28rem, (min-width: 1280px) 24rem, 19rem"
+              sizes="(min-width: 1024px) 42vw, 0px"
               className="img-punch object-cover transition-transform duration-[900ms] ease-[var(--ease-premium)] group-hover:scale-[1.05]"
             />
           </motion.div>

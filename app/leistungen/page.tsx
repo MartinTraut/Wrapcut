@@ -81,14 +81,22 @@ export default function LeistungenPage() {
                         aria-hidden
                       />
                     </span>
-                    <span className="mt-3 max-w-[38ch] leading-relaxed text-muted-foreground">
-                      {detail?.lead ?? service.tagline}
-                    </span>
-                    {detail?.price ? (
-                      <span className="nums mt-5 inline-flex w-fit rounded-full border border-brand/35 bg-brand/[0.07] px-4 py-1.5 text-sm font-semibold text-foreground">
-                        {detail.price.items[0].value}
+                    {/* Gleiche Mechanik wie in der Leistungsübersicht der
+                        Startseite: ab `lg` steht zunächst nur der Titel auf dem
+                        Foto, beim Überfahren fährt der Text hoch. Darunter
+                        bleibt alles offen, weil es dort kein Hover gibt. */}
+                    <span className="lg:grid lg:grid-rows-[0fr] lg:opacity-0 lg:transition-[grid-template-rows,opacity] lg:duration-[420ms] lg:ease-[var(--ease-premium)] lg:group-hover:grid-rows-[1fr] lg:group-hover:opacity-100 lg:group-focus-visible:grid-rows-[1fr] lg:group-focus-visible:opacity-100">
+                      <span className="block lg:overflow-hidden">
+                        <span className="mt-3 block max-w-[38ch] leading-relaxed text-muted-foreground">
+                          {detail?.lead ?? service.tagline}
+                        </span>
+                        {detail?.price ? (
+                          <span className="nums mt-5 inline-flex w-fit rounded-full border border-brand/35 bg-brand/[0.07] px-4 py-1.5 text-sm font-semibold text-foreground">
+                            {detail.price.items[0].value}
+                          </span>
+                        ) : null}
                       </span>
-                    ) : null}
+                    </span>
                   </Link>
                 </RevealItem>
               )

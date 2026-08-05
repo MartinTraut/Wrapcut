@@ -43,9 +43,23 @@ export function Studio() {
       <Container className="mt-12 grid items-center gap-14 lg:mt-16 lg:grid-cols-2 lg:gap-20">
         <Reveal variant="curtain" className="order-last lg:order-first">
           <div className="ring-iris relative aspect-4/5 overflow-hidden rounded-2xl bg-surface">
+            {/*
+              Das Porträt des Inhabers statt eines weiteren Fahrzeugfotos.
+
+              Fahrzeuge zeigt die Seite an sieben anderen Stellen. Die Frage
+              dieses Kapitels ist „wer macht das", und darauf antwortet ein
+              Gesicht besser als ein achtes Auto — bei einem Handwerksbetrieb
+              ist die Person das Vertrauensargument.
+
+              Quelle: Porträt von der Altseite, dort mit dem Alt-Text
+              „Beratung Inhaber kostenlos" ausgezeichnet. Das Bild ist im
+              Original 1536 × 1920, also exakt 4 : 5 wie der Rahmen — es wird
+              nicht beschnitten. Der Nachname des Inhabers ist nicht belegt,
+              deshalb steht im Alt-Text kein Name.
+            */}
             <Image
-              src="/originals/img-08.jpg"
-              alt="Folierter Sportwagen nach der Abnahme bei WrapCut in Jüchen"
+              src="/originals/inhaber.jpg"
+              alt="Inhaber von WrapCut aus Jüchen"
               fill
               sizes="(min-width: 1024px) 45vw, 100vw"
               className="img-punch object-cover"
