@@ -1,75 +1,92 @@
 import Link from "next/link"
+
 import { Container } from "@/components/shared/container"
-import { Eyebrow } from "@/components/shared/eyebrow"
+import { SectionHead } from "@/components/shared/section-head"
 import { Reveal } from "@/components/shared/reveal"
 import {
   Accordion,
+  AccordionContent,
   AccordionItem,
   AccordionTrigger,
-  AccordionContent,
 } from "@/components/ui/accordion"
-import { faqs as homeFaqs, type Faq as FaqItem } from "@/lib/site"
+import { Button } from "@/components/ui/button"
+import { faqs, site } from "@/lib/site"
 
 /**
- * Wird auf der Startseite mit dem vollständigen FAQ und auf den Landingpages
- * mit dem jeweils themenspezifischen Auszug gerendert. Wichtig: Das
- * FAQPage-Schema muss immer genau die hier sichtbaren Fragen abbilden.
+ * FAQ zweispaltig, interview-artig.
+ *
+ * Die naheliegende Bauform — klebende Kopfspalte links, alle Fragen rechts —
+ * erzeugt bei fünfzehn Fragen eine über tausend Pixel hohe leere linke
+ * Fläche, und zwar genau vor dem Kontaktformular, also an der Stelle mit der
+ * höchsten Abbruchgefahr. Der Kopf steht deshalb über der vollen Breite, die
+ * Fragen laufen zweispaltig darunter.
+ *
+ * **Zwei getrennte Accordion-Instanzen**, nicht eine über beide Spalten:
+ * `type="single"` gilt pro Instanz. Bei einem gemeinsamen Accordion würde das
+ * Öffnen einer linken Frage die rechte Spalte springen lassen. So kann links
+ * und rechts je eine Antwort offen stehen.
  */
-export function Faq({
-  items = homeFaqs,
-  index,
-  eyebrow = "Häufige Fragen",
-  headline = "Antworten,",
-  headlineAccent = "bevor Sie fragen.",
-  intro = "Alles Wichtige zu Folierung, Lackschutz, Keramik und Tönung. Ihre Frage ist nicht dabei?",
-}: {
-  items?: readonly FaqItem[]
-  /** Nur auf der Startseite gesetzt — dort laufen die Sections durchnummeriert. */
-  index?: string
-  eyebrow?: string
-  headline?: string
-  headlineAccent?: string
-  intro?: string
-} = {}) {
-  return (
-    <section id="faq" className="section scroll-mt-20">
-      <Container
-        width="wide"
-        className="grid gap-14 lg:grid-cols-[0.75fr_1.25fr] lg:gap-24"
-      >
-        <Reveal className="lg:sticky lg:top-28 lg:self-start">
-          <Eyebrow index={index}>{eyebrow}</Eyebrow>
-          <h2 className="t-h2 mt-7 text-balance">
-            {headline}
-            <span className="text-muted-foreground block">{headlineAccent}</span>
-          </h2>
-          <p className="mt-6 max-w-md leading-relaxed text-muted-foreground text-pretty">
-            {intro}
-          </p>
-          <Link
-            href="/#kontakt"
-            className="t-mono mt-6 inline-flex items-center gap-2 text-signal underline-offset-4 hover:underline"
-          >
-            {/* In Versalien liest sich das ursprüngliche "Stellen Sie sie uns
-                direkt" wegen des doppelten SIE wie ein Tippfehler. */}
-            Frage direkt stellen →
-          </Link>
-        </Reveal>
+export function Faq() {
+  const split = Math.ceil(faqs.length / 2)
+  const columns = [faqs.slice(0, split), faqs.slice(split)]
 
-        <Reveal>
-          <Accordion type="single" collapsible className="w-full border-t border-border">
-            {items.map((faq, i) => (
-              <AccordionItem key={i} value={`item-${i}`}>
-                <AccordionTrigger>
-                  <span className="t-mono nums mt-1.5 shrink-0 text-muted-foreground" aria-hidden>
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <span className="flex-1">{faq.q}</span>
-                </AccordionTrigger>
-                <AccordionContent>{faq.a}</AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
+  return (
+    <section id="faq" className="section-sm scroll-mt-24">
+      <SectionHead
+        label="Fragen & Antworten"
+        titleLines={["Antworten, bevor", "Sie fragen."]}
+        lead="Alles Wichtige zu Folierung, Lackschutz, Keramik und Tönung. Ihre Frage ist nicht dabei?"
+        action={
+          <div className="flex flex-wrap items-center gap-4">
+            <Button asChild>
+              <Link href="/#kontakt">Kostenloses Angebot</Link>
+            </Button>
+            <a
+              href={site.contact.phoneHref}
+              className="focus-ring inline-flex min-h-11 items-center text-sm text-muted-foreground transition-colors duration-200 hover:text-foreground"
+            >
+              oder <span className="nums font-semibold text-foreground">{site.contact.phone}</span>
+            </a>
+          </div>
+        }
+        id="faq-titel"
+      />
+
+      <Container>
+        <Reveal className="mt-14 grid gap-x-16 lg:mt-16 lg:grid-cols-2">
+          {columns.map((column, col) => (
+            <Accordion
+              key={col}
+              type="single"
+              collapsible
+              className="w-full border-t border-border"
+            >
+              {column.map((faq, i) => {
+                // Durchlaufende Nummerierung über beide Spalten hinweg —
+                // sonst begänne die rechte Spalte wieder bei 01 und die
+                // Zählung läse sich als zwei getrennte Listen.
+                const index = col * split + i
+                return (
+                  <AccordionItem key={faq.q} value={faq.q}>
+                    <AccordionTrigger>
+                      <span
+                        className="nums mt-1 shrink-0 text-xs font-semibold text-brand"
+                        aria-hidden
+                      >
+                        {String(index + 1).padStart(2, "0")}
+                      </span>
+                      <span className="flex-1">{faq.q}</span>
+                    </AccordionTrigger>
+                    {/* Eingerückt auf die Fluchtlinie der Frage, damit Antwort
+                        und Frage eine Spalte bilden statt zwei. */}
+                    <AccordionContent className="pl-[2.6rem] leading-relaxed">
+                      {faq.a}
+                    </AccordionContent>
+                  </AccordionItem>
+                )
+              })}
+            </Accordion>
+          ))}
         </Reveal>
       </Container>
     </section>

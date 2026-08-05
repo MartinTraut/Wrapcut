@@ -42,28 +42,28 @@ export const serviceDetails: Record<string, ServiceDetail> = {
     metaDescription:
       "Voll- und Teilfolierung in Jüchen: matt, glänzend, metallic oder satin. Rückstandslos entfernbar, Markenfolie, Festpreis. Für Neuss & Mönchengladbach.",
     h1: "Fahrzeugfolierung in Jüchen",
-    lead: "Neue Farbe, ohne den Lack anzufassen. Voll- und Teilfolierung in matt, glänzend, metallic, satin oder mit eigenem Design – reversibel und mit Markenfolie verlegt.",
+    lead: "Neue Farbe, ohne den Lack anzufassen. Voll- und Teilfolierung in matt, glänzend, metallic, satin oder mit eigenem Design, reversibel und mit Markenfolie verlegt.",
     sections: [
       {
         heading: "Was eine Folierung wirklich verändert",
         body: [
-          "Bei der Fahrzeugfolierung wird die Karosserie mit einer Farbfolie beklebt. Der Originallack bleibt vollständig erhalten und liegt geschützt darunter: vor UV-Strahlung, Flugrost, leichten Kratzern und Witterung. Anders als eine Lackierung ist das Ergebnis reversibel – die Folie lässt sich bei intaktem Lack rückstandsfrei entfernen.",
+          "Bei der Fahrzeugfolierung wird die Karosserie mit einer Farbfolie beklebt. Der Originallack bleibt vollständig erhalten und liegt geschützt darunter: vor UV-Strahlung, Flugrost, leichten Kratzern und Witterung. Anders als eine Lackierung ist das Ergebnis reversibel, die Folie lässt sich bei intaktem Lack rückstandsfrei entfernen.",
           "Genau das macht die Folierung für Leasingfahrzeuge attraktiv: individuelles Design während der Laufzeit, Originalzustand bei der Rückgabe. Und für alle anderen: Sie können die Entscheidung revidieren, ohne dass ein Lackierer sie korrigieren muss.",
         ],
       },
       {
         heading: "Voll- oder Teilfolierung?",
         body: [
-          "Eine Vollfolierung verändert das Fahrzeug komplett. Sie ist die aufwendigere Variante, weil jedes Bauteil einzeln bearbeitet wird – Türgriffe, Spiegel, Spoilerkanten und Einstiege werden dafür demontiert, damit die Folie unter die Kante läuft und nicht davor endet.",
-          "Eine Teilfolierung setzt gezielt Akzente: Dach in Schwarz glänzend, Motorhaube in Carbonoptik, Spiegelkappen, Dachreling oder Zierleisten. Das ist deutlich günstiger und für viele der bessere Einstieg – gerade, wenn das Fahrzeug in der Grundfarbe bleiben soll.",
+          "Eine Vollfolierung verändert das Fahrzeug komplett. Sie ist die aufwendigere Variante, weil jedes Bauteil einzeln bearbeitet wird, Türgriffe, Spiegel, Spoilerkanten und Einstiege werden dafür demontiert, damit die Folie unter die Kante läuft und nicht davor endet.",
+          "Eine Teilfolierung setzt gezielt Akzente: Dach in Schwarz glänzend, Motorhaube in Carbonoptik, Spiegelkappen, Dachreling oder Zierleisten. Das ist deutlich günstiger und für viele der bessere Einstieg, gerade, wenn das Fahrzeug in der Grundfarbe bleiben soll.",
           "Welche Variante zu Ihrem Fahrzeug passt, klären wir vorher ehrlich. Auch dann, wenn die kleinere Lösung die richtige ist.",
         ],
       },
       {
         heading: "Warum die Folie über das Ergebnis entscheidet",
         body: [
-          "Wir verarbeiten ausschließlich Material von Avery Dennison, 3M, HEXIS, ORAFOL, BodyFence und KPMF. Billige Folie versagt genau da zuerst, wo es auffällt: an den Kanten, in der Farbstabilität und beim Entfernen – dann bleibt Kleber auf dem Lack.",
-          "Die Verarbeitung entscheidet über den Rest. Gründliche Reinigung und Dekontamination, staubarme Umgebung, saubere Übergänge. Fehler beim Verlegen zeigen sich oft erst nach Monaten – und dann ist meist die komplette Folie zu erneuern.",
+          "Wir verarbeiten ausschließlich Material von Avery Dennison, 3M, HEXIS, ORAFOL, BodyFence und KPMF. Billige Folie versagt genau da zuerst, wo es auffällt: an den Kanten, in der Farbstabilität und beim Entfernen, dann bleibt Kleber auf dem Lack.",
+          "Die Verarbeitung entscheidet über den Rest. Gründliche Reinigung und Dekontamination, staubarme Umgebung, saubere Übergänge. Fehler beim Verlegen zeigen sich oft erst nach Monaten und dann ist meist die komplette Folie zu erneuern.",
         ],
       },
     ],
@@ -76,7 +76,7 @@ export const serviceDetails: Record<string, ServiceDetail> = {
     price: {
       headline: "Preisrahmen Vollfolierung",
       items: [
-        { label: "Vollfolierung, je nach Fahrzeug und Folie", value: "1.600 – 8.000 €" },
+        { label: "Vollfolierung, je nach Fahrzeug und Folie", value: "1.600, 8.000 €" },
         { label: "Teilfolierung, Beratung & Angebot", value: "kostenlos" },
       ],
     },
@@ -103,15 +103,15 @@ export const serviceDetails: Record<string, ServiceDetail> = {
       },
       {
         q: "Ist eine Fahrzeugfolierung in Deutschland erlaubt?",
-        a: "Ja, Fahrzeugfolierungen sind erlaubt. Wichtig ist, dass keine sicherheitsrelevanten Bereiche beeinträchtigt werden und reflektierende oder verbotene Farben vermieden werden – eine Folie darf beispielsweise nicht spiegeln oder mit Behördenfahrzeugen verwechselbar sein. Ändert sich die Fahrzeugfarbe grundlegend, ist die neue Farbe der Zulassungsstelle zu melden. Für Scheibentönungen gilt zusätzlich, dass die Folie eine ABE besitzen muss.",
+        a: "Ja, Fahrzeugfolierungen sind erlaubt. Wichtig ist, dass keine sicherheitsrelevanten Bereiche beeinträchtigt werden und reflektierende oder verbotene Farben vermieden werden, eine Folie darf beispielsweise nicht spiegeln oder mit Behördenfahrzeugen verwechselbar sein. Ändert sich die Fahrzeugfarbe grundlegend, ist die neue Farbe der Zulassungsstelle zu melden. Für Scheibentönungen gilt zusätzlich, dass die Folie eine ABE besitzen muss.",
       },
       {
         q: "Kann ich zwischen verschiedenen Folienarten wählen?",
-        a: "Ja, wir bieten eine Vielzahl von Folienarten an – matte, glänzende, metallic, satinierte und strukturierte Oberflächen sowie individuelle Designs im Digitaldruck. Zur Beratung bringen wir Musterfächer der Hersteller mit ans Fahrzeug, denn eine Folie wirkt auf einem A5-Muster grundsätzlich anders als auf einer gewölbten Motorhaube im Tageslicht.",
+        a: "Ja, wir bieten eine Vielzahl von Folienarten an, matte, glänzende, metallic, satinierte und strukturierte Oberflächen sowie individuelle Designs im Digitaldruck. Zur Beratung bringen wir Musterfächer der Hersteller mit ans Fahrzeug, denn eine Folie wirkt auf einem A5-Muster grundsätzlich anders als auf einer gewölbten Motorhaube im Tageslicht.",
       },
       {
         q: "Beschädigt die Folie meinen Originallack?",
-        a: "Nein, im Gegenteil – sie schützt ihn. Bei intaktem Originallack lässt sich eine fachgerecht verlegte Markenfolie später rückstandsfrei entfernen, der Lack darunter erscheint wie am ersten Tag. Problematisch wird es nur bei bereits nachlackierten oder beschädigten Stellen: Sitzt der Lack dort nicht fest, kann er sich beim Entfernen mit lösen. Solche Stellen sprechen wir vor Auftragsbeginn offen an.",
+        a: "Nein, im Gegenteil, sie schützt ihn. Bei intaktem Originallack lässt sich eine fachgerecht verlegte Markenfolie später rückstandsfrei entfernen, der Lack darunter erscheint wie am ersten Tag. Problematisch wird es nur bei bereits nachlackierten oder beschädigten Stellen: Sitzt der Lack dort nicht fest, kann er sich beim Entfernen mit lösen. Solche Stellen sprechen wir vor Auftragsbeginn offen an.",
       },
     ],
     related: ["lackschutzfolie", "chromdelete", "werbebeschriftung"],
@@ -122,27 +122,27 @@ export const serviceDetails: Record<string, ServiceDetail> = {
     metaDescription:
       "Lackschutzfolie PPF in Jüchen: nahezu unsichtbarer Schutz vor Steinschlag und Kratzern, selbstheilend. Frontpaket ab ca. 1.600 €. Für Neuss & Düsseldorf.",
     h1: "Lackschutzfolie (PPF) in Jüchen",
-    lead: "Transparenter Schutz vor Steinschlag, Kratzern, Streusalz und Insektenresten. Nahezu unsichtbar, selbstheilend – und rückstandsfrei wieder abnehmbar.",
+    lead: "Transparenter Schutz vor Steinschlag, Kratzern, Streusalz und Insektenresten. Nahezu unsichtbar, selbstheilend und rückstandsfrei wieder abnehmbar.",
     sections: [
       {
         heading: "Was Lackschutzfolie leistet",
         body: [
-          "Eine Lackschutzfolie (PPF – Paint Protection Film) ist eine transparente Schutzfolie, die auf lackierte Fahrzeugbereiche aufgebracht wird. Sie nimmt auf, was sonst im Lack landet: Steinschläge von der Autobahn, Kratzer an Türgriffmulden, Streusalz im Winter, Insektenreste und UV-Strahlung.",
-          "Der Unterschied zur Farbfolierung ist grundlegend. Eine Farbfolie verändert die Optik. Eine Lackschutzfolie verändert nichts – sie ist nach der Montage nahezu unsichtbar und passt sich der Fahrzeugform an. Sie sehen weiter Ihren Originallack, nur eben unbeschädigt.",
+          "Eine Lackschutzfolie (PPF, Paint Protection Film) ist eine transparente Schutzfolie, die auf lackierte Fahrzeugbereiche aufgebracht wird. Sie nimmt auf, was sonst im Lack landet: Steinschläge von der Autobahn, Kratzer an Türgriffmulden, Streusalz im Winter, Insektenreste und UV-Strahlung.",
+          "Der Unterschied zur Farbfolierung ist grundlegend. Eine Farbfolie verändert die Optik. Eine Lackschutzfolie verändert nichts, sie ist nach der Montage nahezu unsichtbar und passt sich der Fahrzeugform an. Sie sehen weiter Ihren Originallack, nur eben unbeschädigt.",
         ],
       },
       {
-        heading: "Selbstheilend – und was das wirklich bedeutet",
+        heading: "Selbstheilend und was das wirklich bedeutet",
         body: [
           "Viele moderne Lackschutzfolien haben eine selbstheilende Oberfläche: Durch Wärme, etwa Sonneneinstrahlung oder warmes Wasser, schließen sich feine Kratzer in der Folienschicht wieder. Das betrifft Waschstraßenkratzer und oberflächliche Gebrauchsspuren.",
-          "Was die Folie nicht kann: tiefe Beschädigungen rückgängig machen. Ein Steinschlag, der durch die Folienschicht geht, bleibt sichtbar – dann ist allerdings die Folie beschädigt und nicht der Lack. Genau darum geht es.",
+          "Was die Folie nicht kann: tiefe Beschädigungen rückgängig machen. Ein Steinschlag, der durch die Folienschicht geht, bleibt sichtbar, dann ist allerdings die Folie beschädigt und nicht der Lack. Genau darum geht es.",
         ],
       },
       {
         heading: "Welche Bereiche sich zuerst lohnen",
         body: [
           "Die Fahrzeugfront zuerst, weil dort der Steinschlag ankommt: Motorhaube, Stoßfänger, Kotflügel und Außenspiegel. Danach die Stellen, an denen Gebrauchsspuren entstehen: Einstiegsbereiche, Türgriffmulden und Ladekanten.",
-          "Auf Wunsch schützen wir das komplette Fahrzeug. Grundsätzlich lassen sich nahezu alle lackierten Bereiche folieren. Auf Wunsch auch als farbige PPF – dann kombinieren Sie Schutz und Farbwechsel in einem Arbeitsgang.",
+          "Auf Wunsch schützen wir das komplette Fahrzeug. Grundsätzlich lassen sich nahezu alle lackierten Bereiche folieren. Auf Wunsch auch als farbige PPF, dann kombinieren Sie Schutz und Farbwechsel in einem Arbeitsgang.",
           "Für maximalen Schutz kombinieren viele Fahrzeugbesitzer die Lackschutzfolie zusätzlich mit einer Keramikversiegelung: PPF auf die beanspruchten Flächen, Keramik über den Rest.",
         ],
       },
@@ -179,19 +179,19 @@ export const serviceDetails: Record<string, ServiceDetail> = {
       },
       {
         q: "Wie lange hält eine Lackschutzfolie?",
-        a: "7 bis 12 Jahre bei fachgerechter Montage und regelmäßiger Pflege. Die tatsächliche Standzeit hängt an Qualität, Pflege und Beanspruchung – ein Fahrzeug mit hoher Autobahnlaufleistung fordert die Folie stärker als ein Wochenendwagen. Da die Folie das Opfer bringt und nicht der Lack, ist ein Austausch nach Jahren deutlich günstiger als eine Lackaufbereitung.",
+        a: "7 bis 12 Jahre bei fachgerechter Montage und regelmäßiger Pflege. Die tatsächliche Standzeit hängt an Qualität, Pflege und Beanspruchung, ein Fahrzeug mit hoher Autobahnlaufleistung fordert die Folie stärker als ein Wochenendwagen. Da die Folie das Opfer bringt und nicht der Lack, ist ein Austausch nach Jahren deutlich günstiger als eine Lackaufbereitung.",
       },
       {
         q: "Ist die Lackschutzfolie wirklich unsichtbar?",
-        a: "Hochwertige transparente Lackschutzfolien sind nach der Montage nahezu unsichtbar. Die Folie passt sich der Fahrzeugform an und erhält den originalen Look. Sichtbar sind bei genauem Hinsehen allenfalls die Folienkanten – deshalb verlegen wir, wo es das Bauteil zulässt, um die Kante herum, sodass der Abschluss im Spalt verschwindet statt auf der Fläche zu liegen.",
+        a: "Hochwertige transparente Lackschutzfolien sind nach der Montage nahezu unsichtbar. Die Folie passt sich der Fahrzeugform an und erhält den originalen Look. Sichtbar sind bei genauem Hinsehen allenfalls die Folienkanten, deshalb verlegen wir, wo es das Bauteil zulässt, um die Kante herum, sodass der Abschluss im Spalt verschwindet statt auf der Fläche zu liegen.",
       },
       {
         q: "Kann die Lackschutzfolie wieder entfernt werden?",
-        a: "Ja, hochwertige Lackschutzfolie kann bei fachgerechter Entfernung wieder abgezogen werden, ohne den Originallack zu beschädigen. Der Lack darunter bleibt geschützt und im Originalzustand – bei Leasingrückgaben ist das oft der entscheidende Punkt. Wichtig ist, dass das Entfernen mit kontrollierter Wärme geschieht und nicht kalt und mit Gewalt.",
+        a: "Ja, hochwertige Lackschutzfolie kann bei fachgerechter Entfernung wieder abgezogen werden, ohne den Originallack zu beschädigen. Der Lack darunter bleibt geschützt und im Originalzustand, bei Leasingrückgaben ist das oft der entscheidende Punkt. Wichtig ist, dass das Entfernen mit kontrollierter Wärme geschieht und nicht kalt und mit Gewalt.",
       },
       {
         q: "Kann man ein gebrauchtes Fahrzeug noch mit PPF schützen?",
-        a: "Ja, entscheidend ist der Zustand des Lacks. Vor der Montage wird der Lack professionell vorbereitet und von Wachs, Versiegelungen und Rückständen befreit. Je nach Zustand ist vorher eine Lackaufbereitung oder Politur nötig – denn was unter der Folie liegt, bleibt für Jahre so, wie es ist. Vorhandene Kratzer würden unter der Folie konserviert statt verschwinden.",
+        a: "Ja, entscheidend ist der Zustand des Lacks. Vor der Montage wird der Lack professionell vorbereitet und von Wachs, Versiegelungen und Rückständen befreit. Je nach Zustand ist vorher eine Lackaufbereitung oder Politur nötig, denn was unter der Folie liegt, bleibt für Jahre so, wie es ist. Vorhandene Kratzer würden unter der Folie konserviert statt verschwinden.",
       },
       {
         q: "Was ist besser: Lackschutzfolie oder Keramikversiegelung?",
@@ -211,15 +211,15 @@ export const serviceDetails: Record<string, ServiceDetail> = {
       {
         heading: "Was eine Keramikversiegelung verändert",
         body: [
-          "Die Versiegelung bildet eine harte, chemisch gebundene Schicht auf dem Lack. Schmutz, Wasser und Umwelteinflüsse haften darauf wesentlich schlechter – Regen perlt in Tropfen ab und nimmt Staub gleich mit. Der sichtbarste Effekt ist der Tiefenglanz: Die Oberfläche reflektiert gleichmäßiger, dunkle Lacke wirken deutlich satter.",
+          "Die Versiegelung bildet eine harte, chemisch gebundene Schicht auf dem Lack. Schmutz, Wasser und Umwelteinflüsse haften darauf wesentlich schlechter, Regen perlt in Tropfen ab und nimmt Staub gleich mit. Der sichtbarste Effekt ist der Tiefenglanz: Die Oberfläche reflektiert gleichmäßiger, dunkle Lacke wirken deutlich satter.",
           "Der praktische Effekt ist die Pflege. Ein versiegeltes Fahrzeug lässt sich mit weniger Aufwand und weniger Chemie sauber bekommen, weil der Schmutz kaum Halt findet. Das schont auf Dauer auch den Lack, weil weniger geschrubbt werden muss.",
         ],
       },
       {
         heading: "Was sie nicht leistet",
         body: [
-          "Eine Keramikversiegelung ist kein mechanischer Schutz. Sie hält keinen Steinschlag auf und verhindert keine tiefen Kratzer – dafür ist sie schlicht zu dünn. Wer physischen Schutz will, braucht eine Lackschutzfolie.",
-          "Die stärkste Kombination ist deshalb beides: Lackschutzfolie auf die beanspruchten Flächen an Front und Einstiegen, Keramikversiegelung über den Rest. Was für Ihr Fahrzeug sinnvoll ist, sagen wir Ihnen ehrlich in der Beratung – auch wenn das heißt, dass eine der beiden Maßnahmen reicht.",
+          "Eine Keramikversiegelung ist kein mechanischer Schutz. Sie hält keinen Steinschlag auf und verhindert keine tiefen Kratzer, dafür ist sie schlicht zu dünn. Wer physischen Schutz will, braucht eine Lackschutzfolie.",
+          "Die stärkste Kombination ist deshalb beides: Lackschutzfolie auf die beanspruchten Flächen an Front und Einstiegen, Keramikversiegelung über den Rest. Was für Ihr Fahrzeug sinnvoll ist, sagen wir Ihnen ehrlich in der Beratung, auch wenn das heißt, dass eine der beiden Maßnahmen reicht.",
         ],
       },
       {
@@ -254,15 +254,15 @@ export const serviceDetails: Record<string, ServiceDetail> = {
       },
       {
         q: "Ersetzt eine Keramikversiegelung die Lackschutzfolie?",
-        a: "Nein. Die Versiegelung verbessert die Oberfläche – Glanz, Abperleffekt und Reinigungsverhalten – bietet aber keinen physischen Schutz vor Steinschlägen und Kratzern. Genau das leistet nur eine Lackschutzfolie. Wenn Sie sich für eines entscheiden müssen: Steht Autobahnfahren im Vordergrund, ist PPF an der Front wichtiger. Geht es um Optik und Pflegeaufwand, ist die Keramik die richtige Wahl.",
+        a: "Nein. Die Versiegelung verbessert die Oberfläche, Glanz, Abperleffekt und Reinigungsverhalten, bietet aber keinen physischen Schutz vor Steinschlägen und Kratzern. Genau das leistet nur eine Lackschutzfolie. Wenn Sie sich für eines entscheiden müssen: Steht Autobahnfahren im Vordergrund, ist PPF an der Front wichtiger. Geht es um Optik und Pflegeaufwand, ist die Keramik die richtige Wahl.",
       },
       {
         q: "Kann man ein foliertes Fahrzeug versiegeln?",
-        a: "Ja, das ist sogar eine sinnvolle Kombination. Auch Folienoberflächen profitieren von der leichteren Reinigung und dem Abperleffekt – gerade matte Folien lassen sich sonst schwer sauber halten, weil Schmutz sich in der Struktur festsetzt. Wichtig ist ein für Folie freigegebenes Produkt; das wählen wir passend zur verlegten Folie aus.",
+        a: "Ja, das ist sogar eine sinnvolle Kombination. Auch Folienoberflächen profitieren von der leichteren Reinigung und dem Abperleffekt, gerade matte Folien lassen sich sonst schwer sauber halten, weil Schmutz sich in der Struktur festsetzt. Wichtig ist ein für Folie freigegebenes Produkt; das wählen wir passend zur verlegten Folie aus.",
       },
       {
         q: "Muss der Lack vorher poliert werden?",
-        a: "Je nach Zustand ja. Eine Versiegelung konserviert die Oberfläche so, wie sie ist – vorhandene Swirls und feine Kratzer verschwinden nicht, sondern werden unter Hochglanz sichtbarer. Bei einem neuen oder gut gepflegten Fahrzeug genügt eine gründliche Wäsche mit Dekontamination. Was Ihr Lack braucht, beurteilen wir vor Ort und sagen es Ihnen vor dem Angebot.",
+        a: "Je nach Zustand ja. Eine Versiegelung konserviert die Oberfläche so, wie sie ist, vorhandene Swirls und feine Kratzer verschwinden nicht, sondern werden unter Hochglanz sichtbarer. Bei einem neuen oder gut gepflegten Fahrzeug genügt eine gründliche Wäsche mit Dekontamination. Was Ihr Lack braucht, beurteilen wir vor Ort und sagen es Ihnen vor dem Angebot.",
       },
     ],
     related: ["lackschutzfolie", "fahrzeugfolierung", "scheibentoenung"],
@@ -279,20 +279,20 @@ export const serviceDetails: Record<string, ServiceDetail> = {
         heading: "Was die Tönung im Alltag bringt",
         body: [
           "Der spürbarste Effekt ist die Temperatur: Eine gute Tönungsfolie hält einen erheblichen Teil der Wärmestrahlung draußen. Der Innenraum heizt sich im Sommer langsamer auf, die Klimaanlage muss weniger arbeiten.",
-          "Dazu kommt der UV-Schutz für den Innenraum. Armaturenbrett, Leder und Kunststoffe bleichen deutlich langsamer aus. Und der offensichtliche Punkt: Von außen ist weniger zu sehen – was auf Parkplätzen mit Gepäck im Fond ein echter Vorteil ist.",
+          "Dazu kommt der UV-Schutz für den Innenraum. Armaturenbrett, Leder und Kunststoffe bleichen deutlich langsamer aus. Und der offensichtliche Punkt: Von außen ist weniger zu sehen, was auf Parkplätzen mit Gepäck im Fond ein echter Vorteil ist.",
         ],
       },
       {
         heading: "Was in Deutschland erlaubt ist",
         body: [
-          "Die hinteren Seitenscheiben und die Heckscheibe dürfen getönt werden. Frontscheibe und vordere Seitenscheiben sind reglementiert – hier gilt die Vorgabe, dass die Sicht des Fahrers nicht beeinträchtigt werden darf.",
-          "Wir verwenden ausschließlich Folien mit gültiger Allgemeiner Betriebserlaubnis (ABE). Damit bleibt Ihr Fahrzeug legal und TÜV-konform. Die zugehörigen Unterlagen bekommen Sie bei der Übergabe mit – die gehören ins Fahrzeug, nicht in eine Schublade zu Hause.",
+          "Die hinteren Seitenscheiben und die Heckscheibe dürfen getönt werden. Frontscheibe und vordere Seitenscheiben sind reglementiert, hier gilt die Vorgabe, dass die Sicht des Fahrers nicht beeinträchtigt werden darf.",
+          "Wir verwenden ausschließlich Folien mit gültiger Allgemeiner Betriebserlaubnis (ABE). Damit bleibt Ihr Fahrzeug legal und TÜV-konform. Die zugehörigen Unterlagen bekommen Sie bei der Übergabe mit, die gehören ins Fahrzeug, nicht in eine Schublade zu Hause.",
         ],
       },
       {
         heading: "Warum blasenfrei nicht selbstverständlich ist",
         body: [
-          "Tönungsfolie wird von innen auf gewölbtes Glas verlegt. Die Folie muss dafür mit Wärme in Form gebracht werden, bevor sie ans Glas kommt – wird dieser Schritt übersprungen, entstehen Falten an den Rändern der Heckscheibe.",
+          "Tönungsfolie wird von innen auf gewölbtes Glas verlegt. Die Folie muss dafür mit Wärme in Form gebracht werden, bevor sie ans Glas kommt, wird dieser Schritt übersprungen, entstehen Falten an den Rändern der Heckscheibe.",
           "Der zweite Punkt ist Sauberkeit: Jedes Staubkorn zwischen Folie und Glas bleibt für die Lebensdauer der Folie sichtbar. Deshalb arbeiten wir in staubarmer Umgebung und reinigen das Glas mehrfach, bevor die Folie überhaupt ausgepackt wird.",
         ],
       },
@@ -325,11 +325,11 @@ export const serviceDetails: Record<string, ServiceDetail> = {
       },
       {
         q: "Was bringt eine Scheibentönung konkret?",
-        a: "Vier Dinge: UV- und Hitzeschutz, mehr Privatsphäre, eine sportlichere Optik und Schutz vor dem Ausbleichen des Innenraums. Im Sommer ist der Temperaturunterschied der Punkt, den Kunden am deutlichsten rückmelden – der Innenraum heizt sich langsamer auf und kühlt schneller wieder herunter.",
+        a: "Vier Dinge: UV- und Hitzeschutz, mehr Privatsphäre, eine sportlichere Optik und Schutz vor dem Ausbleichen des Innenraums. Im Sommer ist der Temperaturunterschied der Punkt, den Kunden am deutlichsten rückmelden, der Innenraum heizt sich langsamer auf und kühlt schneller wieder herunter.",
       },
       {
         q: "Kann eine Tönungsfolie wieder entfernt werden?",
-        a: "Ja. Die Folie wird mit Wärme gelöst und der verbleibende Kleberest rückstandsfrei abgenommen. Wichtig ist dabei, an der Heckscheibe vorsichtig vorzugehen, weil dort die Heizdrähte direkt unter der Folie liegen – die reißen bei unsachgemäßem Abziehen mit ab. Das ist einer der Gründe, warum wir vom Selbstversuch mit dem Föhn abraten.",
+        a: "Ja. Die Folie wird mit Wärme gelöst und der verbleibende Kleberest rückstandsfrei abgenommen. Wichtig ist dabei, an der Heckscheibe vorsichtig vorzugehen, weil dort die Heizdrähte direkt unter der Folie liegen, die reißen bei unsachgemäßem Abziehen mit ab. Das ist einer der Gründe, warum wir vom Selbstversuch mit dem Föhn abraten.",
       },
     ],
     related: ["fahrzeugfolierung", "lackschutzfolie", "chromdelete"],
@@ -340,19 +340,19 @@ export const serviceDetails: Record<string, ServiceDetail> = {
     metaDescription:
       "Chrom Delete in Jüchen: Zierleisten, Fensterrahmen und Dekorelemente in Schwarz glänzend, matt oder Carbon folieren. Präzise, langlebig, jederzeit rückrüstbar.",
     h1: "Chrom Delete & Dekorfolierung",
-    lead: "Chromleisten, Fensterrahmen und Dekorelemente in Schwarz glänzend, matt oder Carbonoptik – präzise verlegt, langlebig und jederzeit rückrüstbar.",
+    lead: "Chromleisten, Fensterrahmen und Dekorelemente in Schwarz glänzend, matt oder Carbonoptik, präzise verlegt, langlebig und jederzeit rückrüstbar.",
     sections: [
       {
         heading: "Der kleinste Eingriff mit der größten Wirkung",
         body: [
-          "Chrom prägt die Wahrnehmung eines Fahrzeugs stärker, als die Fläche vermuten lässt. Fensterrahmen, Kühlergrillspangen, Zierleisten und Türgriffe in Schwarz statt Chrom lassen dieselbe Karosserie sofort ruhiger und moderner wirken – ohne dass ein einziges Blechteil die Farbe wechselt.",
+          "Chrom prägt die Wahrnehmung eines Fahrzeugs stärker, als die Fläche vermuten lässt. Fensterrahmen, Kühlergrillspangen, Zierleisten und Türgriffe in Schwarz statt Chrom lassen dieselbe Karosserie sofort ruhiger und moderner wirken, ohne dass ein einziges Blechteil die Farbe wechselt.",
           "Deshalb ist Chrom Delete für viele der erste Schritt: überschaubarer Aufwand, sofort sichtbares Ergebnis und vollständig reversibel. Wer danach mehr will, kann jederzeit auf eine Teil- oder Vollfolierung aufbauen.",
         ],
       },
       {
         heading: "Warum das mehr Arbeit ist, als es aussieht",
         body: [
-          "Zierleisten sind schmal, gewölbt und laufen selten gerade. Genau deshalb entscheidet hier die Kante über das Ergebnis: Eine Folie, die einen Millimeter vor dem Übergang endet, ist auf zwei Meter Entfernung sichtbar – ein Chromstreifen, der stehen bleibt, ebenso.",
+          "Zierleisten sind schmal, gewölbt und laufen selten gerade. Genau deshalb entscheidet hier die Kante über das Ergebnis: Eine Folie, die einen Millimeter vor dem Übergang endet, ist auf zwei Meter Entfernung sichtbar, ein Chromstreifen, der stehen bleibt, ebenso.",
           "Wo es das Bauteil zulässt, demontieren wir statt zu schneiden. Die Folie läuft dann um die Kante herum und endet auf der Rückseite. Das dauert länger, hält aber, weil kein Folienrand der Waschanlage ausgesetzt ist.",
         ],
       },
@@ -384,7 +384,7 @@ export const serviceDetails: Record<string, ServiceDetail> = {
     faqs: [
       {
         q: "Was gehört alles zu einem Chrom Delete?",
-        a: "Üblicherweise die Fensterrahmen und Fensterleisten, die Spangen im Kühlergrill, Zierleisten an Flanke und Heck sowie – je nach Fahrzeug – Türgriffe, Spiegelfüße und Auspuffblenden. Sie können das aber frei zusammenstellen: Manche Kunden wollen nur die Fensterlinie schwarz, weil das den größten Effekt für den geringsten Aufwand bringt. Wir gehen das Fahrzeug mit Ihnen zusammen durch.",
+        a: "Üblicherweise die Fensterrahmen und Fensterleisten, die Spangen im Kühlergrill, Zierleisten an Flanke und Heck sowie, je nach Fahrzeug, Türgriffe, Spiegelfüße und Auspuffblenden. Sie können das aber frei zusammenstellen: Manche Kunden wollen nur die Fensterlinie schwarz, weil das den größten Effekt für den geringsten Aufwand bringt. Wir gehen das Fahrzeug mit Ihnen zusammen durch.",
       },
       {
         q: "Hält die Folie an schmalen Zierleisten dauerhaft?",
@@ -392,7 +392,7 @@ export const serviceDetails: Record<string, ServiceDetail> = {
       },
       {
         q: "Kann ich statt Folie das Chrom nicht einfach lackieren lassen?",
-        a: "Können ja, sinnvoll meist nicht. Chrom ist ein schwieriger Untergrund für Lack und muss dafür aufwendig angeschliffen und grundiert werden – danach ist der Originalzustand unwiederbringlich weg. Bei Leasingfahrzeugen ist das ein Problem, bei Wiederverkauf oft auch. Die Folierung ist günstiger, schneller und lässt sich rückstandsfrei wieder entfernen.",
+        a: "Können ja, sinnvoll meist nicht. Chrom ist ein schwieriger Untergrund für Lack und muss dafür aufwendig angeschliffen und grundiert werden, danach ist der Originalzustand unwiederbringlich weg. Bei Leasingfahrzeugen ist das ein Problem, bei Wiederverkauf oft auch. Die Folierung ist günstiger, schneller und lässt sich rückstandsfrei wieder entfernen.",
       },
     ],
     related: ["fahrzeugfolierung", "scheibentoenung", "lackschutzfolie"],
@@ -403,20 +403,20 @@ export const serviceDetails: Record<string, ServiceDetail> = {
     metaDescription:
       "Fahrzeugbeschriftung in Jüchen: vom Schriftzug bis zur Vollbeklebung im Digitaldruck, für Einzelfahrzeug und Flotte. Einmalig investiert statt laufend gezahlt.",
     h1: "Werbebeschriftung für Fahrzeuge",
-    lead: "Vom dezenten Schriftzug bis zur vollflächigen Beklebung im Digitaldruck – für das Einzelfahrzeug ebenso wie für die komplette Flotte.",
+    lead: "Vom dezenten Schriftzug bis zur vollflächigen Beklebung im Digitaldruck, für das Einzelfahrzeug ebenso wie für die komplette Flotte.",
     sections: [
       {
         heading: "Rollende Werbung, die nach der Montage nichts mehr kostet",
         body: [
-          "Ihr Fahrzeug wirbt überall dort, wo es unterwegs oder geparkt ist – auf der Fahrt zum Kunden ebenso wie in der Zeit davor auf dem Parkplatz. Täglich erreichen Sie damit potenziell hunderte bis tausende Menschen im eigenen Einzugsgebiet.",
+          "Ihr Fahrzeug wirbt überall dort, wo es unterwegs oder geparkt ist, auf der Fahrt zum Kunden ebenso wie in der Zeit davor auf dem Parkplatz. Täglich erreichen Sie damit potenziell hunderte bis tausende Menschen im eigenen Einzugsgebiet.",
           "Der wirtschaftliche Unterschied zu Online- oder Printwerbung liegt in der Struktur: Nach der Beklebung entstehen keine laufenden Kosten. Keine Klickpreise, keine Anzeigenschaltung, keine monatliche Verlängerung. Eine einmalige Investition, die über Jahre sichtbar bleibt.",
         ],
       },
       {
         heading: "Vom Handwerkerfahrzeug bis zur einheitlichen Flotte",
         body: [
-          "Für Einzelfahrzeuge reicht oft eine klare Kombination aus Logo, Leistung und Kontakt – lesbar aus Entfernung, nicht überfrachtet. Die häufigste Schwäche im Straßenbild sind zu viele Informationen in zu kleiner Schrift: Was man in drei Sekunden an einer Ampel nicht erfassen kann, wirkt gar nicht.",
-          "Für Flotten kommt Wiedererkennung dazu. Wir setzen ein Layout so um, dass es auf Transporter, Kombi und PKW gleichermaßen funktioniert – gleiche Bildsprache, an die jeweilige Karosserie angepasst statt stumpf skaliert.",
+          "Für Einzelfahrzeuge reicht oft eine klare Kombination aus Logo, Leistung und Kontakt, lesbar aus Entfernung, nicht überfrachtet. Die häufigste Schwäche im Straßenbild sind zu viele Informationen in zu kleiner Schrift: Was man in drei Sekunden an einer Ampel nicht erfassen kann, wirkt gar nicht.",
+          "Für Flotten kommt Wiedererkennung dazu. Wir setzen ein Layout so um, dass es auf Transporter, Kombi und PKW gleichermaßen funktioniert, gleiche Bildsprache, an die jeweilige Karosserie angepasst statt stumpf skaliert.",
         ],
       },
       {
@@ -447,19 +447,19 @@ export const serviceDetails: Record<string, ServiceDetail> = {
     faqs: [
       {
         q: "Brauche ich ein fertiges Design oder entsteht das bei euch?",
-        a: "Beides geht. Wenn Sie Logo und Corporate Design haben, setzen wir das um – dafür brauchen wir die Daten möglichst als Vektorgrafik, damit die Kanten auch auf zwei Metern Breite sauber bleiben. Wenn nichts vorliegt, entwickeln wir einen Vorschlag auf Basis Ihres Fahrzeugs und Ihrer Leistungen. Sie sehen vor der Produktion immer eine Visualisierung am konkreten Fahrzeugmodell.",
+        a: "Beides geht. Wenn Sie Logo und Corporate Design haben, setzen wir das um, dafür brauchen wir die Daten möglichst als Vektorgrafik, damit die Kanten auch auf zwei Metern Breite sauber bleiben. Wenn nichts vorliegt, entwickeln wir einen Vorschlag auf Basis Ihres Fahrzeugs und Ihrer Leistungen. Sie sehen vor der Produktion immer eine Visualisierung am konkreten Fahrzeugmodell.",
       },
       {
         q: "Muss ich die Beschriftung meiner Versicherung oder dem Leasinggeber melden?",
-        a: "Dem Leasinggeber ja, der Versicherung in der Regel nicht. Leasingverträge enthalten häufig Vorgaben zu Veränderungen am Fahrzeug – auch wenn die Beschriftung rückstandsfrei entfernbar ist, sollten Sie das vorab klären. Bei der Kfz-Versicherung ändert eine Beschriftung normalerweise nichts, eine gewerbliche Nutzung des Fahrzeugs allerdings schon.",
+        a: "Dem Leasinggeber ja, der Versicherung in der Regel nicht. Leasingverträge enthalten häufig Vorgaben zu Veränderungen am Fahrzeug, auch wenn die Beschriftung rückstandsfrei entfernbar ist, sollten Sie das vorab klären. Bei der Kfz-Versicherung ändert eine Beschriftung normalerweise nichts, eine gewerbliche Nutzung des Fahrzeugs allerdings schon.",
       },
       {
         q: "Kann ich die Beschriftung später ändern lassen?",
-        a: "Ja, und das ist einer der Vorteile gegenüber einer Lackierung. Einzelne Elemente wie Telefonnummer, Domain oder eine zusätzliche Leistung lassen sich austauschen, ohne die gesamte Beklebung zu erneuern. Wichtig ist nur, dass die umliegende Folie noch in gutem Zustand ist – bei stark gealterter Folie kann eine Neubeklebung des Bauteils die sauberere Lösung sein.",
+        a: "Ja, und das ist einer der Vorteile gegenüber einer Lackierung. Einzelne Elemente wie Telefonnummer, Domain oder eine zusätzliche Leistung lassen sich austauschen, ohne die gesamte Beklebung zu erneuern. Wichtig ist nur, dass die umliegende Folie noch in gutem Zustand ist, bei stark gealterter Folie kann eine Neubeklebung des Bauteils die sauberere Lösung sein.",
       },
       {
         q: "Beschriftet ihr auch Schaufenster und Ladenlokale?",
-        a: "Ja, Fensterbeklebung gehört dazu. Das reicht von Öffnungszeiten und Logo auf der Eingangstür über Sichtschutzfolie im Bürobereich bis zur vollflächigen Schaufenstergestaltung. Die Arbeit ist der Fahrzeugbeschriftung technisch verwandt – nur dass die Fläche eben plan ist, was manches einfacher und die sichtbaren Kanten dafür kritischer macht.",
+        a: "Ja, Fensterbeklebung gehört dazu. Das reicht von Öffnungszeiten und Logo auf der Eingangstür über Sichtschutzfolie im Bürobereich bis zur vollflächigen Schaufenstergestaltung. Die Arbeit ist der Fahrzeugbeschriftung technisch verwandt, nur dass die Fläche eben plan ist, was manches einfacher und die sichtbaren Kanten dafür kritischer macht.",
       },
     ],
     related: ["fahrzeugfolierung", "chromdelete", "scheibentoenung"],
@@ -498,7 +498,7 @@ export const locations: Location[] = [
     metaTitle: "Fahrzeugfolierung Neuss | Lackschutz & PPF",
     metaDescription:
       "Fahrzeugfolierung, Lackschutzfolie und Scheibentönung für Neuss. Studio in Jüchen, rund 18 km über die A46. Markenfolie, Festpreis, kostenlose Beratung.",
-    lead: "Folierung, Lackschutz und Scheibentönung für Neuss – unser Studio steht in Jüchen, rund 18 Kilometer über die A46.",
+    lead: "Folierung, Lackschutz und Scheibentönung für Neuss, unser Studio steht in Jüchen, rund 18 Kilometer über die A46.",
     distanceKm: 18,
     driveMinutes: "20 bis 25 Minuten",
     route: "A46 Richtung Neuss",
@@ -512,7 +512,7 @@ export const locations: Location[] = [
       "Rosellen",
     ],
     body: [
-      "Neuss ist der größte Ort im Rhein-Kreis Neuss und für uns die naheliegendste Nachbarschaft: Vom Studio an der Neusser Str. 111 in Jüchen führt die A46 direkt dorthin. Die Straße vor unserer Tür heißt nicht zufällig so – sie ist historisch die Verbindung dorthin.",
+      "Neuss ist der größte Ort im Rhein-Kreis Neuss und für uns die naheliegendste Nachbarschaft: Vom Studio an der Neusser Str. 111 in Jüchen führt die A46 direkt dorthin. Die Straße vor unserer Tür heißt nicht zufällig so, sie ist historisch die Verbindung dorthin.",
       "Für eine Vollfolierung oder ein PPF-Komplettpaket bleibt das Fahrzeug ohnehin mehrere Tage bei uns, da spielt die Anfahrt keine Rolle. Für kürzere Arbeiten wie Scheibentönung oder Chrom Delete lohnt sich der Weg trotzdem, weil Sie das Fahrzeug am selben Tag wieder mitnehmen.",
       "Wenn Sie aus Neuss kommen und nicht sicher sind, ob sich die Fahrt lohnt: Rufen Sie vorher an. Wir sagen Ihnen am Telefon, was für Ihr Fahrzeug realistisch ist und was es ungefähr kostet, bevor Sie losfahren.",
     ],
@@ -520,11 +520,11 @@ export const locations: Location[] = [
     faqs: [
       {
         q: "Wie komme ich von Neuss zu WrapCut nach Jüchen?",
-        a: "Über die A46 in Richtung Mönchengladbach, Abfahrt Jüchen – von Neuss aus sind das rund 18 Kilometer und je nach Verkehr 20 bis 25 Minuten. Sie finden uns an der Neusser Str. 111 in 41363 Jüchen. Aus den südlichen Neusser Stadtteilen wie Norf oder Rosellen ist es entsprechend kürzer. Parkplätze sind direkt am Studio vorhanden.",
+        a: "Über die A46 in Richtung Mönchengladbach, Abfahrt Jüchen, von Neuss aus sind das rund 18 Kilometer und je nach Verkehr 20 bis 25 Minuten. Sie finden uns an der Neusser Str. 111 in 41363 Jüchen. Aus den südlichen Neusser Stadtteilen wie Norf oder Rosellen ist es entsprechend kürzer. Parkplätze sind direkt am Studio vorhanden.",
       },
       {
         q: "Holt ihr Fahrzeuge in Neuss ab?",
-        a: "Sprechen Sie uns darauf an – das klären wir im Einzelfall, abhängig vom Umfang des Auftrags und vom Termin. Bei mehrtägigen Arbeiten wie einer Vollfolierung lässt sich das eher einrichten als bei einer zweistündigen Scheibentönung. Für Firmenkunden mit mehreren Fahrzeugen finden wir in der Regel eine Lösung.",
+        a: "Sprechen Sie uns darauf an, das klären wir im Einzelfall, abhängig vom Umfang des Auftrags und vom Termin. Bei mehrtägigen Arbeiten wie einer Vollfolierung lässt sich das eher einrichten als bei einer zweistündigen Scheibentönung. Für Firmenkunden mit mehreren Fahrzeugen finden wir in der Regel eine Lösung.",
       },
       {
         q: "Arbeitet ihr auch für Autohäuser und Betriebe in Neuss?",
@@ -538,7 +538,7 @@ export const locations: Location[] = [
     metaTitle: "Fahrzeugfolierung Mönchengladbach | PPF & Tönung",
     metaDescription:
       "Fahrzeugfolierung, Lackschutzfolie und Scheibentönung für Mönchengladbach. Studio in Jüchen, rund 15 km über die A46. Markenfolie und Festpreis-Angebot.",
-    lead: "Folierung, Lackschutz und Scheibentönung für Mönchengladbach – rund 15 Kilometer von Jüchen, direkt über die A46.",
+    lead: "Folierung, Lackschutz und Scheibentönung für Mönchengladbach, rund 15 Kilometer von Jüchen, direkt über die A46.",
     distanceKm: 15,
     driveMinutes: "20 Minuten",
     route: "A46 Richtung Mönchengladbach",
@@ -551,8 +551,8 @@ export const locations: Location[] = [
       "Neuwerk",
     ],
     body: [
-      "Mönchengladbach liegt für uns westlich, Neuss östlich – Jüchen sitzt genau dazwischen. Über die A46 sind Sie in rund zwanzig Minuten bei uns, aus den östlichen Stadtteilen wie Wickrath oder Odenkirchen entsprechend schneller.",
-      "Gefragt ist aus Mönchengladbach vor allem zweierlei: Lackschutzfolie für Neuwagen, solange der Lack noch makellos ist, und Werbebeschriftung für Betriebe mit Fahrzeugen im täglichen Einsatz. Beides sind Arbeiten, bei denen die Ausführung über Jahre sichtbar bleibt – deshalb lohnt sich der Weg zu einem Betrieb, der die Kanten sauber macht.",
+      "Mönchengladbach liegt für uns westlich, Neuss östlich, Jüchen sitzt genau dazwischen. Über die A46 sind Sie in rund zwanzig Minuten bei uns, aus den östlichen Stadtteilen wie Wickrath oder Odenkirchen entsprechend schneller.",
+      "Gefragt ist aus Mönchengladbach vor allem zweierlei: Lackschutzfolie für Neuwagen, solange der Lack noch makellos ist, und Werbebeschriftung für Betriebe mit Fahrzeugen im täglichen Einsatz. Beides sind Arbeiten, bei denen die Ausführung über Jahre sichtbar bleibt, deshalb lohnt sich der Weg zu einem Betrieb, der die Kanten sauber macht.",
       "Für die Beratung müssen Sie nicht vorbeikommen. Schicken Sie uns Fahrzeugdaten und Fotos, dann bekommen Sie eine belastbare Einschätzung, bevor Sie einen Termin machen.",
     ],
     focus: ["lackschutzfolie", "werbebeschriftung", "fahrzeugfolierung"],
@@ -567,7 +567,7 @@ export const locations: Location[] = [
       },
       {
         q: "Lohnt sich die Fahrt aus Mönchengladbach für eine Scheibentönung?",
-        a: "Das entscheiden Sie – die Tönung selbst dauert in der Regel 2 bis 4 Stunden, Sie nehmen das Fahrzeug also am selben Tag wieder mit. Bei einer Anfahrt von rund zwanzig Minuten ist das ein halber Tag insgesamt. Wenn Sie ohnehin über eine Kombination mit Chrom Delete oder Lackschutz nachdenken, lässt sich beides in einem Termin erledigen.",
+        a: "Das entscheiden Sie, die Tönung selbst dauert in der Regel 2 bis 4 Stunden, Sie nehmen das Fahrzeug also am selben Tag wieder mit. Bei einer Anfahrt von rund zwanzig Minuten ist das ein halber Tag insgesamt. Wenn Sie ohnehin über eine Kombination mit Chrom Delete oder Lackschutz nachdenken, lässt sich beides in einem Termin erledigen.",
       },
     ],
   },
@@ -577,7 +577,7 @@ export const locations: Location[] = [
     metaTitle: "Fahrzeugfolierung Düsseldorf | Lackschutz & PPF",
     metaDescription:
       "Fahrzeugfolierung und Lackschutzfolie für Düsseldorf. Studio in Jüchen, rund 30 km über die A46. Markenfolie, Festpreis-Angebot, kostenlose Beratung.",
-    lead: "Folierung und Lackschutz für Düsseldorf – rund 30 Kilometer westlich, über die A46 in gut einer halben Stunde erreichbar.",
+    lead: "Folierung und Lackschutz für Düsseldorf, rund 30 Kilometer westlich, über die A46 in gut einer halben Stunde erreichbar.",
     distanceKm: 30,
     driveMinutes: "30 bis 40 Minuten",
     route: "A46 Richtung Grevenbroich / Jüchen",
@@ -590,7 +590,7 @@ export const locations: Location[] = [
       "Benrath",
     ],
     body: [
-      "Düsseldorf ist von uns aus die weiteste der nahen Städte – rund 30 Kilometer über die A46. Trotzdem kommen regelmäßig Kunden von dort, und der Grund ist meistens derselbe: Bei einer Vollfolierung oder einem PPF-Komplettpaket steht das Fahrzeug ohnehin mehrere Tage im Studio. Die einmalige Anfahrt fällt gegenüber dem Ergebnis kaum ins Gewicht.",
+      "Düsseldorf ist von uns aus die weiteste der nahen Städte, rund 30 Kilometer über die A46. Trotzdem kommen regelmäßig Kunden von dort, und der Grund ist meistens derselbe: Bei einer Vollfolierung oder einem PPF-Komplettpaket steht das Fahrzeug ohnehin mehrere Tage im Studio. Die einmalige Anfahrt fällt gegenüber dem Ergebnis kaum ins Gewicht.",
       "Was uns aus Düsseldorf am häufigsten erreicht, sind Anfragen für hochwertige Fahrzeuge: Lackschutzfolie auf Neuwagen, PPF an Sportwagenfronten, Keramikversiegelung auf dunklen Lacken. Also genau die Arbeiten, bei denen man hinterher an der Kante sieht, wer sie gemacht hat.",
       "Wenn Sie unsicher sind, ob sich die Fahrt lohnt: Schicken Sie uns vorab Fahrzeugdaten und Fotos. Sie bekommen eine ehrliche Einschätzung und einen Preisrahmen, bevor Sie sich auf die A46 setzen.",
     ],
@@ -602,11 +602,11 @@ export const locations: Location[] = [
       },
       {
         q: "Kann ich mein Fahrzeug über mehrere Tage bei euch lassen?",
-        a: "Ja, das ist bei Vollfolierungen und komplettem Lackschutz sogar der Normalfall – solche Arbeiten dauern in der Regel 3 bis 5 Tage. Das Fahrzeug steht während dieser Zeit in unserer Halle und nicht draußen. Den genauen Zeitrahmen nennen wir Ihnen zusammen mit dem Angebot, damit Sie die Zeit ohne Fahrzeug planen können.",
+        a: "Ja, das ist bei Vollfolierungen und komplettem Lackschutz sogar der Normalfall, solche Arbeiten dauern in der Regel 3 bis 5 Tage. Das Fahrzeug steht während dieser Zeit in unserer Halle und nicht draußen. Den genauen Zeitrahmen nennen wir Ihnen zusammen mit dem Angebot, damit Sie die Zeit ohne Fahrzeug planen können.",
       },
       {
         q: "Macht ihr auch Lackschutz für Sportwagen und hochwertige Fahrzeuge?",
-        a: "Ja, das ist einer unserer Schwerpunkte. Gerade bei Sportwagen lohnt sich PPF an der Front besonders, weil tiefe Frontschürzen und flache Motorhauben den Steinschlag direkt abbekommen. Ein Kunde hat seinen neuen Porsche 911 bei uns folieren lassen – die Google-Rezension dazu steht auf unserer Startseite. Für empfindliche und hochwertige Lacke arbeiten wir ausschließlich mit Markenfolie.",
+        a: "Ja, das ist einer unserer Schwerpunkte. Gerade bei Sportwagen lohnt sich PPF an der Front besonders, weil tiefe Frontschürzen und flache Motorhauben den Steinschlag direkt abbekommen. Ein Kunde hat seinen neuen Porsche 911 bei uns folieren lassen, die Google-Rezension dazu steht auf unserer Startseite. Für empfindliche und hochwertige Lacke arbeiten wir ausschließlich mit Markenfolie.",
       },
     ],
   },
@@ -616,7 +616,7 @@ export const locations: Location[] = [
     metaTitle: "Fahrzeugfolierung Grevenbroich | PPF & Tönung",
     metaDescription:
       "Fahrzeugfolierung, Lackschutzfolie und Scheibentönung für Grevenbroich. Nur rund 8 km bis Jüchen. Markenfolie, Festpreis, kostenlose Beratung.",
-    lead: "Folierung, Lackschutz und Scheibentönung für Grevenbroich – mit rund 8 Kilometern unser nächster Nachbar.",
+    lead: "Folierung, Lackschutz und Scheibentönung für Grevenbroich, mit rund 8 Kilometern unser nächster Nachbar.",
     distanceKm: 8,
     driveMinutes: "10 bis 15 Minuten",
     route: "B59 oder A46",
@@ -629,9 +629,9 @@ export const locations: Location[] = [
       "Elsen",
     ],
     body: [
-      "Grevenbroich ist die nächstgelegene Stadt: rund 8 Kilometer, über die B59 oder die A46 in gut zehn Minuten. Näher liegt niemand, und entsprechend unkompliziert ist alles – auch die kurzen Termine.",
+      "Grevenbroich ist die nächstgelegene Stadt: rund 8 Kilometer, über die B59 oder die A46 in gut zehn Minuten. Näher liegt niemand, und entsprechend unkompliziert ist alles, auch die kurzen Termine.",
       "Das ist der praktische Unterschied zu weiter entfernten Kunden: Für eine Scheibentönung, einen Chrom Delete oder eine Teilfolierung bringen Sie das Fahrzeug morgens und holen es am selben Tag wieder ab, ohne dass der Tag draufgeht. Auch ein kurzer Beratungstermin am Fahrzeug ist realistisch, statt alles per Telefon und Foto zu klären.",
-      "Kommen Sie einfach vorbei – am besten nach vorheriger Absprache, damit jemand Zeit für Sie hat und Sie nicht vor verschlossener Halle stehen.",
+      "Kommen Sie einfach vorbei, am besten nach vorheriger Absprache, damit jemand Zeit für Sie hat und Sie nicht vor verschlossener Halle stehen.",
     ],
     focus: ["scheibentoenung", "chromdelete", "fahrzeugfolierung"],
     faqs: [
@@ -641,7 +641,7 @@ export const locations: Location[] = [
       },
       {
         q: "Kann ich für eine Beratung spontan vorbeikommen?",
-        a: "Melden Sie sich vorher kurz an – wir arbeiten nach Terminvereinbarung, damit jemand tatsächlich Zeit für Sie hat. Ein Anruf am selben Tag reicht meistens. Bei Ihrer Nähe zu uns ist ein kurzer Termin am Fahrzeug ohnehin die bessere Beratung als Fotos: Farben und Oberflächen wirken auf dem Musterfächer anders als auf Ihrer Motorhaube im Tageslicht.",
+        a: "Melden Sie sich vorher kurz an, wir arbeiten nach Terminvereinbarung, damit jemand tatsächlich Zeit für Sie hat. Ein Anruf am selben Tag reicht meistens. Bei Ihrer Nähe zu uns ist ein kurzer Termin am Fahrzeug ohnehin die bessere Beratung als Fotos: Farben und Oberflächen wirken auf dem Musterfächer anders als auf Ihrer Motorhaube im Tageslicht.",
       },
       {
         q: "Bekomme ich kleinere Arbeiten am selben Tag erledigt?",
@@ -655,7 +655,7 @@ export const locations: Location[] = [
     metaTitle: "Fahrzeugfolierung Korschenbroich | PPF & Tönung",
     metaDescription:
       "Fahrzeugfolierung, Lackschutzfolie und Scheibentönung für Korschenbroich. Rund 11 km bis Jüchen. Markenfolie, Festpreis-Angebot, kostenlose Beratung.",
-    lead: "Folierung, Lackschutz und Scheibentönung für Korschenbroich – rund 11 Kilometer über die Landstraße.",
+    lead: "Folierung, Lackschutz und Scheibentönung für Korschenbroich, rund 11 Kilometer über die Landstraße.",
     distanceKm: 11,
     driveMinutes: "15 Minuten",
     route: "über Glehn und die L361",
@@ -668,7 +668,7 @@ export const locations: Location[] = [
       "Herrenshoff",
     ],
     body: [
-      "Korschenbroich liegt zwischen Mönchengladbach und Neuss und damit unmittelbar in unserem Einzugsgebiet – rund 11 Kilometer, über Glehn in einer knappen Viertelstunde.",
+      "Korschenbroich liegt zwischen Mönchengladbach und Neuss und damit unmittelbar in unserem Einzugsgebiet, rund 11 Kilometer, über Glehn in einer knappen Viertelstunde.",
       "Für Sie heißt das: Auch kurze Arbeiten lohnen sich. Scheibentönung, Chrom Delete oder eine Teilfolierung sind je nach Umfang an einem Tag erledigt, Sie nehmen das Fahrzeug am selben Nachmittag wieder mit. Für Vollfolierung und kompletten Lackschutz planen Sie entsprechend mehrere Tage ein.",
       "Was wir Ihnen vorher sagen können, sagen wir vorher: Fahrzeug, Wunsch und ein paar Fotos genügen für eine belastbare Einschätzung samt Preisrahmen. Der Termin steht dann erst, wenn Sie wissen, worauf Sie sich einlassen.",
     ],
@@ -680,11 +680,11 @@ export const locations: Location[] = [
       },
       {
         q: "Bietet ihr auch Teilfolierungen für kleinere Budgets an?",
-        a: "Ja, und häufig ist das die sinnvollere Entscheidung. Ein foliertes Dach, eine Motorhaube in Carbonoptik oder ein Chrom Delete verändern das Erscheinungsbild deutlich – zu einem Bruchteil der Kosten einer Vollfolierung, die je nach Fahrzeug und Folie zwischen 1.600 € und 8.000 € liegt. Wir sagen Ihnen ehrlich, welche Teilmaßnahme bei Ihrem Fahrzeug den größten Effekt bringt.",
+        a: "Ja, und häufig ist das die sinnvollere Entscheidung. Ein foliertes Dach, eine Motorhaube in Carbonoptik oder ein Chrom Delete verändern das Erscheinungsbild deutlich, zu einem Bruchteil der Kosten einer Vollfolierung, die je nach Fahrzeug und Folie zwischen 1.600 € und 8.000 € liegt. Wir sagen Ihnen ehrlich, welche Teilmaßnahme bei Ihrem Fahrzeug den größten Effekt bringt.",
       },
       {
         q: "Was kostet die Beratung?",
-        a: "Nichts. Beratung und Festpreis-Angebot sind bei uns kostenlos, unabhängig davon, ob Sie danach beauftragen. Sie bekommen eine Einschätzung zu Material, Umfang und Aufwand sowie einen verbindlichen Preis – und wenn eine günstigere Lösung die bessere ist, sagen wir das auch. Rufen Sie an oder schicken Sie uns Fotos Ihres Fahrzeugs.",
+        a: "Nichts. Beratung und Festpreis-Angebot sind bei uns kostenlos, unabhängig davon, ob Sie danach beauftragen. Sie bekommen eine Einschätzung zu Material, Umfang und Aufwand sowie einen verbindlichen Preis und wenn eine günstigere Lösung die bessere ist, sagen wir das auch. Rufen Sie an oder schicken Sie uns Fotos Ihres Fahrzeugs.",
       },
     ],
   },
@@ -694,7 +694,7 @@ export const locations: Location[] = [
     metaTitle: "Fahrzeugfolierung Kaarst | Lackschutz & Tönung",
     metaDescription:
       "Fahrzeugfolierung, Lackschutzfolie und Scheibentönung für Kaarst. Rund 20 km bis Jüchen über die A46. Markenfolie, Festpreis, kostenlose Beratung.",
-    lead: "Folierung, Lackschutz und Scheibentönung für Kaarst – rund 20 Kilometer, über die A46 in gut zwanzig Minuten.",
+    lead: "Folierung, Lackschutz und Scheibentönung für Kaarst, rund 20 Kilometer, über die A46 in gut zwanzig Minuten.",
     distanceKm: 20,
     driveMinutes: "20 bis 25 Minuten",
     route: "A57 und A46 Richtung Jüchen",
@@ -707,7 +707,7 @@ export const locations: Location[] = [
     ],
     body: [
       "Kaarst liegt nordöstlich von uns, zwischen Neuss und Willich. Über A57 und A46 sind es rund 20 Kilometer und etwa zwanzig bis fünfundzwanzig Minuten bis zum Studio in Jüchen.",
-      "Aus Kaarst und Büttgen erreichen uns vor allem Anfragen zu Lackschutzfolie und Vollfolierung – also Arbeiten, bei denen das Fahrzeug mehrere Tage im Studio bleibt und die einmalige Anfahrt keine Rolle spielt. Für Firmenkunden aus dem Gewerbegebiet gilt dasselbe wie überall: Flottenbeschriftung setzen wir auch vor Ort um.",
+      "Aus Kaarst und Büttgen erreichen uns vor allem Anfragen zu Lackschutzfolie und Vollfolierung, also Arbeiten, bei denen das Fahrzeug mehrere Tage im Studio bleibt und die einmalige Anfahrt keine Rolle spielt. Für Firmenkunden aus dem Gewerbegebiet gilt dasselbe wie überall: Flottenbeschriftung setzen wir auch vor Ort um.",
       "Ob sich der Weg für Ihr Vorhaben lohnt, klären wir vorab am Telefon. Sie bekommen eine Einschätzung zu Aufwand, Dauer und Preisrahmen, bevor Sie einen Termin vereinbaren.",
     ],
     focus: ["lackschutzfolie", "fahrzeugfolierung", "werbebeschriftung"],
@@ -718,11 +718,11 @@ export const locations: Location[] = [
       },
       {
         q: "Beschriftet ihr auch Firmenflotten aus Kaarst?",
-        a: "Ja, sowohl bei uns in der Halle als auch beim Kunden vor Ort. Für Flotten ist die Beschriftung vor Ort meist praktischer, weil die Fahrzeuge nicht einzeln überführt werden müssen und der Betrieb weiterlaufen kann. Wir stimmen das Layout einmal ab und setzen es dann auf allen Fahrzeugen um – an die jeweilige Karosserie angepasst statt einfach skaliert.",
+        a: "Ja, sowohl bei uns in der Halle als auch beim Kunden vor Ort. Für Flotten ist die Beschriftung vor Ort meist praktischer, weil die Fahrzeuge nicht einzeln überführt werden müssen und der Betrieb weiterlaufen kann. Wir stimmen das Layout einmal ab und setzen es dann auf allen Fahrzeugen um, an die jeweilige Karosserie angepasst statt einfach skaliert.",
       },
       {
         q: "Kann ich vorab ein Angebot bekommen, ohne vorbeizukommen?",
-        a: "Ja. Schicken Sie uns Fahrzeugmodell, Baujahr, den gewünschten Umfang und ein paar Fotos – daraus erstellen wir einen belastbaren Preisrahmen. Ein verbindliches Festpreis-Angebot machen wir, sobald wir das Fahrzeug gesehen haben, weil der Zustand des Lacks und der Demontageaufwand den Preis maßgeblich bestimmen. Beides ist kostenlos.",
+        a: "Ja. Schicken Sie uns Fahrzeugmodell, Baujahr, den gewünschten Umfang und ein paar Fotos, daraus erstellen wir einen belastbaren Preisrahmen. Ein verbindliches Festpreis-Angebot machen wir, sobald wir das Fahrzeug gesehen haben, weil der Zustand des Lacks und der Demontageaufwand den Preis maßgeblich bestimmen. Beides ist kostenlos.",
       },
     ],
   },

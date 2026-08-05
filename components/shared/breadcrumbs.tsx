@@ -1,43 +1,51 @@
 import Link from "next/link"
-import { ChevronRight } from "lucide-react"
 
-export type Crumb = { name: string; path: string }
+import { Container } from "@/components/shared/container"
 
 /**
- * Sichtbare Brotkrumen. Muss zwingend mit dem BreadcrumbList-Schema
- * übereinstimmen — Google wertet abweichende Angaben als Manipulation.
+ * Sichtbare Brotkrumen, passend zum BreadcrumbList im Graph.
+ *
+ * Ein BreadcrumbList im Schema ohne sichtbare Entsprechung auf der Seite ist
+ * eine Auszeichnung ohne Inhalt — Google erwartet beides. Der letzte Eintrag
+ * ist kein Link, sondern die aktuelle Position, und trägt `aria-current`.
  */
-export function Breadcrumbs({ items }: { items: Crumb[] }) {
-  const trail = [{ name: "Start", path: "/" }, ...items]
+export function Breadcrumbs({
+  trail,
+}: {
+  trail: { name: string; path: string }[]
+}) {
+  const items = [{ name: "Start", path: "/" }, ...trail]
 
   return (
-    <nav aria-label="Brotkrumen">
-      {/* Meta-Register wie Sektionsmarken und Maße — die Brotkrumen gehören
-          zur Ordnungsebene der Seite, nicht zum Inhalt. */}
-      <ol className="t-mono flex flex-wrap items-center gap-x-2.5 gap-y-1.5 text-muted-foreground">
-        {trail.map((item, i) => {
-          const last = i === trail.length - 1
-          return (
-            <li key={item.path} className="flex items-center gap-2.5">
-              {i > 0 && (
-                <ChevronRight className="size-3 shrink-0 opacity-45" aria-hidden />
-              )}
-              {last ? (
-                <span aria-current="page" className="text-foreground/80">
-                  {item.name}
-                </span>
-              ) : (
-                <Link
-                  href={item.path}
-                  className="underline-offset-4 transition-colors hover:text-foreground hover:underline"
-                >
-                  {item.name}
-                </Link>
-              )}
-            </li>
-          )
-        })}
-      </ol>
-    </nav>
+    <Container>
+      <nav aria-label="Brotkrumen" className="pt-28 lg:pt-32">
+        <ol className="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-muted-foreground">
+          {items.map((item, i) => {
+            const isLast = i === items.length - 1
+            return (
+              <li key={item.path} className="flex items-center gap-2">
+                {isLast ? (
+                  <span aria-current="page" className="text-foreground/80">
+                    {item.name}
+                  </span>
+                ) : (
+                  <Link
+                    href={item.path}
+                    className="rounded-sm transition-colors duration-200 hover:text-foreground focus-ring"
+                  >
+                    {item.name}
+                  </Link>
+                )}
+                {isLast ? null : (
+                  <span aria-hidden className="text-border">
+                    /
+                  </span>
+                )}
+              </li>
+            )
+          })}
+        </ol>
+      </nav>
+    </Container>
   )
 }

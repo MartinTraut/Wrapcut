@@ -6,16 +6,18 @@ import { cn } from "@/lib/utils"
 const EASE = [0.16, 1, 0.3, 1] as const
 
 /**
- * Vier bewusste Bewegungsarten statt einer Monokultur. Kein `filter: blur()` —
- * das erzwingt pro Frame ein Neu-Rastern der gesamten Fläche und war auf
- * Container mit Bildern gelegt. `scale` erzeugt dieselbe Tiefenwirkung,
- * läuft aber vollständig auf dem Compositor.
+ * Vier Bewegungsarten statt einer Monokultur.
+ *
+ * Kein `filter: blur()` — das erzwingt pro Frame ein Neu-Rastern der ganzen
+ * Fläche und ist auf Containern mit Bildern die häufigste Ursache für
+ * ruckelnde Reveals. `scale` erzeugt dieselbe Tiefenwirkung und läuft
+ * vollständig auf dem Compositor.
  */
 export const revealVariants = {
   /** Standard: knapper Aufstieg, für Text und Listen. */
   rise: {
-    hidden: { opacity: 0, y: 18 },
-    show: { opacity: 1, y: 0, transition: { duration: 0.42, ease: EASE } },
+    hidden: { opacity: 0, y: 22 },
+    show: { opacity: 1, y: 0, transition: { duration: 0.55, ease: EASE } },
   },
   /** Vorhang: für Bilder und Medien — das Motiv schiebt sich frei. */
   curtain: {
@@ -23,18 +25,18 @@ export const revealVariants = {
     show: {
       opacity: 1,
       clipPath: "inset(0 0 0% 0)",
-      transition: { duration: 0.55, ease: EASE },
+      transition: { duration: 0.7, ease: EASE },
     },
   },
   /** Seitlich: für Blöcke, die gegen die Leserichtung einlaufen. */
   slideX: {
-    hidden: { opacity: 0, x: -36 },
-    show: { opacity: 1, x: 0, transition: { duration: 0.45, ease: EASE } },
+    hidden: { opacity: 0, x: -40 },
+    show: { opacity: 1, x: 0, transition: { duration: 0.6, ease: EASE } },
   },
   /** Heranziehen: für Karten und Kacheln. */
   scaleIn: {
-    hidden: { opacity: 0, scale: 0.96 },
-    show: { opacity: 1, scale: 1, transition: { duration: 0.44, ease: EASE } },
+    hidden: { opacity: 0, scale: 0.95 },
+    show: { opacity: 1, scale: 1, transition: { duration: 0.55, ease: EASE } },
   },
 } satisfies Record<string, Variants>
 
@@ -43,12 +45,11 @@ export type RevealVariant = keyof typeof revealVariants
 /**
  * Baut die Variante mit eingerechneter Verzögerung.
  *
- * Wichtig: `<motion.div transition={{ delay }}>` wird von Framer ignoriert,
- * sobald die Ziel-Variante eine eigene `transition` mitbringt — die
- * Target-Transition schlägt die Prop. Genau das war hier der Fall: sämtliche
- * `delay`-Angaben im Projekt (about, cta-band, page-hero, hero) liefen ins
- * Leere, alle Blöcke einer Section starteten gleichzeitig. Die Verzögerung
- * muss deshalb in die Variante selbst.
+ * Wichtig und leicht zu übersehen: `<motion.div transition={{ delay }}>` wird
+ * von Framer ignoriert, sobald die Ziel-Variante eine eigene `transition`
+ * mitbringt — die Target-Transition schlägt die Prop. Jede `delay`-Angabe
+ * liefe damit ins Leere und alle Blöcke einer Section starteten gleichzeitig.
+ * Die Verzögerung muss deshalb in die Variante selbst.
  */
 function withDelay(variant: RevealVariant, delay: number): Variants {
   const base = revealVariants[variant]
@@ -65,7 +66,7 @@ function withDelay(variant: RevealVariant, delay: number): Variants {
 type RevealProps = React.ComponentProps<"div"> & {
   delay?: number
   variant?: RevealVariant
-  as?: "div" | "section" | "li" | "span" | "figure"
+  as?: "div" | "section" | "li" | "span" | "figure" | "article"
 }
 
 export function Reveal({
@@ -96,22 +97,27 @@ export function Reveal({
 export function RevealGroup({
   children,
   className,
-  stagger = 0.07,
+  stagger = 0.08,
+  as = "div",
   ...props
-}: React.ComponentProps<"div"> & { stagger?: number }) {
+}: React.ComponentProps<"div"> & {
+  stagger?: number
+  as?: "div" | "ul" | "ol"
+}) {
+  const MotionTag = motion[as]
   return (
-    <motion.div
+    <MotionTag
       className={cn(className)}
       initial="hidden"
       whileInView="show"
-      viewport={{ once: true, amount: 0.15 }}
+      viewport={{ once: true, amount: 0.12 }}
       variants={{
-        show: { transition: { delayChildren: 0.05, staggerChildren: stagger } },
+        show: { transition: { delayChildren: 0.06, staggerChildren: stagger } },
       }}
       {...(props as object)}
     >
       {children}
-    </motion.div>
+    </MotionTag>
   )
 }
 
@@ -122,7 +128,7 @@ export function RevealItem({
   as = "div",
   ...props
 }: React.ComponentProps<"div"> & {
-  as?: "div" | "li" | "figure"
+  as?: "div" | "li" | "figure" | "article"
   variant?: RevealVariant
 }) {
   const MotionTag = motion[as]

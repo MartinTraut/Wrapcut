@@ -1,41 +1,37 @@
 import { cn } from "@/lib/utils"
 
+export type ContainerWidth = "default" | "narrow"
+
 /**
- * Eine gemeinsame Satzkante für die ganze Seite.
+ * Eine einzige Satzkante für die ganze Seite.
  *
- * Vorher lagen zwei Breiten nebeneinander (80rem und 96rem) — dadurch sprang
- * die linke Kante zwischen zwei aufeinanderfolgenden Sections um bis zu 80 px
- * hin und her. Bei einem Layout, das seine Ordnung über durchgehende
- * Haarlinien herstellt, ist das der auffälligste denkbare Fehler. Deshalb
- * teilen sich `default` und `wide` jetzt dieselbe Bühne; der horizontale
- * Rhythmus entsteht über die Textspalten (max-w-xl/2xl) innerhalb der Bühne,
- * nicht über die Bühne selbst.
+ * `default` und `narrow` teilen dieselbe äußere Kante und unterscheiden sich
+ * nur in der Maximalbreite des Inhalts. Zwei verschiedene *linke* Kanten
+ * nebeneinander lassen die Seite bei jedem Sectionwechsel springen — auf
+ * einem Layout, das mit Haarlinien arbeitet, fällt das sofort auf.
+ * Rhythmus entsteht über `max-w-*` **innerhalb** der Bühne, nicht über den
+ * Container.
  */
-const widths = {
-  narrow: "max-w-3xl",
-  default: "max-w-[96rem]",
-  wide: "max-w-[96rem]",
-  bleed: "max-w-none px-0 sm:px-0 lg:px-0",
-} as const
-
-export type ContainerWidth = keyof typeof widths
-
 export function Container({
-  className,
   children,
+  className,
   width = "default",
-  ...props
-}: React.ComponentProps<"div"> & { width?: ContainerWidth }) {
+  as: Tag = "div",
+}: {
+  children: React.ReactNode
+  className?: string
+  width?: ContainerWidth
+  as?: "div" | "section" | "header" | "footer"
+}) {
   return (
-    <div
+    <Tag
       className={cn(
         "mx-auto w-full px-5 sm:px-8 lg:px-12",
-        widths[width],
+        width === "narrow" ? "max-w-5xl" : "max-w-[96rem]",
         className,
       )}
-      {...props}
     >
       {children}
-    </div>
+    </Tag>
   )
 }

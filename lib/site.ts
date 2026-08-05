@@ -8,14 +8,19 @@
 
 export const site = {
   name: "WrapCut",
-  /** Google-Business-Name der Bestandsseite */
+  /**
+   * Google-Business-Name der Bestandsseite, wortgetreu.
+   * Der Gedankenstrich bleibt hier bewusst stehen: das ist ein Eigenname
+   * und steht so im Google-Unternehmensprofil. Ein abweichender Name im
+   * Schema schwächt die Zuordnung zum Profil.
+   */
   businessName: "Wrapcut – Ihr Folienexperte aus NRW / Jüchen",
   legalName: "WrapCut.nrw", // TODO: vollständige Firmierung + Rechtsform (Impressum, §5 DDG)
   domain: "wrapcut.nrw",
   url: "https://wrapcut.nrw",
   tagline: "Schutz & Design für Ihr Fahrzeug",
   description:
-    "Fahrzeugfolierung, Lackschutzfolie (PPF), Keramikversiegelung und Scheibentönung in Jüchen – für Neuss, Mönchengladbach und Düsseldorf.",
+    "Fahrzeugfolierung, Lackschutzfolie (PPF), Keramikversiegelung und Scheibentönung in Jüchen, für Neuss, Mönchengladbach und Düsseldorf.",
 
   // ---- NAP (Name / Address / Phone) — Local-SEO-kritisch, aus der Bestandsseite ----
   contact: {
@@ -122,7 +127,7 @@ export const services: Service[] = [
     name: "Lackschutzfolie (PPF)",
     tagline: "Unsichtbarer Panzer gegen Steinschlag.",
     description:
-      "Die Lackschutzfolie (PPF) schützt den Originallack zuverlässig vor Steinschlägen, Kratzern, Insektenresten, Streusalz und UV-Strahlung – nahezu unsichtbar. Besonders beanspruchte Bereiche wie Front, Motorhaube, Kotflügel, Spiegel und Einstiege bleiben dauerhaft geschützt. Auf Wunsch auch als farbige PPF.",
+      "Die Lackschutzfolie (PPF) schützt den Originallack zuverlässig vor Steinschlägen, Kratzern, Insektenresten, Streusalz und UV-Strahlung, nahezu unsichtbar. Besonders beanspruchte Bereiche wie Front, Motorhaube, Kotflügel, Spiegel und Einstiege bleiben dauerhaft geschützt. Auf Wunsch auch als farbige PPF.",
     benefits: [
       "Nahezu unsichtbarer Steinschlagschutz",
       "Selbstheilende Oberfläche bei Wärme",
@@ -137,7 +142,7 @@ export const services: Service[] = [
     name: "Keramikversiegelung",
     tagline: "Tiefenglanz, der Wasser abperlen lässt.",
     description:
-      "Eine Keramikversiegelung bildet eine widerstandsfähige Schutzschicht auf dem Lack und sorgt für intensiven Tiefenglanz, langanhaltenden Schutz und deutlich leichtere Pflege. Schmutz, Wasser und Umwelteinflüsse haften wesentlich schlechter – das Fahrzeug bleibt länger sauber.",
+      "Eine Keramikversiegelung bildet eine widerstandsfähige Schutzschicht auf dem Lack und sorgt für intensiven Tiefenglanz, langanhaltenden Schutz und deutlich leichtere Pflege. Schmutz, Wasser und Umwelteinflüsse haften wesentlich schlechter, das Fahrzeug bleibt länger sauber.",
     benefits: [
       "Starker Abperleffekt",
       "Schutz vor UV, Säure & Verschmutzung",
@@ -152,7 +157,7 @@ export const services: Service[] = [
     name: "Scheibentönung",
     tagline: "Mehr Privatsphäre. Weniger Hitze.",
     description:
-      "Professionelle Tönungsfolie senkt die Innenraumtemperatur, reduziert Blendung und schützt vor neugierigen Blicken. Sauber verlegt, blasenfrei und in den gesetzlich zulässigen Tönungsgraden – damit Ihr Fahrzeug auch nach der Tönung TÜV-konform bleibt.",
+      "Professionelle Tönungsfolie senkt die Innenraumtemperatur, reduziert Blendung und schützt vor neugierigen Blicken. Sauber verlegt, blasenfrei und in den gesetzlich zulässigen Tönungsgraden, damit Ihr Fahrzeug auch nach der Tönung TÜV-konform bleibt.",
     benefits: [
       "Weniger Hitze und Blendung",
       "Mehr Privatsphäre & Sichtschutz",
@@ -167,7 +172,7 @@ export const services: Service[] = [
     name: "Chromleisten & Dekor",
     tagline: "Akzente setzen. Oberflächen schützen.",
     description:
-      "Ob Carbon, Schwarz glänzend, matt oder individuelles Design: Wir folieren Zierleisten und Dekorelemente präzise und langlebig. Sie schützen damit gleichzeitig die Originaloberfläche und setzen gezielte Akzente – jederzeit rückrüstbar.",
+      "Ob Carbon, Schwarz glänzend, matt oder individuelles Design: Wir folieren Zierleisten und Dekorelemente präzise und langlebig. Sie schützen damit gleichzeitig die Originaloberfläche und setzen gezielte Akzente, jederzeit rückrüstbar.",
     benefits: [
       "Chrom Delete in Schwarz oder Carbon",
       "Schützt die Originaloberfläche",
@@ -182,7 +187,7 @@ export const services: Service[] = [
     name: "Werbebeschriftung",
     tagline: "Ihr Fahrzeug als rollende Visitenkarte.",
     description:
-      "Vom dezenten Schriftzug bis zur vollflächigen Beschriftung im Digitaldruck: Wir setzen Logo und Botschaft präzise um, für das Einzelfahrzeug ebenso wie für die Flotte. Einmalige Investition statt laufender Werbekosten – und jederzeit änderbar oder rückstandslos entfernbar.",
+      "Vom dezenten Schriftzug bis zur vollflächigen Beschriftung im Digitaldruck: Wir setzen Logo und Botschaft präzise um, für das Einzelfahrzeug ebenso wie für die Flotte. Einmalige Investition statt laufender Werbekosten und jederzeit änderbar oder rückstandslos entfernbar.",
     benefits: [
       "Wirbt rund um die Uhr, auch im Stand",
       "Einmalige Investition, keine Klickkosten",
@@ -217,10 +222,10 @@ export const suppliers: Supplier[] = [
 
 export const about = {
   headline: "Wir arbeiten so lange an der Kante, bis man sie nicht mehr sieht.",
-  lead: "Folierung aus Jüchen – für Leute, die genau da hinschauen.",
+  lead: "Folierung aus Jüchen, für Leute, die genau da hinschauen.",
   text: "WrapCut ist Ihr Ansprechpartner rund um Folierungen im Rhein-Kreis Neuss. Wir sitzen in Jüchen, nur wenige Minuten von Neuss, Düsseldorf und Mönchengladbach entfernt, und beraten Sie ehrlich: welche Folie zu Ihrem Fahrzeug passt, was sie leistet und was sie nicht leistet. Auch dann, wenn die günstigere Variante die richtige ist.",
   supplierText:
-    "Das Ergebnis steht und fällt mit der Folie. Deshalb verarbeiten wir ausschließlich Material von Avery Dennison, 3M, HEXIS, ORAFOL, BodyFence und KPMF – kein Baumarkt-Vinyl, keine Restposten.",
+    "Das Ergebnis steht und fällt mit der Folie. Deshalb verarbeiten wir ausschließlich Material von Avery Dennison, 3M, HEXIS, ORAFOL, BodyFence und KPMF, kein Baumarkt-Vinyl, keine Restposten.",
 }
 
 export type GalleryItem = {
@@ -381,27 +386,31 @@ export type Faq = { q: string; a: string }
 export const faqs: Faq[] = [
   {
     q: "Was kostet eine Fahrzeugfolierung bei WrapCut in Jüchen?",
-    a: "Das hängt von Fahrzeuggröße, Umfang und Folie ab – deshalb nennen wir keinen Pauschalpreis, sondern kalkulieren Ihr Fahrzeug konkret. In die Kalkulation fließen Fahrzeuggröße und Modell, der Umfang der Folierung, die verwendete Folie, Farbe und Oberfläche sowie der Aufwand für Demontagearbeiten ein. Nach einer Besichtigung in Jüchen oder anhand Ihrer Fahrzeugdaten erhalten Sie ein individuelles Festpreis-Angebot ohne versteckte Kosten. Beratung und Angebot sind kostenlos.",
+    // Die Spanne stammt wörtlich aus der Bestandsseite (siehe lib/landing.ts)
+    // und stand dort öffentlich. Eine Antwort, die nur „kein Pauschalpreis"
+    // sagt, ist als Antwortquelle für Google und für KI-Systeme wertlos —
+    // und der Wettbewerber, der eine Zahl nennt, bekommt die Anfrage.
+    a: "Eine Vollfolierung liegt je nach Fahrzeug und Folie meist zwischen 1.600 € und 8.000 €, eine Teilfolierung deutlich darunter. Einen Pauschalpreis gibt es nicht, weil wir Ihr Fahrzeug konkret kalkulieren. In die Kalkulation fließen Fahrzeuggröße und Modell, der Umfang der Folierung, die verwendete Folie, Farbe und Oberfläche sowie der Aufwand für Demontagearbeiten ein. Nach einer Besichtigung in Jüchen oder anhand Ihrer Fahrzeugdaten erhalten Sie ein individuelles Festpreis-Angebot ohne versteckte Kosten. Beratung und Angebot sind kostenlos.",
   },
   {
     q: "Wie lange hält eine Fahrzeugfolierung wirklich?",
-    a: "Bei hochwertiger Markenfolie und guter Pflege sind etwa 5 bis 10 Jahre realistisch. Die tatsächliche Haltbarkeit hängt von der Folienqualität, der Fahrzeugnutzung und der Pflege ab – ein täglich draußen stehendes Fahrzeug altert schneller als ein Garagenwagen. Wir verarbeiten ausschließlich Material von Avery Dennison, 3M, HEXIS, ORAFOL, BodyFence und KPMF, weil billige Folie genau hier zuerst versagt: an Kanten, in der Farbstabilität und beim Entfernen.",
+    a: "Bei hochwertiger Markenfolie und guter Pflege sind etwa 5 bis 10 Jahre realistisch. Die tatsächliche Haltbarkeit hängt von der Folienqualität, der Fahrzeugnutzung und der Pflege ab, ein täglich draußen stehendes Fahrzeug altert schneller als ein Garagenwagen. Wir verarbeiten ausschließlich Material von Avery Dennison, 3M, HEXIS, ORAFOL, BodyFence und KPMF, weil billige Folie genau hier zuerst versagt: an Kanten, in der Farbstabilität und beim Entfernen.",
   },
   {
     q: "Beschädigt eine Folierung den Originallack meines Autos?",
-    a: "Nein, im Gegenteil – sie schützt ihn. Eine fachgerecht verlegte Folie schirmt den darunterliegenden Lack vor UV-Strahlung, leichten Kratzern, Schmutz und Witterung ab. Bei intaktem Originallack lässt sich die Folie später rückstandsfrei entfernen, der Lack darunter erscheint wie am ersten Tag. Genau deshalb ist Folierung bei Leasingfahrzeugen so beliebt: individuelles Design während der Laufzeit, Originalzustand bei der Rückgabe.",
+    a: "Nein, im Gegenteil, sie schützt ihn. Eine fachgerecht verlegte Folie schirmt den darunterliegenden Lack vor UV-Strahlung, leichten Kratzern, Schmutz und Witterung ab. Bei intaktem Originallack lässt sich die Folie später rückstandsfrei entfernen, der Lack darunter erscheint wie am ersten Tag. Genau deshalb ist Folierung bei Leasingfahrzeugen so beliebt: individuelles Design während der Laufzeit, Originalzustand bei der Rückgabe.",
   },
   {
     q: "Was ist der Unterschied zwischen Lackschutzfolie (PPF) und einer normalen Folierung?",
-    a: "Eine Farbfolierung verändert die Optik, eine Lackschutzfolie schützt vor mechanischer Beschädigung. Die Farbfolierung macht Ihr Fahrzeug matt, glänzend, metallic oder satiniert. Die Lackschutzfolie (PPF) ist dagegen meist transparent und selbstheilend: Sie liegt nahezu unsichtbar über dem Lack und nimmt Steinschläge und Kratzer auf. Beides lässt sich kombinieren – etwa PPF an der Front und eine Farbfolierung auf der restlichen Karosserie. Für maximalen Schutz kombinieren viele Kunden PPF zusätzlich mit einer Keramikversiegelung.",
+    a: "Eine Farbfolierung verändert die Optik, eine Lackschutzfolie schützt vor mechanischer Beschädigung. Die Farbfolierung macht Ihr Fahrzeug matt, glänzend, metallic oder satiniert. Die Lackschutzfolie (PPF) ist dagegen meist transparent und selbstheilend: Sie liegt nahezu unsichtbar über dem Lack und nimmt Steinschläge und Kratzer auf. Beides lässt sich kombinieren, etwa PPF an der Front und eine Farbfolierung auf der restlichen Karosserie. Für maximalen Schutz kombinieren viele Kunden PPF zusätzlich mit einer Keramikversiegelung.",
   },
   {
     q: "Kann sich eine Lackschutzfolie wirklich selbst reparieren?",
-    a: "Ja, feine Kratzer verschwinden bei Wärme von selbst. Viele moderne Lackschutzfolien haben eine selbstheilende Oberfläche: Durch Sonneneinstrahlung oder warmes Wasser schließen sich oberflächliche Kratzer in der Folienschicht wieder. Tiefere Beschädigungen bleiben allerdings sichtbar – die Folie ist ein Schutz, kein Unfallschutz.",
+    a: "Ja, feine Kratzer verschwinden bei Wärme von selbst. Viele moderne Lackschutzfolien haben eine selbstheilende Oberfläche: Durch Sonneneinstrahlung oder warmes Wasser schließen sich oberflächliche Kratzer in der Folienschicht wieder. Tiefere Beschädigungen bleiben allerdings sichtbar, die Folie ist ein Schutz, kein Unfallschutz.",
   },
   {
     q: "Welche Bereiche am Fahrzeug lohnen sich für Lackschutzfolie besonders?",
-    a: "Zuerst die Fahrzeugfront, weil dort der Steinschlag ankommt. Typisch geschützt werden Motorhaube, Stoßfänger, Kotflügel und Außenspiegel, dazu Einstiegsbereiche, Türgriffmulden und Ladekanten – also die Stellen, an denen Gebrauchsspuren zuerst entstehen. Auf Wunsch folieren wir auch das komplette Fahrzeug. Besonders lohnt sich PPF bei Neufahrzeugen, Sportwagen, Leasingfahrzeugen, empfindlichen Lacken sowie bei Oldtimern und Liebhaberfahrzeugen.",
+    a: "Zuerst die Fahrzeugfront, weil dort der Steinschlag ankommt. Typisch geschützt werden Motorhaube, Stoßfänger, Kotflügel und Außenspiegel, dazu Einstiegsbereiche, Türgriffmulden und Ladekanten, also die Stellen, an denen Gebrauchsspuren zuerst entstehen. Auf Wunsch folieren wir auch das komplette Fahrzeug. Besonders lohnt sich PPF bei Neufahrzeugen, Sportwagen, Leasingfahrzeugen, empfindlichen Lacken sowie bei Oldtimern und Liebhaberfahrzeugen.",
   },
   {
     q: "Wie lange dauert die Folierung meines Fahrzeugs?",
@@ -413,7 +422,7 @@ export const faqs: Faq[] = [
   },
   {
     q: "Lohnt sich eine Folierung bei einem Leasingfahrzeug?",
-    a: "Ja, das ist einer der häufigsten Gründe für eine Folierung. Sie gestalten Ihr Fahrzeug während der Leasinglaufzeit individuell und schützen gleichzeitig den Originallack. Bei der Rückgabe wird die Folie fachgerecht entfernt und das Fahrzeug ist im Ursprungszustand – häufig sogar mit besser erhaltenem Lack als ohne Folierung. Klären Sie die Rückgabebedingungen dennoch vorab mit Ihrem Leasinggeber.",
+    a: "Ja, das ist einer der häufigsten Gründe für eine Folierung. Sie gestalten Ihr Fahrzeug während der Leasinglaufzeit individuell und schützen gleichzeitig den Originallack. Bei der Rückgabe wird die Folie fachgerecht entfernt und das Fahrzeug ist im Ursprungszustand, häufig sogar mit besser erhaltenem Lack als ohne Folierung. Klären Sie die Rückgabebedingungen dennoch vorab mit Ihrem Leasinggeber.",
   },
   {
     q: "Kann man ein bereits gebrauchtes Fahrzeug noch folieren oder mit PPF schützen?",
@@ -421,22 +430,22 @@ export const faqs: Faq[] = [
   },
   {
     q: "Wie pflege ich ein foliertes Fahrzeug richtig?",
-    a: "Wie einen guten Lack – nur etwas umsichtiger. Empfehlenswert sind Handwäsche oder schonende Waschanlagen und milde Reinigungsmittel. Verzichten Sie auf aggressive Chemikalien und gehen Sie mit dem Hochdruckreiniger vorsichtig an Kanten und Folienrändern um. Insektenreste und Vogelkot sollten Sie zeitnah entfernen. Passende Pflegeprodukte für Folien und die konkreten Hinweise für Ihr Fahrzeug bekommen Sie bei der Übergabe von uns.",
+    a: "Wie einen guten Lack, nur etwas umsichtiger. Empfehlenswert sind Handwäsche oder schonende Waschanlagen und milde Reinigungsmittel. Verzichten Sie auf aggressive Chemikalien und gehen Sie mit dem Hochdruckreiniger vorsichtig an Kanten und Folienrändern um. Insektenreste und Vogelkot sollten Sie zeitnah entfernen. Passende Pflegeprodukte für Folien und die konkreten Hinweise für Ihr Fahrzeug bekommen Sie bei der Übergabe von uns.",
   },
   {
     q: "Was ist besser: Lackschutzfolie oder Keramikversiegelung?",
-    a: "Sie lösen unterschiedliche Probleme – die Kombination ist der stärkste Schutz. Eine Keramikversiegelung verbessert die Oberfläche, erleichtert die Reinigung und sorgt für Tiefenglanz und Abperleffekt. Eine Lackschutzfolie bietet zusätzlich physischen Schutz gegen Steinschläge und Kratzer, den keine Versiegelung leisten kann. Wenn Sie beides wollen: PPF auf die beanspruchten Flächen, Keramik über den Rest. Was für Ihr Fahrzeug sinnvoll ist, sagen wir Ihnen ehrlich in der Beratung.",
+    a: "Sie lösen unterschiedliche Probleme, die Kombination ist der stärkste Schutz. Eine Keramikversiegelung verbessert die Oberfläche, erleichtert die Reinigung und sorgt für Tiefenglanz und Abperleffekt. Eine Lackschutzfolie bietet zusätzlich physischen Schutz gegen Steinschläge und Kratzer, den keine Versiegelung leisten kann. Wenn Sie beides wollen: PPF auf die beanspruchten Flächen, Keramik über den Rest. Was für Ihr Fahrzeug sinnvoll ist, sagen wir Ihnen ehrlich in der Beratung.",
   },
   {
     q: "Welche Fahrzeuge könnt ihr folieren?",
-    a: "Nahezu alle – vom Kleinwagen bis zum Wohnmobil. Dazu gehören Autos, Sportwagen, Oldtimer, Motorräder, Transporter, Firmenfahrzeuge und Wohnmobile. Für Firmenkunden folieren wir auch komplette Fahrzeugflotten einheitlich, inklusive Werbebeschriftung. Wenn Sie unsicher sind, ob Ihr Fahrzeug geeignet ist: kurz anrufen, das klären wir in zwei Minuten.",
+    a: "Nahezu alle, vom Kleinwagen bis zum Wohnmobil. Dazu gehören Autos, Sportwagen, Oldtimer, Motorräder, Transporter, Firmenfahrzeuge und Wohnmobile. Für Firmenkunden folieren wir auch komplette Fahrzeugflotten einheitlich, inklusive Werbebeschriftung. Wenn Sie unsicher sind, ob Ihr Fahrzeug geeignet ist: kurz anrufen, das klären wir in zwei Minuten.",
   },
   {
     q: "In welchem Umkreis arbeitet WrapCut?",
-    a: "Unser Studio steht in Jüchen an der Neusser Str. 111, zentral im Rhein-Kreis Neuss. Kunden kommen regelmäßig aus Neuss, Grevenbroich, Mönchengladbach, Düsseldorf, Korschenbroich, Kaarst, Willich, Meerbusch, Viersen und Krefeld zu uns – von Neuss, Düsseldorf und Mönchengladbach sind es jeweils nur wenige Minuten. Auch aus dem weiteren Umkreis lohnt sich die Anfahrt, gerade bei Vollfolierungen und Lackschutz. Sprechen Sie uns einfach an.",
+    a: "Unser Studio steht in Jüchen an der Neusser Str. 111, zentral im Rhein-Kreis Neuss. Kunden kommen regelmäßig aus Neuss, Grevenbroich, Mönchengladbach, Düsseldorf, Korschenbroich, Kaarst, Willich, Meerbusch, Viersen und Krefeld zu uns, von Neuss, Düsseldorf und Mönchengladbach sind es jeweils nur wenige Minuten. Auch aus dem weiteren Umkreis lohnt sich die Anfahrt, gerade bei Vollfolierungen und Lackschutz. Sprechen Sie uns einfach an.",
   },
   {
     q: "Warum sollte eine Folierung vom Fachbetrieb kommen und nicht aus der Garage?",
-    a: "Weil man die Unterschiede genau dort sieht, wo es zählt: an den Kanten. Eine professionelle Folierung braucht Erfahrung, saubere und staubarme Arbeitsbedingungen sowie die richtige Verarbeitungstechnik. Ein Fachbetrieb sorgt für eine perfekte Vorbereitung, saubere Kanten und Übergänge, ein gleichmäßiges Ergebnis ohne Blasen und für Haltbarkeit über Jahre. Fehler beim Verlegen zeigen sich oft erst nach Monaten – dann ist die Folie meist komplett zu erneuern.",
+    a: "Weil man die Unterschiede genau dort sieht, wo es zählt: an den Kanten. Eine professionelle Folierung braucht Erfahrung, saubere und staubarme Arbeitsbedingungen sowie die richtige Verarbeitungstechnik. Ein Fachbetrieb sorgt für eine perfekte Vorbereitung, saubere Kanten und Übergänge, ein gleichmäßiges Ergebnis ohne Blasen und für Haltbarkeit über Jahre. Fehler beim Verlegen zeigen sich oft erst nach Monaten, dann ist die Folie meist komplett zu erneuern.",
   },
 ]

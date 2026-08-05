@@ -1,70 +1,151 @@
-import { ArrowRight } from "lucide-react"
+import Image from "next/image"
 import Link from "next/link"
+import { ArrowUpRight, Check } from "lucide-react"
+
 import { Container } from "@/components/shared/container"
-import { Eyebrow } from "@/components/shared/eyebrow"
-import { Reveal } from "@/components/shared/reveal"
-import { ServiceIcon } from "@/components/shared/service-icons"
-import {
-  InteractiveSelector,
-  type SelectorItem,
-} from "@/components/ui/interactive-selector"
-import { Button } from "@/components/ui/button"
+import { SectionHead } from "@/components/shared/section-head"
+import { RevealGroup, RevealItem } from "@/components/shared/reveal"
+import { serviceDetails } from "@/lib/landing"
 import { services } from "@/lib/site"
 
-const items: SelectorItem[] = services.map((s) => ({
-  title: s.name,
-  tagline: s.tagline,
-  description: s.description,
-  benefits: s.benefits,
-  image: s.image,
-  icon: <ServiceIcon slug={s.slug} className="size-5.5" />,
-}))
+/**
+ * Leistungen als asymmetrisches Bento-Raster.
+ *
+ * Sechs gleich große Karten nebeneinander sind ein Kartenfriedhof — der
+ * Betrachter sieht sechs Optionen und keine Aussage. Hier tragen drei
+ * Kacheln (Index 0, 3, 4) die doppelte Breite, wodurch die Fläche eine
+ * Leserichtung bekommt.
+ *
+ * Rasterarithmetik ist dabei Designarbeit, kein Layout-Detail: Sechs
+ * Einträge mit *einer* breiten Kachel ergäben 7 Zellen in 3 Spalten — die
+ * letzte Zeile stünde zu zwei Dritteln leer. Drei breite Kacheln ergeben 9
+ * und damit eine volle Schlusszeile. Auf zwei Spalten (sm) muss die
+ * Paarbildung erhalten bleiben, deshalb sind es die Indizes 0 und 3, nicht
+ * 0 und 4.
+ */
+const WIDE = new Set([0, 3, 4])
 
 export function Services() {
   return (
-    <section id="leistungen" className="section scroll-mt-20">
-      <Container width="wide">
-        <Reveal className="flex flex-col gap-8 border-t border-border pt-10 lg:flex-row lg:items-end lg:justify-between lg:gap-16">
-          <div className="max-w-3xl">
-            <Eyebrow index="01">Leistungen</Eyebrow>
-            <h2 className="t-h2 mt-7 text-balance">
-              Vom Schutzschild bis zum
-              <span className="text-muted-foreground"> kompletten Re-Design.</span>
-            </h2>
-            <p className="t-lead mt-6 max-w-xl text-muted-foreground text-pretty">
-              Sechs Disziplinen, ein Anspruch: ein Ergebnis, das jeder
-              Detailprüfung standhält.
-            </p>
-          </div>
-          <Button asChild variant="outline" size="lg" className="shrink-0">
-            <Link href="/leistungen">
-              Alle Leistungen im Detail
-              <ArrowRight className="transition-transform duration-300 group-hover/button:translate-x-1" />
-            </Link>
-          </Button>
-        </Reveal>
+    <section id="leistungen" className="section scroll-mt-24">
+      <SectionHead
+        label="Leistungen"
+        titleLines={["Sechs Disziplinen,", "ein Anspruch."]}
+        lead="Ob neue Farbe, unsichtbarer Steinschlagschutz oder Tönung, wir sagen vorher ehrlich, was die jeweilige Lösung leistet und was sie nicht leistet."
+        id="leistungen-titel"
+      />
 
-        <Reveal className="mt-14" variant="scaleIn">
-          <InteractiveSelector items={items} />
-        </Reveal>
-
-        {/* Einstieg in die Leistungsseiten: die Startseite erklärt, die
-            Unterseite beantwortet Preis, Dauer und die konkreten Fragen. */}
-        <Reveal className="mt-12 flex flex-wrap items-center gap-x-3 gap-y-2">
-          <span className="t-mono mr-2 text-muted-foreground">
-            Direkt zum Detail
-          </span>
-          {services.map((s) => (
-            <Link
-              key={s.slug}
-              href={`/leistungen/${s.slug}`}
-              className="group inline-flex items-center gap-2 border border-border px-4 py-2.5 text-sm transition-colors duration-200 hover:border-signal hover:text-signal"
+      <Container>
+        <RevealGroup
+          stagger={0.07}
+          className="mt-14 grid gap-3 sm:grid-cols-2 lg:mt-16 lg:grid-cols-3"
+        >
+          {services.map((service, i) => (
+            <RevealItem
+              key={service.slug}
+              as="article"
+              variant="scaleIn"
+              className={
+                "group relative isolate overflow-hidden rounded-2xl bg-surface " +
+                (WIDE.has(i) ? "sm:col-span-2 lg:col-span-2" : "")
+              }
             >
-              {s.name}
-              <ArrowRight className="size-3.5 -translate-x-1 opacity-0 transition-all duration-200 group-hover:translate-x-0 group-hover:opacity-100" />
-            </Link>
+              {/*
+                Höher als zuvor (22/25 → 24/32 rem), aus zwei Gründen:
+                Die breiten Kacheln standen bei 890 × 400 px auf 2,2 : 1, im
+                Panoramaformat blieb vom Fahrzeug ein Streifen Heck und viel
+                Hallendecke, die Fotos wirkten wie Textur statt wie Beleg. Und
+                die Vorteile stehen jetzt dauerhaft im Text, brauchen also
+                Platz.
+              */}
+              <Link
+                href={`/leistungen/${service.slug}`}
+                className="flex min-h-[24rem] flex-col justify-end p-7 focus-ring lg:min-h-[32rem] lg:p-9"
+              >
+                <Image
+                  src={service.image}
+                  alt=""
+                  fill
+                  sizes={
+                    WIDE.has(i)
+                      ? "(min-width: 1024px) 62vw, (min-width: 640px) 100vw, 100vw"
+                      : "(min-width: 1024px) 31vw, (min-width: 640px) 50vw, 100vw"
+                  }
+                  className="img-punch -z-20 object-cover transition-transform duration-[900ms] ease-[var(--ease-premium)] group-hover:scale-[1.06]"
+                />
+
+                {/*
+                  Textschutz statt Bildabdunklung, der Rest des Fotos bleibt
+                  unangetastet, weil dort kein Text liegt.
+
+                  Unter `lg` reicht der Verlauf deutlich weiter hoch: dort
+                  steht die Vorteilsliste dauerhaft offen, der Textblock ist
+                  damit rund 195 px hoch. Mit den vorherigen 62 % von 22 rem
+                  lag die Kachelüberschrift bereits im transparenten Teil —
+                  „Voll- & Teilfolierung" stand auf einem weißen Auto,
+                  „Keramikversiegelung" in der Leuchtdecke.
+                */}
+                <div
+                  aria-hidden
+                  className="absolute inset-x-0 bottom-0 -z-10 h-[78%] bg-linear-to-t from-background via-background/82 via-52% to-transparent transition-opacity duration-[500ms] group-hover:opacity-95 lg:h-[62%]"
+                />
+
+                <div className="relative">
+                  <h3 className="t-h3 flex items-start gap-3">
+                    {service.name}
+                    <ArrowUpRight
+                      aria-hidden
+                      className="mt-1 size-5 shrink-0 text-muted-foreground transition-[transform,color] duration-[320ms] ease-[var(--ease-premium)] group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-brand"
+                    />
+                  </h3>
+                  <p className="mt-2.5 text-[0.95rem] text-muted-foreground">
+                    {service.tagline}
+                  </p>
+
+                  {/*
+                    Die Vorteile standen früher hinter `group-hover` und waren
+                    damit ausgerechnet auf dem größten Bildschirm unsichtbar,
+                    während sie auf Mobil dauerhaft dastanden. Sie tragen aber
+                    das eigentliche Argument, „rückstandslos entfernbar",
+                    „selbstheilend" —, und ein Argument, das man erst durch
+                    Herumfahren findet, wirkt nicht.
+                  */}
+                  <ul className="mt-5">
+                    {service.benefits.slice(0, 3).map((benefit) => (
+                      <li
+                        key={benefit}
+                        className="flex items-start gap-2.5 py-1 text-sm text-foreground/85"
+                      >
+                        <Check
+                          className="mt-0.5 size-3.5 shrink-0 text-brand"
+                          aria-hidden
+                        />
+                        {benefit}
+                      </li>
+                    ))}
+                  </ul>
+
+                  {/*
+                    Preisanker, wo einer belegt ist.
+                    „Was kostet das" ist bei Folierung die erste Frage. Auf der
+                    gesamten Startseite stand vorher keine einzige Zahl,
+                    obwohl der Betrieb selbst welche publiziert.
+                  */}
+                  <span className="mt-6 flex flex-wrap items-center gap-x-4 gap-y-2">
+                    <span className="text-sm font-semibold text-brand">
+                      Details zur Leistung
+                    </span>
+                    {serviceDetails[service.slug]?.price ? (
+                      <span className="nums text-sm text-muted-foreground">
+                        {serviceDetails[service.slug].price!.items[0].value}
+                      </span>
+                    ) : null}
+                  </span>
+                </div>
+              </Link>
+            </RevealItem>
           ))}
-        </Reveal>
+        </RevealGroup>
       </Container>
     </section>
   )

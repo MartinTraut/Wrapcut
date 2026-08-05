@@ -1,41 +1,45 @@
-import Image from "next/image"
-import Link from "next/link"
 import { cn } from "@/lib/utils"
-import { site } from "@/lib/site"
 
 /**
- * Original-Logo der Bestandsseite (Racing-Green-Wortmarke).
- * Auf dunklem Untergrund wird es per Filter sauber in Weiß ausgegeben,
- * da das Original zweifarbig für hellen Hintergrund gestaltet wurde.
+ * Das Logo in der Iridescence der Marke.
+ *
+ * Die Originaldatei ist ein PNG mit dunkelgrüner Zeichnung auf Transparenz —
+ * gedacht für hellen Grund. Auf fast schwarzem Untergrund verschwindet sie
+ * fast vollständig, und über `filter` bekommt man sie nicht sauber
+ * eingefärbt: Helligkeit allein macht aus Dunkelgrün ein schmutziges Grau,
+ * `hue-rotate` kippt die Kontur mit.
+ *
+ * Deshalb der umgekehrte Weg: die PNG-Datei dient als **Maske**, die Farbe
+ * kommt aus dem Verlauf darunter. Das Ergebnis ist eine exakt
+ * deckungsgleiche Kontur in der Markenfarbe, unabhängig davon, welche Farbe
+ * in der Datei steht — und es bleibt automatisch richtig, falls der Kunde
+ * später eine andere Logodatei liefert.
+ *
+ * `aria-hidden` plus danebenstehender Text wäre hier falsch: das Logo IST
+ * der Firmenname. Es bekommt deshalb ein `role="img"` mit Label.
  */
-export function Logo({
-  className,
-  variant = "brand",
-}: {
-  className?: string
-  variant?: "brand" | "light" | "original"
-}) {
+export function Logo({ className }: { className?: string }) {
   return (
-    <Link
-      href="/"
-      aria-label={`${site.name}, Startseite`}
-      className={cn("inline-flex items-center", className)}
-    >
-      <Image
-        src="/logo-wrapcut.png"
-        alt={`${site.name}, Fahrzeugfolierung & Lackschutz Jüchen`}
-        width={1920}
-        height={387}
-        priority
-        className={cn(
-          "h-7 w-auto sm:h-8",
-          // "brand": Original-Zweifarbigkeit (grünes WRAP + weißes CUT),
-          // Grün angehoben für Kontrast auf dunklem Untergrund.
-          variant === "brand" &&
-            "[filter:brightness(1.55)_saturate(1.5)_contrast(1.05)]",
-          variant === "light" && "[filter:brightness(0)_invert(1)]"
-        )}
-      />
-    </Link>
+    <span
+      role="img"
+      aria-label="WrapCut, Folientechnik"
+      className={cn(
+        "bg-iris block w-[8.5rem] sm:w-[10rem]",
+        // Seitenverhältnis der Datei (1920 × 387) fest verdrahtet, damit die
+        // Maske nicht verzerrt und kein Layout-Shift entsteht.
+        "aspect-[1920/387]",
+        className,
+      )}
+      style={{
+        WebkitMaskImage: "url(/logo-wrapcut.png)",
+        maskImage: "url(/logo-wrapcut.png)",
+        WebkitMaskSize: "contain",
+        maskSize: "contain",
+        WebkitMaskRepeat: "no-repeat",
+        maskRepeat: "no-repeat",
+        WebkitMaskPosition: "center",
+        maskPosition: "center",
+      }}
+    />
   )
 }

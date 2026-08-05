@@ -1,490 +1,338 @@
 "use client"
 
 import * as React from "react"
-import {
-  Phone,
-  MessageCircle,
-  MapPin,
-  CalendarClock,
-  Check,
-  Loader2,
-  AlertTriangle,
-} from "lucide-react"
-import { InstagramIcon } from "@/components/shared/icons"
+import { Mail, MapPin, MessageCircle, Phone } from "lucide-react"
+
 import { Container } from "@/components/shared/container"
-import { Eyebrow } from "@/components/shared/eyebrow"
+import { SectionHead } from "@/components/shared/section-head"
+import { Reveal } from "@/components/shared/reveal"
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
-import { Label } from "@/components/ui/label"
-import { MapEmbed } from "@/components/shared/map"
-import { site } from "@/lib/site"
-import { cn } from "@/lib/utils"
+import { Field, Input, Textarea } from "@/components/ui/field"
+import { services, site } from "@/lib/site"
 
-const SERVICES = [
-  "Voll- oder Teilfolierung",
-  "Lackschutzfolie (PPF)",
-  "Keramikversiegelung",
-  "Scheibentönung",
-  "Chromleisten & Dekor",
-  "Werbebeschriftung",
-  "Beratung / Sonstiges",
-]
-
-/** Landingpage-Slug → Auswahlwert im Formular. */
-const SERVICE_BY_SLUG: Record<string, string> = {
-  fahrzeugfolierung: "Voll- oder Teilfolierung",
-  lackschutzfolie: "Lackschutzfolie (PPF)",
-  keramikversiegelung: "Keramikversiegelung",
-  scheibentoenung: "Scheibentönung",
-  chromdelete: "Chromleisten & Dekor",
-  werbebeschriftung: "Werbebeschriftung",
-}
-
-type Status = "idle" | "submitting" | "success" | "error"
-
-const directLinks = [
-  {
-    href: site.contact.phoneHref,
-    icon: Phone,
-    label: "Anrufen",
-    value: site.contact.phone,
-    external: false,
-  },
-  {
-    href: site.contact.whatsappHref,
-    icon: MessageCircle,
-    label: "WhatsApp",
-    value: "Direkt schreiben",
-    external: true,
-  },
-  {
-    href: site.social.instagram,
-    icon: InstagramIcon,
-    label: "Instagram",
-    value: site.social.instagramHandle,
-    external: true,
-  },
-]
-
+/**
+ * Kontakt: drei direkte Wege plus ein Formular.
+ *
+ * Das Formular versendet über `mailto:` — bewusst, nicht als Notlösung. Ein
+ * echter Versand bräuchte einen Mailanbieter mit API-Schlüssel; solange der
+ * nicht vom Kunden vorliegt, wäre jedes „Danke, Nachricht gesendet!"
+ * schlicht gelogen. Ein `mailto:` funktioniert dagegen ab der ersten Minute
+ * und macht für den Nutzer sichtbar, was passiert.
+ *
+ * Damit das nicht wie ein Rückschritt wirkt, stehen Anruf und WhatsApp
+ * gleichrangig daneben — bei einem Handwerksbetrieb sind das ohnehin die
+ * Wege, die Kunden bevorzugen.
+ *
+ * Sobald ein Versandschlüssel vorliegt, ersetzt eine Route-Handler-Anbindung
+ * `buildMailto` — die Feldstruktur bleibt unverändert.
+ */
 export function Contact() {
-  const [status, setStatus] = React.useState<Status>("idle")
-  const [errors, setErrors] = React.useState<Record<string, string>>({})
-  const [errorMessage, setErrorMessage] = React.useState("")
+  const [vehicle, setVehicle] = React.useState("")
+  const [service, setService] = React.useState("")
+  const [name, setName] = React.useState("")
+  const [phone, setPhone] = React.useState("")
+  const [email, setEmail] = React.useState("")
+  const [message, setMessage] = React.useState("")
+  const [error, setError] = React.useState<string | null>(null)
+  const [handedOver, setHandedOver] = React.useState(false)
+  const phoneRef = React.useRef<HTMLInputElement>(null)
 
-  // Der Fokus muss dem Zustandswechsel folgen — sonst landet er nach dem
-  // Absenden auf BODY, weil das auslösende Element aus dem DOM verschwindet
-  // bzw. `disabled` wird.
-  const successRef = React.useRef<HTMLHeadingElement>(null)
-  const alertRef = React.useRef<HTMLDivElement>(null)
-
-  /**
-   * Vorauswahl aus `?leistung=<slug>`. Die Landingpages haben kein eigenes
-   * Formular und verlinken hierher; ohne diese Übergabe stand das Feld
-   * „Gewünschte Leistung" nach dem Sprung wieder leer, und der Nutzer musste
-   * die gerade gelesene Leistung erneut auswählen.
-   *
-   * Bewusst direkt auf dem DOM-Knoten statt über State oder
-   * `useSearchParams`: die Startseite bleibt damit statisch vorgerendert und
-   * es entsteht keine Hydration-Abweichung.
-   */
-  const serviceRef = React.useRef<HTMLSelectElement>(null)
-
-  React.useEffect(() => {
-    const slug = new URLSearchParams(window.location.search).get("leistung")
-    const preset = slug ? SERVICE_BY_SLUG[slug] : undefined
-    if (preset && serviceRef.current && !serviceRef.current.value) {
-      serviceRef.current.value = preset
-    }
-  }, [])
-
-  React.useEffect(() => {
-    if (status === "success") successRef.current?.focus()
-    if (status === "error") alertRef.current?.focus()
-  }, [status])
-
-  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault()
-    const form = event.currentTarget
-    const data = new FormData(form)
-
-    setStatus("submitting")
-    setErrors({})
-    setErrorMessage("")
-
-    try {
-      const response = await fetch("/api/kontakt", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: data.get("name"),
-          email: data.get("email"),
-          phone: data.get("phone"),
-          vehicle: data.get("vehicle"),
-          service: data.get("service"),
-          message: data.get("message"),
-          consent: data.get("consent") === "on",
-          website: data.get("website"),
-        }),
-      })
-
-      const result = await response.json().catch(() => ({}))
-
-      if (!response.ok) {
-        setErrors(result.errors ?? {})
-        setErrorMessage(
-          result.message ??
-            "Bitte prüfen Sie die markierten Felder und versuchen Sie es erneut.",
-        )
-        setStatus("error")
-        return
-      }
-
-      form.reset()
-      setStatus("success")
-    } catch {
-      setErrorMessage(
-        "Die Verbindung ist fehlgeschlagen. Bitte rufen Sie uns an oder schreiben Sie uns per WhatsApp.",
-      )
-      setStatus("error")
-    }
-  }
+  const mailto = React.useMemo(() => {
+    const subject = `Anfrage: ${service || "Folierung"}${vehicle ? `, ${vehicle}` : ""}`
+    const body = [
+      `Name: ${name}`,
+      `Telefon: ${phone}`,
+      `E-Mail: ${email}`,
+      `Fahrzeug: ${vehicle}`,
+      `Leistung: ${service}`,
+      "",
+      message,
+    ].join("\n")
+    // `encodeURIComponent` ist hier Pflicht, nicht Kosmetik: Umlaute und
+    // Zeilenumbrüche zerlegen sonst die URL, und ein Semikolon im Freitext
+    // könnte weitere Header anhängen.
+    return `${site.contact.emailHref}?subject=${encodeURIComponent(
+      subject,
+    )}&body=${encodeURIComponent(body)}`
+  }, [name, phone, email, vehicle, service, message])
 
   return (
-    <section
-      id="kontakt"
-      className="section relative scroll-mt-20 overflow-hidden"
-    >
-      {/* Messraster statt Farb-Glow: die Kontaktfläche liest sich als
-          Arbeitsblatt, nicht als beleuchtetes Banner. */}
-      <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
-        <div className="bg-grid absolute inset-0 opacity-70 [mask-image:radial-gradient(90%_70%_at_50%_0%,#000,transparent_75%)]" />
-      </div>
+    <section id="kontakt" className="section-lg relative scroll-mt-24 overflow-hidden">
+      <div
+        aria-hidden
+        className="bg-stage pointer-events-none absolute inset-0 -z-10"
+      />
 
-      <Container width="wide">
-        {/* Die Regel läuft über die volle Bühnenbreite, der Satz bleibt in der
-            Lesespalte — eine auf max-w-2xl beschnittene Linie liest sich als
-            abgeschnittener Rahmen, nicht als Ordnungslinie. */}
-        <div className="border-t border-border pt-10">
-          <div className="max-w-2xl">
-            <Eyebrow index="07">Kontakt</Eyebrow>
-            <h2 className="t-h2 mt-7 text-balance">
-              Bereit für den <span className="text-outline">neuen Look?</span>
-            </h2>
-            <p className="t-lead mt-6 max-w-xl text-muted-foreground text-pretty">
-              Kurz Fahrzeug und Ziel schildern, Sie bekommen ein ehrliches
-              Festpreis-Angebot. Am schnellsten per Anruf oder WhatsApp.
-            </p>
-          </div>
-        </div>
+      <SectionHead
+        label="Kontakt"
+        titleLines={["Erzählen Sie uns", "von Ihrem Fahrzeug."]}
+        lead="Beratung und Festpreis-Angebot kosten nichts. Sagen Sie uns, was Ihnen vorschwebt, wir melden uns mit einer ehrlichen Einschätzung."
+        id="kontakt-titel"
+      />
 
-        <div className="mt-12 grid gap-8 lg:grid-cols-[1fr_1.1fr] lg:gap-10">
-          {/* Linke Spalte: Direktkontakt, Standort, Karte */}
-          <div className="flex flex-col gap-5">
-            {/* Auf Mobile untereinander — dreispaltig bricht die Telefonnummer */}
-            <div className="grid gap-3 sm:grid-cols-3">
-              {directLinks.map(({ href, icon: Icon, label, value, external }) => (
-                <a
-                  key={label}
-                  href={href}
-                  {...(external
-                    ? { target: "_blank", rel: "noopener noreferrer" }
-                    : {})}
-                  className="group flex min-h-14 items-center gap-3.5 border border-border p-4 transition-colors duration-200 ease-[var(--ease-premium)] hover:border-signal focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none sm:flex-col sm:items-start sm:gap-4"
-                >
-                  <Icon className="size-4.5 shrink-0 text-signal" />
-                  <span className="leading-tight">
-                    <span className="t-mono block text-muted-foreground">
-                      {label}
-                    </span>
-                    <span className="mt-1.5 block text-sm font-semibold">
-                      {value}
-                    </span>
-                  </span>
-                </a>
-              ))}
-            </div>
-
-            {/* Standort & Verfügbarkeit */}
-            <div className="grid gap-5 border border-border p-5 sm:grid-cols-2">
-              <div className="flex items-start gap-3 text-sm">
-                <MapPin className="mt-0.5 size-4 shrink-0 text-muted-foreground" />
-                <span className="text-muted-foreground">
-                  <span className="block font-semibold text-foreground">
-                    {site.address.street}
-                  </span>
-                  {site.address.postalCode} {site.address.city}
-                </span>
-              </div>
-              <div className="flex items-start gap-3 text-sm">
-                <CalendarClock className="mt-0.5 size-4 shrink-0 text-muted-foreground" />
-                <span className="text-muted-foreground">
-                  <span className="block font-semibold text-foreground">
-                    {site.availability}
-                  </span>
-                  Anruf oder WhatsApp genügt
-                </span>
-              </div>
-            </div>
-
-            <div className="h-56 lg:h-64">
-              <MapEmbed />
-            </div>
-          </div>
-
-          {/* Rechte Spalte: Formular */}
-          <div className="border border-border bg-card/30 p-6 sm:p-9">
-            {status === "success" ? (
-              // role="status" + gezielter Fokus: vorher wurde das Formular
-              // ersetzt, ohne dass Screenreader etwas erfuhren und ohne dass
-              // der Fokus mitwanderte (er fiel auf BODY).
-              <div
-                role="status"
-                className="flex h-full min-h-80 flex-col items-center justify-center text-center"
+      <Container className="mt-14 grid gap-12 lg:mt-16 lg:grid-cols-12 lg:gap-16">
+        {/* Direkte Wege zuerst, bei einem Handwerksbetrieb greifen die
+            meisten zum Telefon, bevor sie ein Formular ausfüllen. */}
+        <Reveal className="lg:col-span-5">
+          <ul className="flex flex-col gap-3">
+            <li>
+              <a
+                href={site.contact.phoneHref}
+                // Bewusst kein `ring-iris`: eine cyan-magenta umrandete Karte
+                // über zwei grau umrandeten liest sich im Kontext eines
+                // Formulars wie ein Fehler- oder Selected-Zustand. Die
+                // Hierarchie trägt hier der Volltonkreis mit dem Hörer.
+                className="group flex items-center gap-5 rounded-2xl border border-brand/35 bg-brand/[0.06] p-6 transition-colors duration-200 hover:bg-brand/[0.1] focus-ring"
               >
-                <div className="flex size-14 items-center justify-center rounded-full border border-signal/40 text-signal">
-                  <Check className="size-7" />
-                </div>
-                <h3 ref={successRef} tabIndex={-1} className="t-h3 mt-5 outline-none">
-                  Anfrage ist raus
-                </h3>
-                <p className="mt-2 max-w-sm text-sm text-muted-foreground">
-                  Wir haben Ihre Anfrage erhalten und melden uns zeitnah zurück.
-                  Wenn es eilt, erreichen Sie uns direkt unter{" "}
-                  <a
-                    href={site.contact.phoneHref}
-                    className="font-semibold text-signal underline-offset-2 hover:underline"
-                  >
+                <span className="flex size-12 shrink-0 items-center justify-center rounded-full bg-brand text-brand-foreground">
+                  <Phone className="size-5" aria-hidden />
+                </span>
+                <span>
+                  <span className="block text-sm text-muted-foreground">
+                    Direkt anrufen
+                  </span>
+                  <span className="nums mt-1 block text-lg font-semibold">
                     {site.contact.phone}
-                  </a>
-                  .
-                </p>
-                <Button
-                  variant="outline"
-                  className="mt-6"
-                  onClick={() => setStatus("idle")}
-                >
-                  Neue Anfrage
-                </Button>
-              </div>
-            ) : (
-              <form onSubmit={handleSubmit} noValidate className="grid gap-4">
-                {status === "error" && errorMessage && (
-                  <div
-                    ref={alertRef}
-                    role="alert"
-                    tabIndex={-1}
-                    className="flex items-start gap-3 border border-destructive/40 bg-destructive/10 p-3.5 text-sm text-foreground outline-none"
-                  >
-                    <AlertTriangle className="mt-0.5 size-4 shrink-0 text-destructive" />
-                    <span>
-                      {errorMessage}{" "}
-                      <a
-                        href={site.contact.emailHref}
-                        className="font-semibold underline underline-offset-2"
-                      >
-                        Alternativ direkt per E-Mail
-                      </a>
-                      .
+                  </span>
+                </span>
+              </a>
+            </li>
+            <li>
+              <a
+                href={site.contact.whatsappHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex items-center gap-5 rounded-2xl border border-border bg-surface/30 p-6 transition-colors duration-200 hover:border-brand/50 focus-ring"
+              >
+                <span className="flex size-12 shrink-0 items-center justify-center rounded-full border border-border text-foreground">
+                  <MessageCircle className="size-5" aria-hidden />
+                </span>
+                <span>
+                  <span className="block text-sm text-muted-foreground">
+                    Fotos schicken per
+                  </span>
+                  <span className="mt-1 block text-lg font-semibold">WhatsApp</span>
+                </span>
+              </a>
+            </li>
+            <li>
+              <a
+                href={site.social.googleMaps}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex items-center gap-5 rounded-2xl border border-border bg-surface/30 p-6 transition-colors duration-200 hover:border-brand/50 focus-ring"
+              >
+                <span className="flex size-12 shrink-0 items-center justify-center rounded-full border border-border text-foreground">
+                  <MapPin className="size-5" aria-hidden />
+                </span>
+                <span>
+                  <span className="block text-sm text-muted-foreground">
+                    Studio besuchen
+                  </span>
+                  <span className="mt-1 block text-lg font-semibold">
+                    {site.address.street}, {site.address.city}
+                  </span>
+                </span>
+              </a>
+            </li>
+          </ul>
+
+          <p className="mt-8 text-sm leading-relaxed text-muted-foreground">
+            {site.availability}. Wir sitzen in {site.address.city}, wenige
+            Minuten von Neuss, Mönchengladbach und Düsseldorf.
+          </p>
+        </Reveal>
+
+        <Reveal delay={0.1} className="lg:col-span-7">
+          <form
+            className="rounded-2xl border border-border bg-surface/30 p-7 lg:p-9"
+            onSubmit={(event) => {
+              event.preventDefault()
+              // Genau eine Rückmeldemöglichkeit ist Pflicht — welche, darf der
+              // Nutzer entscheiden. `required` auf beiden Feldern würde eine
+              // Angabe erzwingen, die er vielleicht nicht machen will.
+              if (!phone.trim() && !email.trim()) {
+                setError(
+                  "Bitte hinterlassen Sie eine Telefonnummer oder eine E-Mail-Adresse, sonst können wir nicht antworten.",
+                )
+                phoneRef.current?.focus()
+                return
+              }
+              setError(null)
+              setHandedOver(true)
+              window.location.href = mailto
+            }}
+          >
+            <div className="grid gap-6 sm:grid-cols-2">
+              <Field id="name" label="Ihr Name" required>
+                {(props) => (
+                  <Input
+                    {...props}
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    autoComplete="name"
+                    placeholder="Max Mustermann"
+                  />
+                )}
+              </Field>
+
+              {/* Telefon und E-Mail getrennt statt als Kombifeld: ein Feld für
+                  beides erzwingt entweder die falsche Tastatur oder das
+                  falsche Autofill. Getrennt bekommt jedes Feld `inputMode`,
+                  `type` und `autoComplete`, die zu ihm passen. */}
+              <Field id="phone" label="Telefon" hint="Am schnellsten für Rückfragen">
+                {(props) => (
+                  <Input
+                    {...props}
+                    ref={phoneRef}
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    type="tel"
+                    inputMode="tel"
+                    autoComplete="tel"
+                    placeholder="0176 …"
+                    aria-invalid={error ? true : undefined}
+                  />
+                )}
+              </Field>
+
+              <Field id="email" label="E-Mail" hint="Oder hier, wenn Ihnen das lieber ist">
+                {(props) => (
+                  <Input
+                    {...props}
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    type="email"
+                    inputMode="email"
+                    autoComplete="email"
+                    placeholder="name@beispiel.de"
+                    aria-invalid={error ? true : undefined}
+                  />
+                )}
+              </Field>
+
+              <Field id="vehicle" label="Fahrzeug" hint="Marke, Modell, Baujahr">
+                {(props) => (
+                  <Input
+                    {...props}
+                    value={vehicle}
+                    onChange={(e) => setVehicle(e.target.value)}
+                    placeholder="BMW M2, 2023"
+                  />
+                )}
+              </Field>
+
+              <Field id="service" label="Leistung">
+                {(props) => (
+                  <div className="relative">
+                    <select
+                      {...props}
+                      value={service}
+                      onChange={(e) => setService(e.target.value)}
+                      className="h-12 w-full cursor-pointer appearance-none rounded-lg border border-input bg-surface/60 px-4 text-base sm:text-[0.95rem] text-foreground transition-[border-color,box-shadow] duration-200 hover:border-input/80 focus-visible:border-brand focus-ring"
+                    >
+                      <option value="">Noch unklar, bitte beraten</option>
+                      {services.map((s) => (
+                        <option key={s.slug} value={s.name}>
+                          {s.name}
+                        </option>
+                      ))}
+                    </select>
+                    <span
+                      aria-hidden
+                      className="pointer-events-none absolute inset-y-0 right-4 flex items-center text-muted-foreground"
+                    >
+                      ▾
                     </span>
                   </div>
                 )}
+              </Field>
+            </div>
 
-                {/* Honeypot – visuell und für Screenreader ausgeblendet */}
-                <input
-                  type="text"
-                  name="website"
-                  tabIndex={-1}
-                  autoComplete="off"
-                  aria-hidden="true"
-                  className="sr-only"
+            <Field
+              id="message"
+              label="Ihr Vorhaben"
+              hint="Wunschfarbe, Finish, Umfang, je konkreter, desto genauer das Angebot."
+              className="mt-6"
+            >
+              {(props) => (
+                <Textarea
+                  {...props}
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                  placeholder="Ich möchte mein Fahrzeug in Satin Schwarz folieren lassen und dazu die Front mit Lackschutz …"
                 />
+              )}
+            </Field>
 
-                <div className="grid gap-4 sm:grid-cols-2">
-                  <Field id="name" label="Name" error={errors.name}>
-                    <Input
-                      id="name"
-                      name="name"
-                      required
-                      autoComplete="name"
-                      placeholder="Ihr Name"
-                      aria-invalid={Boolean(errors.name)}
-                      aria-describedby={errors.name ? "name-error" : undefined}
-                    />
-                  </Field>
-                  <Field id="phone" label="Telefon" error={errors.phone}>
-                    <Input
-                      id="phone"
-                      name="phone"
-                      type="tel"
-                      required
-                      autoComplete="tel"
-                      placeholder="Für den Rückruf"
-                      aria-invalid={Boolean(errors.phone)}
-                      aria-describedby={errors.phone ? "phone-error" : undefined}
-                    />
-                  </Field>
-                </div>
+            {/* Fehler direkt über dem Absenden, nicht am Formularkopf: dort
+                steht der Nutzer gerade, und der Fokus springt ins erste
+                betroffene Feld. */}
+            {error ? (
+              <p
+                role="alert"
+                className="mt-6 rounded-lg border border-destructive/45 bg-destructive/10 px-4 py-3 text-sm text-destructive"
+              >
+                {error}
+              </p>
+            ) : null}
 
-                <div className="grid gap-4 sm:grid-cols-2">
-                  <Field id="email" label="E-Mail" error={errors.email}>
-                    <Input
-                      id="email"
-                      name="email"
-                      type="email"
-                      required
-                      autoComplete="email"
-                      placeholder="name@beispiel.de"
-                      aria-invalid={Boolean(errors.email)}
-                      aria-describedby={errors.email ? "email-error" : undefined}
-                    />
-                  </Field>
-                  <Field
-                    id="vehicle"
-                    label="Fahrzeug (Farbe & Baujahr)"
-                    error={errors.vehicle}
-                    optional
-                  >
-                    <Input
-                      id="vehicle"
-                      name="vehicle"
-                      placeholder="z. B. BMW M3, schwarz, 2021"
-                    />
-                  </Field>
-                </div>
+            <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center">
+              <Button type="submit" size="lg">
+                <Mail />
+                Anfrage senden
+              </Button>
+              {/* Ehrlich sagen, was der Klick tut. Ein Button, der unerwartet
+                  das Mailprogramm öffnet, wirkt kaputt, angekündigt wirkt er
+                  wie eine bewusste Entscheidung. */}
+              <p className="text-sm text-muted-foreground">
+                Öffnet Ihr E-Mail-Programm mit fertig ausgefüllter Nachricht an{" "}
+                <span className="text-foreground">{site.contact.email}</span>.
+              </p>
+            </div>
 
-                <Field id="service" label="Gewünschte Leistung" error={errors.service}>
-                  <select
-                    id="service"
-                    name="service"
-                    required
-                    ref={serviceRef}
-                    defaultValue=""
-                    aria-invalid={Boolean(errors.service)}
-                    aria-describedby={errors.service ? "service-error" : undefined}
-                    // Gleiche Kette wie Input/Textarea, inklusive Fokusring —
-                    // vorher wich das Select hier ab.
-                    className="flex h-12 w-full border border-input bg-card/40 px-4 text-sm text-foreground shadow-sm transition-colors outline-none focus-visible:border-signal/60 focus-visible:ring-2 focus-visible:ring-signal/25"
-                  >
-                    <option value="" disabled>
-                      Bitte wählen
-                    </option>
-                    {SERVICES.map((service) => (
-                      <option key={service}>{service}</option>
-                    ))}
-                  </select>
-                </Field>
-
-                <Field id="message" label="Nachricht" error={errors.message} optional>
-                  <Textarea
-                    id="message"
-                    name="message"
-                    rows={3}
-                    placeholder="Erzählen Sie uns von Ihrem Wunschprojekt"
-                  />
-                </Field>
-
-                <div className="grid gap-1.5">
-                  <label className="flex cursor-pointer items-start gap-3 py-2 text-sm text-muted-foreground">
-                    <input
-                      type="checkbox"
-                      name="consent"
-                      required
-                      aria-invalid={Boolean(errors.consent)}
-                      aria-describedby={
-                        errors.consent ? "consent-error" : undefined
-                      }
-                      className="mt-0.5 size-5 shrink-0 cursor-pointer border border-input bg-card/40 accent-[var(--primary)] focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none"
-                    />
-                    <span>
-                      Ich habe die{" "}
-                      <a
-                        href="/datenschutz"
-                        className="underline underline-offset-2 hover:text-foreground"
-                      >
-                        Datenschutzerklärung
-                      </a>{" "}
-                      gelesen und stimme der Verarbeitung meiner Daten zur
-                      Bearbeitung der Anfrage zu.
-                    </span>
-                  </label>
-                  {errors.consent && (
-                    <p id="consent-error" className="text-sm text-destructive">
-                      {errors.consent}
-                    </p>
-                  )}
-                </div>
-
-                {/* aria-disabled statt disabled: ein `disabled` Button wird
-                    vom Browser geblurrt, der Fokus fiel dadurch auf BODY. */}
-                <Button
-                  type="submit"
-                  size="lg"
-                  aria-disabled={status === "submitting"}
-                  aria-busy={status === "submitting"}
-                  onClick={(e) => {
-                    if (status === "submitting") e.preventDefault()
-                  }}
-                  className="mt-1 w-full aria-disabled:pointer-events-none aria-disabled:opacity-60"
+            {/* Der Ausweg aus der Sackgasse. Wer keinen Mail-Client
+                registriert hat, auf Android und im Webmail-Alltag der
+                Normalfall, klickt sonst und sieht nichts passieren, und das
+                ausgerechnet am Ende des gesamten Conversion-Pfads. */}
+            {handedOver ? (
+              <p
+                role="status"
+                className="mt-5 rounded-lg border border-brand/35 bg-brand/[0.07] px-4 py-3.5 text-sm leading-relaxed text-foreground/90"
+              >
+                Ihr E-Mail-Programm sollte sich jetzt öffnen. Passiert nichts?
+                Schreiben Sie direkt an{" "}
+                <a
+                  href={site.contact.emailHref}
+                  className="text-brand underline underline-offset-4"
                 >
-                  {status === "submitting" ? (
-                    <>
-                      <Loader2 className="animate-spin" />
-                      Wird gesendet
-                    </>
-                  ) : (
-                    "Festpreis anfragen"
-                  )}
-                </Button>
-              </form>
-            )}
-          </div>
-        </div>
+                  {site.contact.email}
+                </a>{" "}
+                oder rufen Sie an:{" "}
+                <a
+                  href={site.contact.phoneHref}
+                  className="nums text-brand underline underline-offset-4"
+                >
+                  {site.contact.phone}
+                </a>
+                .
+              </p>
+            ) : null}
+
+            <p className="mt-5 text-xs leading-relaxed text-muted-foreground">
+              Ihre Angaben nutzen wir ausschließlich, um Ihre Anfrage zu
+              beantworten. Details in unserer{" "}
+              <a
+                href="/datenschutz"
+                className="text-foreground underline underline-offset-4 hover:text-brand"
+              >
+                Datenschutzerklärung
+              </a>
+              .
+            </p>
+          </form>
+        </Reveal>
       </Container>
     </section>
-  )
-}
-
-function Field({
-  id,
-  label,
-  error,
-  optional,
-  children,
-}: {
-  id: string
-  label: string
-  error?: string
-  /** Kennzeichnet die zwei freiwilligen Felder — vorher war der Unterschied
-   *  erst nach dem Absenden sichtbar (WCAG 3.3.2). */
-  optional?: boolean
-  children: React.ReactNode
-}) {
-  return (
-    // `group/field` + der Strich unten: beim Fokus läuft eine 1px-Linie von
-    // links unter das Feld. Das Formular war zuvor die einzige Fläche der
-    // Seite ganz ohne Bewegung — ausgerechnet die Conversion-Fläche.
-    <div className="group/field relative grid gap-1.5">
-      <Label htmlFor={id} className={cn(error && "text-destructive")}>
-        {label}
-        {optional ? (
-          <span className="ml-2 font-normal text-muted-foreground normal-case">
-            optional
-          </span>
-        ) : null}
-      </Label>
-      <div className="relative">
-        {children}
-        <span
-          aria-hidden
-          className="pointer-events-none absolute inset-x-0 bottom-0 h-px origin-left scale-x-0 bg-signal transition-transform duration-[220ms] ease-[var(--ease-out-expo)] group-focus-within/field:scale-x-100"
-        />
-      </div>
-      {error && (
-        <p id={`${id}-error`} className="text-sm text-destructive">
-          {error}
-        </p>
-      )}
-    </div>
   )
 }

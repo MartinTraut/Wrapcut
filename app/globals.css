@@ -1,121 +1,169 @@
 @import "tailwindcss";
-@import "tw-animate-css";
-
-@custom-variant dark (&:is(.dark *));
 
 @theme inline {
     --font-display: var(--font-display);
     --font-sans: var(--font-sans);
-    --font-mono: var(--font-mono);
 
     --color-background: var(--background);
     --color-foreground: var(--foreground);
-    --color-card: var(--card);
-    --color-card-foreground: var(--card-foreground);
-    --color-primary: var(--primary);
-    --color-primary-foreground: var(--primary-foreground);
-    --color-secondary: var(--secondary);
-    --color-secondary-foreground: var(--secondary-foreground);
+    --color-surface: var(--surface);
+    --color-surface-2: var(--surface-2);
     --color-muted: var(--muted);
     --color-muted-foreground: var(--muted-foreground);
     --color-brand: var(--brand);
     --color-brand-foreground: var(--brand-foreground);
-    --color-signal: var(--signal);
-    --color-destructive: var(--destructive);
     --color-border: var(--border);
     --color-input: var(--input);
     --color-ring: var(--ring);
+    --color-destructive: var(--destructive);
 
-    /* Alle Stufen auf denselben Wert: bei --radius: 0 erzeugten die früheren
-       px-Offsets 1–2 px Restrundung, und genau die machte den Unterschied
-       zwischen einer kantigen und einer „fast kantigen" Fläche sichtbar.
-       Echte Pillen benutzen `rounded-full` und sind davon unberührt. */
-    --radius-sm: var(--radius);
-    --radius-md: var(--radius);
-    --radius-lg: var(--radius);
-    --radius-xl: var(--radius);
-    --radius-2xl: var(--radius);
-    --radius-3xl: var(--radius);
+    --radius-sm: 0.5rem;
+    --radius-md: 0.75rem;
+    --radius-lg: 1rem;
+    --radius-xl: 1.5rem;
+    --radius-2xl: 2rem;
 
     --ease-premium: cubic-bezier(0.22, 1, 0.36, 1);
-    --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+
+    /*
+     * Die Fließtextstufen eine Stufe größer als Tailwinds Standard.
+     *
+     * Das gehört ins Theme und nicht in die Aufrufstellen: sonst müsste jede
+     * Komponente einzeln angefasst werden, und der nächste neue Baustein
+     * käme wieder in der alten Größe. Auf dunklem Grund mit heller Schrift
+     * sind 16 px die Untergrenze der bequemen Lesbarkeit, nicht der
+     * Normalfall.
+     */
+    --text-sm: 0.975rem;
+    --text-sm--line-height: 1.55;
+    --text-base: 1.1rem;
+    --text-base--line-height: 1.6;
+    --text-lg: 1.28rem;
+    --text-xl: 1.45rem;
 }
 
 /*
  * ─────────────────────────────────────────────────────────────────────────
- * Designsystem "Carbon & Lime" — WrapCut
+ * Designsystem „Iridescence" — WrapCut
  * ─────────────────────────────────────────────────────────────────────────
- * Ablösung von "Obsidian & Racing Green". Der Kern des Umbaus:
+ * Die Markenfarbe ist aus dem Produkt abgeleitet, nicht aus dem Farbrad
+ * gegriffen: WrapCut verlegt Chameleon- und Flip-Folien, also Material, das
+ * je nach Blickwinkel die Farbe wechselt. Genau das ist die Signatur der
+ * Seite — ein Verlauf von Cyan über Violett, der auf Logo, Headline-Sweeps
+ * und Kanten liegt.
  *
- * 1. NEUTRALE GRAUSTUFEN. Vorher lag ein Grünstich (Chroma 0.011–0.013) auf
- *    jedem Grau — Hintergrund, Karten, Ränder. Das ließ die Seite stumpf
- *    wirken und nahm dem Akzent die Wirkung. Jetzt: echtes Karbon-Schwarz
- *    ohne Chroma. Farbe erscheint nur dort, wo sie etwas bedeutet.
- * 2. EIN LAUTER AKZENT statt drei mittellauter. `--signal` ist deutlich
- *    heller und gesättigter (0.79 / 0.165) — auf neutralem Schwarz wirkt es
- *    wie beleuchtetes Vinyl, ohne ins Neon zu kippen. Bleibt in der
- *    Logo-Farbfamilie (Hue 146).
- * 3. KANTE STATT KACHEL. `--radius: 0` — Flächen sind Schnitte, keine
- *    Buttons. Nur echte Pillen (CTA, Badge) bekommen `rounded-full`.
- *    Das ist die Folien-Metapher: geschnitten, nicht abgerundet.
- * 4. HAARLINIEN TRAGEN DAS RASTER. Struktur entsteht über 1px-Regeln, nicht
- *    über Füllflächen — deshalb ist `--border` heller als zuvor.
+ * Vier Entscheidungen:
+ *
+ * 1. DIE FLÄCHE BLEIBT ACHROMATISCH. Die Fotos zeigen Autos in Violett,
+ *    Camo, Military Green unter einer weißen Hexagon-Lichtdecke. Das ist die
+ *    Farbigkeit der Marke. Käme sie zusätzlich aus dem CSS, konkurrierten
+ *    Oberfläche und Motiv. Der Grund ist deshalb ein kühles Fast-Schwarz.
+ * 2. DIE IRIDESZENZ IST EIN VERLAUF, KEINE FARBE. Als Volltonfarbe für
+ *    Buttons und Fokus dient ein einzelnes kaltes Cyan — ein Verlauf auf
+ *    einer Bedienfläche wird unlesbar und altert schlecht. Der Verlauf ist
+ *    für Typografie, Linien und Ränder reserviert.
+ * 3. WEICHE, ABER NICHT RUNDE KANTEN. `--radius` liegt bei 1rem: Folie legt
+ *    sich um Radien, aber ein Detailing-Betrieb arbeitet auf Kante. Voll
+ *    gerundete Pillen nur bei Buttons und Chips.
+ * 4. ZWEI SCHRIFTEN. Archivo trägt die Display-Ebene (eng, schwer,
+ *    automotive), Geist den Fließtext. Hierarchie kommt aus Größe und
+ *    Gewicht, nicht aus einem dritten Schriftschnitt.
  */
 :root {
-    --background: oklch(0.135 0 0);
-    --foreground: oklch(0.975 0 0);
-
-    /* Karten sind fast unsichtbar aufgehellt — der Unterschied kommt aus
-       der Haarlinie, nicht aus dem Füllwert. */
-    --card: oklch(0.175 0 0);
-    --card-foreground: oklch(0.975 0 0);
-
-    /* Marken-Grün weiterhin exakt aus dem Logo abgeleitet (#29452b =
-       oklch(0.36 0.056 146)). Eine Farbtonfamilie, Hue 146 — nur
-       Helligkeit und Sättigung variieren. Kein zweiter Farbton auf der
-       gesamten Seite außer Fehler-Rot. */
-    --brand: oklch(0.42 0.085 146);
-    --brand-foreground: oklch(0.98 0.01 146);
-    --signal: oklch(0.79 0.165 146);
-
-    /* Primär-CTA = volles Signal auf dunklem Text. Kontrast gegen
-       --background liegt bei ~12:1, gegen das Hero-Foto immer noch >7:1. */
-    --primary: oklch(0.79 0.165 146);
-    --primary-foreground: oklch(0.16 0.03 146);
-
-    --secondary: oklch(0.225 0 0);
-    --secondary-foreground: oklch(0.975 0 0);
-    --muted: oklch(0.215 0 0);
-    --muted-foreground: oklch(0.715 0 0);
-
-    --destructive: oklch(0.66 0.2 25);
-
-    /* Deutlich sichtbarer als zuvor (9% → 14%): Haarlinien sind jetzt das
-       tragende Strukturelement und müssen lesbar sein. */
-    --border: oklch(1 0 0 / 14%);
-    /* Eigenes, kräftigeres Token für Bedienelement-Ränder — WCAG 1.4.11 (3:1) */
-    --input: oklch(1 0 0 / 34%);
-    --ring: oklch(0.79 0.165 146);
-
-    /* Schnitt statt Kachel. Kein Radius auf Flächen. */
-    --radius: 0rem;
+    /* Kühles Fast-Schwarz. Ein Hauch Blau (Chroma 0.006 bei Hue 255) lässt
+       die warmen Hallenfotos davor wärmer wirken als sie sind — reines
+       Neutralgrau daneben liest sich schmutzig. */
+    --background: oklch(0.055 0.006 255);
+    --foreground: oklch(0.985 0 0);
 
     /*
-     * Fluid-Type-Skala. Jeder Wert clamp(MIN, vw + rem, MAX) — der rem-Anteil
-     * sichert Zoom-/A11y-Verhalten.
+     * Drei Flächenstufen — jetzt heller und mit Farbe im Grund.
      *
-     * Deutlich größer und enger als zuvor: Display geht bis 8.5rem statt
-     * 6rem. Erst diese Spreizung zwischen Display und Fließtext erzeugt die
-     * Hierarchie, die eine Seite teuer aussehen lässt. Die Minima bleiben an
-     * das längste Wort der Seite gebunden ("Fahrzeugfolierung", 17 Zeichen),
-     * sonst reißt die Headline auf 375 px aus dem Viewport.
+     * Vorher lagen sie bei 0.125/0.185 mit fast keinem Chroma: Karten
+     * standen als kaum unterscheidbares Dunkelgrau auf Fast-Schwarz, und
+     * ganze Kapitel lasen sich als schwarze Fläche mit weißem Text. Mehr
+     * Helligkeit trennt die Ebenen, das Chroma bindet sie an die Marke.
      */
-    --text-display: clamp(2.1rem, 6.4vw + 0.6rem, 8.5rem);
-    --text-h2-hero: clamp(1.95rem, 5vw + 0.6rem, 6rem);
-    --text-h2: clamp(1.8rem, 2.6vw + 0.9rem, 4rem);
-    --text-h2-minor: clamp(1.5rem, 1.2vw + 1rem, 2.5rem);
-    --text-h3: clamp(1.15rem, 0.4vw + 1.02rem, 1.5rem);
-    --text-lead: clamp(1.05rem, 0.4vw + 0.95rem, 1.35rem);
+    --surface: oklch(0.165 0.022 258);
+    --surface-2: oklch(0.235 0.03 262);
+    --muted: oklch(0.2 0.024 258);
+    /* Angehoben von 0.74 auf 0.82 — Fließtext kommt damit auf rund 12 : 1
+       gegen den Grund statt auf 8,2 : 1. */
+    --muted-foreground: oklch(0.82 0.012 255);
+
+    /*
+     * Volltonfarbe der Marke: kaltes Cyan, deutlich gesättigter (Chroma
+     * 0.14 → 0.19). Auf dieser Helligkeit verträgt sie keinen weißen Text —
+     * Weiß darauf käme auf 1,6 : 1. Alles, was auf der Markenfläche steht,
+     * steht in Fast-Schwarz.
+     */
+    --brand: oklch(0.8 0.19 205);
+    --brand-foreground: oklch(0.1 0.012 255);
+
+    /* Ränder tragen jetzt sichtbar: 12 % waren auf diesem Grund praktisch
+       unsichtbar, die Karten hatten optisch gar keine Kante. */
+    --border: oklch(1 0 0 / 20%);
+    /* Bedienelement-Ränder brauchen eigenständig 3 : 1 — WCAG 1.4.11. */
+    --input: oklch(1 0 0 / 46%);
+    --ring: oklch(0.8 0.19 205);
+    --destructive: oklch(0.7 0.21 25);
+
+    --radius: 1rem;
+
+    /*
+     * Die Iridescence als wiederverwendbarer Verlauf. Vier Stopps, nicht
+     * zwei: ein Zweifarbverlauf liest sich als Farbverlauf, erst der
+     * Durchgang Cyan → Blau → Violett → Magenta liest sich als Lichtbrechung
+     * in einer Folie.
+     */
+    --iris: linear-gradient(
+        100deg,
+        oklch(0.85 0.2 192) 0%,
+        oklch(0.72 0.24 264) 34%,
+        oklch(0.66 0.3 312) 64%,
+        oklch(0.72 0.27 355) 100%
+    );
+
+    /* Dieselbe Farbfolge als flächige, stark abgedunkelte Variante — für
+       Hintergründe, auf denen Text stehen muss. */
+    --iris-wash: linear-gradient(
+        135deg,
+        oklch(0.85 0.2 192 / 14%) 0%,
+        oklch(0.72 0.24 264 / 10%) 45%,
+        oklch(0.66 0.3 312 / 13%) 100%
+    );
+
+    /*
+     * Fluid Type, jeweils clamp(MIN, vw + rem, MAX). Der rem-Anteil sichert
+     * Zoom- und Accessibility-Verhalten; reines vw bricht beides.
+     * Die Minima sind an das längste Wort der Seite gebunden
+     * („Fahrzeugfolierung", 17 Zeichen).
+     */
+    /*
+     * Die Minima tragen den Größensprung, nicht nur die Maxima.
+     *
+     * Auf 1440 px steht H1 zu H2 im Verhältnis 1,71 : 1 — auf 390 px lag es
+     * bei 1,17 : 1, weil das Display-Minimum wegen einer umbrechenden Zeile
+     * gesenkt worden war. Damit gab es auf dem Gerät, auf dem die meisten
+     * Besucher landen, faktisch keine Display-Ebene mehr: alles lag matschig
+     * zwischen 32 und 38 px. Jetzt 42,4 px gegen 29,6 px, also 1,43 : 1.
+     *
+     * Die 2.65rem sind die Obergrenze, die „Folierung, die man" (18 Zeichen)
+     * auf 390 px noch in einer Zeile hält: 338 px von 350 px verfügbarer
+     * Satzbreite.
+     */
+    --text-display: clamp(2.65rem, 6vw + 0.6rem, 8.5rem);
+    --text-h2: clamp(2.1rem, 3vw + 0.95rem, 4.75rem);
+    --text-h3: clamp(1.4rem, 0.75vw + 1.15rem, 2.05rem);
+    --text-lead: clamp(1.18rem, 0.55vw + 1.02rem, 1.55rem);
+
+    /* Fließtext eine Stufe über dem Browser-Default. 16 px sind auf einem
+       dunklen Grund mit heller Schrift die Untergrenze der bequemen
+       Lesbarkeit, nicht der Normalfall — 17,6 px lesen sich spürbar ruhiger,
+       ohne dass die Seite kindlich wirkt. */
+    --text-body: 1.1rem;
+    --text-small: 0.975rem;
 }
 
 @layer base {
@@ -126,13 +174,9 @@
         @apply font-sans;
         -webkit-font-smoothing: antialiased;
         text-rendering: optimizeLegibility;
-        /*
-         * WCAG 2.2 SC 2.4.11 (Focus Not Obscured): Header und — unter lg —
-         * die fixierte CTA-Leiste überdecken sonst das gerade fokussierte
-         * Element. Gemessen: ein fokussierter Footer-Link lag bei bottom 809,
-         * die Leiste begann bei 771.
-         */
-        scroll-padding-top: 5.5rem;
+        /* WCAG 2.2 SC 2.4.11: Header und die mobile CTA-Leiste würden das
+           fokussierte Element sonst überdecken. */
+        scroll-padding-top: 6rem;
         scroll-padding-bottom: 6.5rem;
     }
     @media (min-width: 1024px) {
@@ -142,29 +186,36 @@
     }
     body {
         @apply bg-background text-foreground;
-    }
-    ::selection {
-        background: var(--signal);
-        color: oklch(0.16 0.03 146);
+        overflow-x: hidden;
+        /* Grundschriftgröße der Seite. Alles, was mit `text-sm`/`text-base`
+           arbeitet, hängt in Tailwind an festen rem-Werten — die beiden
+           Regeln darunter heben genau die beiden Stufen an, die den
+           Fließtext tragen. */
+        font-size: var(--text-body);
+        line-height: 1.6;
     }
     h1,
     h2,
     h3,
     h4 {
         @apply font-display;
-        /* Sicherheitsnetz für lange Komposita auf schmalen Viewports */
+        /* Sicherheitsnetz für lange deutsche Komposita auf schmalen Screens */
         overflow-wrap: break-word;
     }
-    /* Haarfeine, neutrale Scrollbar — kein farbiger Balken mehr */
+    ::selection {
+        background: var(--brand);
+        color: var(--brand-foreground);
+    }
     ::-webkit-scrollbar {
-        width: 9px;
-        height: 9px;
+        width: 10px;
+        height: 10px;
     }
     ::-webkit-scrollbar-track {
         background: transparent;
     }
     ::-webkit-scrollbar-thumb {
-        background: oklch(1 0 0 / 16%);
+        background: oklch(1 0 0 / 13%);
+        border-radius: 99px;
     }
     ::-webkit-scrollbar-thumb:hover {
         background: oklch(1 0 0 / 26%);
@@ -172,35 +223,17 @@
 }
 
 @layer components {
-    /*
-     * Typo-Stufen. Tracking ist an die Größe gekoppelt: je größer, desto
-     * enger. In Display-Größen läuft Archivo bei -0.055em zu einem
-     * geschlossenen Block zusammen — genau die dichte, plakative Anmutung,
-     * die Motorsport-Typografie ausmacht.
-     */
     .t-display {
         font-size: var(--text-display);
-        line-height: 0.86;
-        letter-spacing: -0.055em;
-        font-weight: 700;
-    }
-    .t-h2-hero {
-        font-size: var(--text-h2-hero);
-        line-height: 0.9;
-        letter-spacing: -0.05em;
+        line-height: 0.88;
+        letter-spacing: -0.04em;
         font-weight: 700;
     }
     .t-h2 {
         font-size: var(--text-h2);
         line-height: 0.95;
-        letter-spacing: -0.042em;
+        letter-spacing: -0.035em;
         font-weight: 700;
-    }
-    .t-h2-minor {
-        font-size: var(--text-h2-minor);
-        line-height: 1.08;
-        letter-spacing: -0.03em;
-        font-weight: 600;
     }
     .t-h3 {
         font-size: var(--text-h3);
@@ -210,76 +243,93 @@
     }
     .t-lead {
         font-size: var(--text-lead);
-        line-height: 1.62;
+        /* 1.6 ergab bei 21,6 px über 48 Zeichen Lauflänge einen Zeilenabstand
+           von 34,5 px — der Erklärsatz zerfiel dadurch in drei einzeln
+           stehende Zeilen statt einen Absatz zu bilden. */
+        line-height: 1.48;
         letter-spacing: -0.005em;
     }
-
+    /* Kleines Meta-Label. Bewusst kein Monospace: versale Monospace-Labels
+       neben versalen Buttons lesen sich wie ein Font-Fehler.
+       0.82rem statt 0.78rem: über einer 56-px-Headline stand das Label bei
+       1 : 4,5 und las sich wie die Beschriftung eines Debug-Elements. */
     /*
-     * Technisches Label. Der Monospace ist die zweite und letzte Schrift der
-     * Seite und trägt ausschließlich Meta-Ebenen: Sektionsindizes, Maße,
-     * Preise, Laufzeiten. Diese Rollentrennung — Grotesk spricht, Mono misst —
-     * ist der stärkste einzelne Träger der Präzisions-Anmutung.
+     * Ein einziger Fokusstil für die ganze Seite.
+     *
+     * Vorher standen hier zwei Systeme nebeneinander, und beide hatten in
+     * Tailwind v4 einen Defekt:
+     *
+     * - `focus-visible:ring-3` plus `ring-offset-*` zerlegt die
+     *   Ring-Komposition, der Schatten landet bei `0 0 0 0`.
+     * - `focus-visible:outline-2` setzt `outline-style: var(--tw-outline-style)`.
+     *   Läuft diese Indirektion ins Leere, gewinnt der Fokusring des Browsers —
+     *   und der ist auf einem Grund in Fast-Schwarz selbst fast schwarz.
+     *   Gemessen: 3 px in `oklch(0.11 …)` statt 2 px in der Ringfarbe.
+     *
+     * Direktes CSS ohne Custom-Property-Indirektion hat keinen der beiden
+     * Fehlermodi. `outline` statt `box-shadow`, weil ein Outline auch dann
+     * sichtbar bleibt, wenn das Element `overflow: hidden` hat.
      */
-    .t-mono {
-        font-family: var(--font-mono);
-        /* 0.73rem statt 0.7: die Klasse trägt auch die Hauptnavigation, und
-           unter ~11.5 px wird versaler Monospace bei diesem Tracking mühsam. */
-        font-size: 0.73rem;
-        line-height: 1;
-        letter-spacing: 0.16em;
+    .focus-ring:focus-visible {
+        outline: 2px solid var(--ring);
+        outline-offset: 2px;
+    }
+    .t-label {
+        font-size: 0.82rem;
+        line-height: 1.3;
+        letter-spacing: 0.09em;
         text-transform: uppercase;
-        font-weight: 500;
-    }
-    .t-mono-sm {
-        font-family: var(--font-mono);
-        font-size: 0.78rem;
-        letter-spacing: 0.02em;
-        font-variant-numeric: tabular-nums;
+        font-weight: 600;
     }
 
     /*
-     * Drei-stufige Vertikalskala, spürbar großzügiger als zuvor. Weißraum ist
-     * das billigste Premium-Signal, das es gibt.
+     * Vertikalskala, drei Stufen. Asymmetrisch: oben viel Anlauf, unten
+     * knapper Abschluss, damit ein Kapitel nach unten an das folgende
+     * anbindet.
+     *
+     * Die dritte Stufe ist kein Detail, sondern die Korrektur eines echten
+     * Fehlers: mit nur zwei Stufen hatten sieben von neun Kapiteln exakt
+     * dasselbe Padding, und zwischen jedem Kapitelende und der nächsten
+     * Haarlinie lagen immer dieselben 232 px. Ein einziger Abstand über neun
+     * Kapitel liest sich als Raster, nicht als Komposition — genau das, was
+     * eine Seite „gebaut" statt „gesetzt" wirken lässt.
+     *
+     *   .section-sm  Textkapitel (Ablauf, Bewertungen, FAQ) — laufen enger
+     *   .section     Regelfall (Leistungen, Galerie)
+     *   .section-lg  Auftritt (Studio, Kontakt)
      */
-    /*
-     * Asymmetrisch, nicht symmetrisch. Bei gleichem oberen und unteren
-     * Innenabstand addieren sich zwei benachbarte Sections zu toten Zonen —
-     * gemessen stießen Galerie (208 unten) und Über-uns (208 oben) auf
-     * 416 px Leere. Oben viel Anlauf, unten knapper Abschluss: der Block
-     * bindet dadurch nach unten an den folgenden an.
-     */
-    .section-tight {
-        padding-top: 5rem;
+    .section-sm {
+        padding-top: 4.5rem;
         padding-bottom: 3.5rem;
     }
     .section {
-        padding-top: 7rem;
-        padding-bottom: 5rem;
+        padding-top: 6rem;
+        padding-bottom: 4.5rem;
     }
-    .section-loose {
-        padding-top: 8.5rem;
-        padding-bottom: 6rem;
+    .section-lg {
+        padding-top: 7.5rem;
+        padding-bottom: 5.5rem;
     }
     @media (min-width: 1024px) {
-        .section-tight {
-            padding-top: 7rem;
-            padding-bottom: 4.5rem;
+        .section-sm {
+            padding-top: 6rem;
+            padding-bottom: 4rem;
         }
         .section {
-            padding-top: 11rem;
-            padding-bottom: 7rem;
+            padding-top: 8.5rem;
+            padding-bottom: 6rem;
         }
-        .section-loose {
-            padding-top: 13rem;
+        .section-lg {
+            padding-top: 11rem;
             padding-bottom: 8rem;
         }
     }
 }
 
 @layer utilities {
-    /* Feines Filmkorn für Tiefe / Anti-Banding */
-    .bg-grain {
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+    .nums {
+        font-variant-numeric: tabular-nums;
+        font-feature-settings: "tnum";
     }
     .text-balance {
         text-wrap: balance;
@@ -287,105 +337,123 @@
     .text-pretty {
         text-wrap: pretty;
     }
-    /* Ziffern in gleicher Laufweite */
-    .nums {
-        font-variant-numeric: tabular-nums;
-        font-feature-settings: "tnum";
+
+    /* ── Die Iridescence in ihren drei Rollen ─────────────────────────── */
+
+    /* Als Schriftfarbe. Der Verlauf ist doppelt so breit wie der Text und
+       wandert langsam — dadurch bricht das Licht beim Lesen, statt still zu
+       stehen. */
+    .text-iris {
+        background: var(--iris);
+        background-size: 220% 100%;
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        animation: iris-drift 9s linear infinite;
+    }
+    @keyframes iris-drift {
+        0% {
+            background-position: 0% 50%;
+        }
+        50% {
+            background-position: 100% 50%;
+        }
+        100% {
+            background-position: 0% 50%;
+        }
+    }
+
+    /* Als Rand. `border-image` bricht mit `border-radius`, deshalb über zwei
+       Masken auf einem Pseudo-Element — der einzige Weg, der beides kann. */
+    .ring-iris {
+        position: relative;
+    }
+    .ring-iris::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        padding: 1px;
+        background: var(--iris);
+        -webkit-mask:
+            linear-gradient(#000 0 0) content-box,
+            linear-gradient(#000 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        pointer-events: none;
+    }
+
+    /* Als Fläche — nur für schmale Bänder und Linien, nie für Textträger. */
+    .bg-iris {
+        background: var(--iris);
+    }
+    /* Dieselbe Farbfolge, stark heruntergedimmt — für Flächen, auf denen
+       Text steht. Der Verlauf ist dabei kein Dekor, sondern ersetzt das
+       tote Dunkelgrau, das Karten vorher hatten. */
+    .bg-iris-wash {
+        background-image: var(--iris-wash);
+        background-color: var(--surface);
     }
 
     /*
-     * Technisches Raster: feine Linien im Hintergrund einer Fläche. Ersetzt
-     * die früheren grünen Radial-Glows — ein Raster liest sich als
-     * Werkstatt/Messfläche, ein Glow als Template.
+     * Hexagon-Raster, direkt aus der Lichtdecke des Studios abgeleitet, die
+     * auf fast jedem Kundenfoto zu sehen ist. Ein Motiv, das der Kunde in
+     * seiner eigenen Halle wiedererkennt, schlägt jedes generische Raster.
      */
-    .bg-grid {
+    .bg-hex {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='97' viewBox='0 0 56 97'%3E%3Cpath d='M28 0L56 16.17v32.33L28 64.67 0 48.5V16.17z' fill='none' stroke='rgba(255,255,255,0.05)' stroke-width='1'/%3E%3Cpath d='M28 64.67L56 80.83v32.34M28 64.67L0 80.83v32.34' fill='none' stroke='rgba(255,255,255,0.05)' stroke-width='1'/%3E%3C/svg%3E");
+        background-size: 56px 97px;
+    }
+
+    /* Hallenlicht: neutraler Deckenkegel plus zwei farbige Streifen aus der
+       Iridescence. Bei 8–10 % liest man sie nicht als Farbfläche, sondern
+       als farbiges Licht — der Unterschied zwischen „bunter Hintergrund"
+       und „Showroom-Beleuchtung". */
+    .bg-stage {
         background-image:
-            linear-gradient(to right, oklch(1 0 0 / 4%) 1px, transparent 1px),
-            linear-gradient(to bottom, oklch(1 0 0 / 4%) 1px, transparent 1px);
-        background-size: 72px 72px;
+            radial-gradient(
+                60% 45% at 50% 0%,
+                oklch(1 0 0 / 9%) 0%,
+                transparent 70%
+            ),
+            radial-gradient(
+                50% 55% at 6% 12%,
+                oklch(0.78 0.15 250 / 10%) 0%,
+                transparent 68%
+            ),
+            radial-gradient(
+                55% 60% at 96% 30%,
+                oklch(0.74 0.19 305 / 9%) 0%,
+                transparent 70%
+            );
     }
 
-    /*
-     * Gebürstetes Metall im Text. Zurückhaltender als die Vorversion (weniger
-     * Stopps, geringerer Hub) — der frühere Verlauf flackerte in Bewegung.
-     * Klassenname bleibt, damit bestehende Aufrufe gültig sind.
-     */
-    .text-chrome {
-        background: linear-gradient(
-            105deg,
-            oklch(0.62 0 0) 0%,
-            oklch(0.99 0 0) 30%,
-            oklch(0.72 0 0) 52%,
-            oklch(0.96 0 0) 74%,
-            oklch(0.66 0 0) 100%
+    /* Die Hallenaufnahmen entstehen unter kaltweißem LED-Licht und sind von
+       Haus aus flau. Über 20 % Sättigung kippt der Camo-Wagen ins Türkis. */
+    .img-punch {
+        filter: saturate(1.12) contrast(1.05);
+    }
+
+    .mask-fade-x {
+        mask-image: linear-gradient(
+            90deg,
+            transparent,
+            #000 7%,
+            #000 93%,
+            transparent
         );
-        background-size: 220% 100%;
-        background-position: 100% 0;
-        -webkit-background-clip: text;
-        background-clip: text;
-        color: transparent;
-        /* Einmaliger Sweep statt Endlosschleife. `background-position` auf
-           `background-clip: text` ist nicht kompositierbar und kostete im
-           Dauerbetrieb rund zwei Style-Recalcs pro Frame — auf dem
-           LCP-Element. Ein Effekt, der neun Sekunden lang dasselbe sagt,
-           ist Dekoration mit laufender Rechnung. */
-        animation: sheen-sweep 1.5s var(--ease-out-expo) 0.3s 1 both;
-    }
-    @keyframes sheen-sweep {
-        from {
-            background-position: 100% 0;
-        }
-        to {
-            background-position: 0 0;
-        }
     }
 
-    /*
-     * Marken-Gradient im Text. Als CSS-Animation statt via Framer Motion,
-     * damit der Effekt nicht in jedem Frame über den Main-Thread läuft
-     * (betrifft direkt das LCP-Element im Hero).
-     */
-    .text-flow {
-        background: linear-gradient(
-            100deg,
-            oklch(0.79 0.165 146) 0%,
-            oklch(0.94 0.12 150) 26%,
-            oklch(0.7 0.17 146) 50%,
-            oklch(0.94 0.12 150) 74%,
-            oklch(0.79 0.165 146) 100%
-        );
-        background-size: 220% 100%;
-        background-position: 100% 0;
-        -webkit-background-clip: text;
-        background-clip: text;
-        color: transparent;
-        /* Ebenfalls einmalig — siehe .text-chrome. */
-        animation: sheen-sweep 1.6s var(--ease-out-expo) 0.45s 1 both;
+    .no-scrollbar {
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
     }
 
-    /*
-     * Konturschrift. Ein zweites Headline-Register neben Vollton: dieselbe
-     * Größe, aber nur der Umriss. Erzeugt Hierarchie innerhalb einer Zeile,
-     * ohne eine weitere Farbe oder Schriftgröße einzuführen.
-     */
-    .text-outline {
-        color: transparent;
-        /* 40 % Weiß ergab gemessen 3,75 : 1 — für Großtext gerade zulässig,
-           im Rendering aber kaum lesbar, obwohl die Kontur die halbe Aussage
-           jeder Headline trägt. 1,5 px bei 62 % bringt sie auf ~6,5 : 1. */
-        -webkit-text-stroke: 1.5px oklch(1 0 0 / 62%);
-        paint-order: stroke fill;
-    }
-    /* Unter 640 px ist die Kontur bei ~34 px Schriftgrad zu fein, um zu
-       tragen — dort auf Halbton umschalten statt auf Umriss. */
-    @media (max-width: 639px) {
-        .text-outline {
-            color: oklch(1 0 0 / 45%);
-            -webkit-text-stroke: 0;
-        }
-    }
-
-    /* Glanzstreifen über Buttons/Karten — die Marken-Metapher als Interaktion */
+    /* Glanzstreifen, der einmal über eine Fläche läuft — Streiflicht auf
+       frisch verlegter Folie. */
     .sheen {
         position: relative;
         overflow: hidden;
@@ -400,38 +468,20 @@
         background: linear-gradient(
             105deg,
             transparent 35%,
-            oklch(1 0 0 / 30%) 50%,
+            oklch(1 0 0 / 28%) 50%,
             transparent 65%
         );
         transform: translateX(-120%);
-        transition: transform 620ms var(--ease-out-expo);
+        transition: transform 640ms var(--ease-expo);
     }
     .sheen:hover::after,
     .sheen:focus-visible::after {
         transform: translateX(120%);
     }
 
-    .mask-fade-x {
-        mask-image: linear-gradient(
-            90deg,
-            transparent,
-            #000 8%,
-            #000 92%,
-            transparent
-        );
-    }
-
-    @keyframes marquee {
-        from {
-            transform: translateX(0);
-        }
-        to {
-            transform: translateX(-50%);
-        }
-    }
-    .animate-marquee {
-        animation: marquee 42s linear infinite;
-    }
+    /* Kein CSS-Marquee: die Laufbänder hängen über MotionValues an der
+       Scrollgeschwindigkeit (siehe velocity-marquee.tsx), eine
+       Keyframe-Animation mit fester Dauer gäbe es hier nichts zu tun. */
 
     @keyframes accordion-down {
         from {
@@ -454,10 +504,10 @@
         }
     }
     .animate-accordion-down {
-        animation: accordion-down 0.3s var(--ease-premium);
+        animation: accordion-down 0.32s var(--ease-premium);
     }
     .animate-accordion-up {
-        animation: accordion-up 0.25s var(--ease-premium);
+        animation: accordion-up 0.26s var(--ease-premium);
     }
 }
 
@@ -470,13 +520,7 @@
         transition-duration: 0.001ms !important;
         scroll-behavior: auto !important;
     }
-    .animate-marquee,
-    .text-chrome,
-    .text-flow {
+    .text-iris {
         animation: none !important;
-    }
-    .text-chrome,
-    .text-flow {
-        background-position: 0 0;
     }
 }

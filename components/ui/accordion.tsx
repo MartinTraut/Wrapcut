@@ -2,12 +2,13 @@
 
 import * as React from "react"
 import { Accordion as AccordionPrimitive } from "radix-ui"
-import { ChevronDown } from "lucide-react"
+import { Plus } from "lucide-react"
+
 import { cn } from "@/lib/utils"
 
-function Accordion(
-  props: React.ComponentProps<typeof AccordionPrimitive.Root>
-) {
+function Accordion({
+  ...props
+}: React.ComponentProps<typeof AccordionPrimitive.Root>) {
   return <AccordionPrimitive.Root data-slot="accordion" {...props} />
 }
 
@@ -18,7 +19,7 @@ function AccordionItem({
   return (
     <AccordionPrimitive.Item
       data-slot="accordion-item"
-      className={cn("border-b border-border", className)}
+      className={cn("border-b border-border last:border-b-0", className)}
       {...props}
     />
   )
@@ -34,13 +35,18 @@ function AccordionTrigger({
       <AccordionPrimitive.Trigger
         data-slot="accordion-trigger"
         className={cn(
-          "group flex flex-1 items-start justify-between gap-5 py-7 text-left text-lg font-semibold tracking-[-0.02em] text-foreground transition-colors outline-none hover:text-signal focus-visible:text-signal sm:text-xl [&[data-state=open]]:text-signal",
-          className
+          "group/trigger flex flex-1 cursor-pointer items-start gap-6 py-6 text-left text-[1.05rem] font-semibold transition-colors duration-200 outline-none hover:text-brand focus-ring sm:text-[1.15rem]",
+          className,
         )}
         {...props}
       >
         {children}
-        <ChevronDown className="mt-1.5 size-5 shrink-0 text-muted-foreground transition-transform duration-300 ease-[var(--ease-premium)] group-data-[state=open]:rotate-180 group-data-[state=open]:text-signal" />
+        {/* Plus, das zum Minus rotiert, eine Drehung liest sich als Zustand,
+            ein springender Chevron als Wechsel des Symbols. */}
+        <Plus
+          aria-hidden
+          className="mt-0.5 size-5 shrink-0 text-muted-foreground transition-transform duration-[320ms] ease-[var(--ease-premium)] group-hover/trigger:text-brand group-data-[state=open]/trigger:rotate-135"
+        />
       </AccordionPrimitive.Trigger>
     </AccordionPrimitive.Header>
   )
@@ -54,12 +60,10 @@ function AccordionContent({
   return (
     <AccordionPrimitive.Content
       data-slot="accordion-content"
-      className="overflow-hidden text-[0.975rem] leading-relaxed text-muted-foreground data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down"
+      className="overflow-hidden data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down"
       {...props}
     >
-      {/* Einzug auf die Textspalte des Triggers: der Index links steht frei,
-          Frage und Antwort teilen sich dieselbe Achse. */}
-      <div className={cn("max-w-2xl pr-6 pb-7 sm:pl-[3rem]", className)}>
+      <div className={cn("pb-7 text-muted-foreground text-pretty", className)}>
         {children}
       </div>
     </AccordionPrimitive.Content>

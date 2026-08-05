@@ -1,108 +1,114 @@
-import type { Metadata } from "next"
-import { Archivo, Geist_Mono } from "next/font/google"
+import type { Metadata, Viewport } from "next"
+import { Archivo, Geist } from "next/font/google"
+
+import { SmoothScroll } from "@/components/shared/smooth-scroll"
+import { Header } from "@/components/sections/header"
+import { Footer } from "@/components/sections/footer"
+import { StickyCta } from "@/components/shared/sticky-cta"
+import { site } from "@/lib/site"
 
 import "./globals.css"
-import { cn } from "@/lib/utils"
-import { site } from "@/lib/site"
-import { BusinessJsonLd } from "@/components/shared/json-ld"
-import { MotionProvider } from "@/components/shared/motion-provider"
 
-/**
- * Genau zwei Familien, mit klarer Rollentrennung:
+/*
+ * Zwei Familien, beide variabel.
  *
- * Archivo (Omnibus-Type) trägt Display UND Fließtext. Eine industrielle
- * Grotesk mit sehr geschlossenen Formen — in Display-Größen mit negativem
- * Tracking wird daraus ein dichter, plakativer Block, in 400 bleibt sie
- * ruhig lesbar. Ersetzt das frühere Paar Sora/Inter, das zwei Stimmen für
- * dieselbe Aufgabe benutzte.
- *
- * Geist Mono trägt ausschließlich die Meta-Ebene: Sektionsindizes, Maße,
- * Preise, Laufzeiten. Der Monospace misst, die Grotesk spricht.
+ * Archivo trägt die Display-Ebene: eng laufende Grotesk mit schweren
+ * Schnitten, die auf 8rem noch Struktur hat statt zu verlaufen. Geist trägt
+ * den Fließtext — offene Formen, hohe x-Höhe, auf dunklem Grund gut lesbar.
+ * `display: "swap"` verhindert unsichtbaren Text während des Ladens.
  */
-const fontDisplay = Archivo({
+const display = Archivo({
   subsets: ["latin"],
   variable: "--font-display",
+  weight: ["600", "700", "800"],
   display: "swap",
 })
 
-const fontSans = Archivo({
+const sans = Geist({
   subsets: ["latin"],
   variable: "--font-sans",
   display: "swap",
 })
 
-const fontMono = Geist_Mono({
-  subsets: ["latin"],
-  variable: "--font-mono",
-  weight: ["400", "500"],
-  display: "swap",
-})
-
-/** 53 Zeichen – wird in der SERP vollständig angezeigt. */
-const title = "Fahrzeugfolierung Jüchen | Lackschutz & PPF | WrapCut"
-
-/** 154 Zeichen – unter Googles Kürzungsgrenze von ~160. */
-const description =
-  "Fahrzeugfolierung, Lackschutzfolie (PPF), Keramik und Scheibentönung in Jüchen – für Neuss, Mönchengladbach und Düsseldorf. Kostenloses Festpreis-Angebot."
-
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: title,
-    template: `%s | ${site.name} Jüchen`,
+    default: `${site.name}, Fahrzeugfolierung & Lackschutz in ${site.address.city}`,
+    template: `%s | ${site.name}`,
   },
-  description,
+  description: site.description,
   keywords: [
     "Fahrzeugfolierung Jüchen",
-    "Folierung Neuss",
-    "Carwrapping Mönchengladbach",
-    "Lackschutzfolie PPF Düsseldorf",
-    "Keramikversiegelung Rhein-Kreis Neuss",
-    "Scheibentönung Jüchen",
-    "Auto folieren NRW",
-    "WrapCut",
+    "Autofolierung Neuss",
+    "Lackschutzfolie PPF",
+    "Keramikversiegelung",
+    "Scheibentönung",
+    "Car Wrapping Rhein-Kreis Neuss",
   ],
-  authors: [{ name: site.name }],
-  creator: site.name,
-  alternates: { canonical: site.url },
+  alternates: { canonical: "/" },
+  /*
+   * Ein Bild ist hier kein Nice-to-have. Ein Folierbetrieb bekommt einen
+   * großen Teil seiner Klicks über die Instagram-Bio und über in WhatsApp
+   * weitergereichte Links — ohne `og:image` zeigen beide eine leere graue
+   * Karte, und genau die wird nicht angetippt.
+   */
   openGraph: {
     type: "website",
     locale: "de_DE",
     url: site.url,
     siteName: site.name,
-    title,
-    description,
-    // Das Bild liefert app/opengraph-image.tsx über die Dateikonvention.
+    title: `${site.name}, Fahrzeugfolierung & Lackschutz in ${site.address.city}`,
+    description: site.description,
+    images: [
+      {
+        url: "/originals/img-03.jpg",
+        width: 1200,
+        height: 630,
+        alt: `Fahrzeug nach der Folierung im Studio von ${site.name} in ${site.address.city}`,
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    title,
-    description,
+    title: `${site.name}, Fahrzeugfolierung & Lackschutz in ${site.address.city}`,
+    description: site.description,
+    images: ["/originals/img-03.jpg"],
   },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: { index: true, follow: true, "max-image-preview": "large" },
-  },
+  robots: { index: true, follow: true },
+}
+
+export const viewport: Viewport = {
+  themeColor: "#0a0b0e",
+  // Zoom bleibt erlaubt — `maximum-scale` sperrt ihn für Nutzer aus, die ihn
+  // brauchen, und ist eine der häufigsten stillen A11y-Verletzungen.
+  width: "device-width",
+  initialScale: 1,
 }
 
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html
-      lang="de"
-      className={cn(fontDisplay.variable, fontSans.variable, fontMono.variable)}
-    >
+    <html lang="de" className={`${display.variable} ${sans.variable}`}>
       <body className="antialiased">
+        {/* `JsonLd` steht bewusst nicht hier, sondern in jeder `page.tsx`:
+            im Layout liefe das FAQPage-Objekt der Startseite auf jeder
+            Unterseite mit, auch dort, wo gar kein FAQ sichtbar ist. */}
+        <SmoothScroll />
         <a
           href="#main"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[70] focus:border focus:border-signal focus:bg-background focus:px-4 focus:py-2 focus:text-sm focus:ring-2 focus:ring-ring focus:outline-none"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-100 focus:rounded-full focus:bg-brand focus:px-6 focus:py-3 focus:font-semibold focus:text-brand-foreground"
         >
           Zum Inhalt springen
         </a>
-        <BusinessJsonLd />
-        <MotionProvider>{children}</MotionProvider>
+        <Header />
+        {/* `tabIndex={-1}` ist Pflicht, sonst springt der Skip-Link zwar zur
+            Position, der Fokus bleibt aber am Link stehen. */}
+        <main id="main" tabIndex={-1} className="outline-none">
+          {children}
+        </main>
+        <Footer />
+        <StickyCta />
       </body>
     </html>
   )

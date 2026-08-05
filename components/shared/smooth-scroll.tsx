@@ -2,22 +2,38 @@
 
 import * as React from "react"
 import Lenis from "lenis"
+import { usePathname } from "next/navigation"
 
 /**
- * Gedämpftes Scrolling. Verändert das Gefühl der gesamten Seite mit einer
- * einzigen Maßnahme und ersetzt `scroll-behavior: smooth` inklusive der harten
- * Anker-Sprünge.
+ * Lenis als Scroll-Fundament der Seite.
  *
- * Deaktiviert sich vollständig bei prefers-reduced-motion — dann greift wieder
- * das native Scrollverhalten des Browsers.
+ * Warum überhaupt: sämtliche scroll-gebundene Choreografie (Hero-Parallaxe,
+ * gepinnte Leistungskarten, Geschwindigkeits-Laufband) rechnet gegen
+ * `scrollY`. Nativer Maus-Scroll springt in 100-px-Stufen — die Animationen
+ * ruckeln dann sichtbar, obwohl sie sauber gerechnet sind. Lenis
+ * interpoliert dazwischen und macht aus Stufen eine Kurve.
+ *
+ * Drei Fallen, die hier bewusst behandelt werden:
+ *
+ * 1. `prefers-reduced-motion` schaltet Lenis komplett ab. Erzwungenes
+ *    weiches Scrollen ist genau das, was Betroffene abwählen wollen.
+ * 2. Anker-Links (`/#kontakt`) müssen abgefangen werden, sonst springt der
+ *    Browser hart und Lenis läuft danach gegen die neue Position an. Der
+ *    Fokus wird dabei selbst gesetzt — sonst führt der Sprung visuell zum
+ *    Ziel, die Tastatur steht aber weiter oben.
+ * 3. Der Abgleich läuft über `requestAnimationFrame`, nicht über ein
+ *    Intervall: alles andere driftet gegen die Bildrate.
  */
 export function SmoothScroll() {
+  const pathname = usePathname()
+
   React.useEffect(() => {
-    const query = window.matchMedia("(prefers-reduced-motion: reduce)")
-    if (query.matches) return
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    if (reduce) return
 
     const lenis = new Lenis({
       duration: 1.05,
+      // Exponentielles Ausklingen: schnell ansetzen, weich auslaufen.
       easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       touchMultiplier: 1.6,
     })
@@ -29,41 +45,66 @@ export function SmoothScroll() {
     }
     frame = requestAnimationFrame(raf)
 
-    // Anker-Links über Lenis führen, damit sie mitgedämpft werden.
-    // Auch "/#kontakt" wird abgefangen, aber nur wenn man bereits auf der
-    // Zielseite steht — sonst muss Next normal navigieren.
     const onClick = (event: MouseEvent) => {
-      const link = (event.target as HTMLElement | null)?.closest?.(
-        'a[href^="#"], a[href*="#"]',
-      ) as HTMLAnchorElement | null
-      const href = link?.getAttribute("href")
+      // Modifizierte Klicks gehören dem Browser (neuer Tab, Download …).
+      if (event.metaKey || event.ctrlKey || event.shiftKey || event.button !== 0)
+        return
+
+      const anchor = (event.target as HTMLElement).closest("a")
+      if (!anchor) return
+
+      const href = anchor.getAttribute("href")
       if (!href) return
 
-      const [path, id] = href.split("#")
-      if (!id) return
-      if (path && path !== window.location.pathname) return
+      // Nav-Links sind absolut (`/#kontakt`), damit sie auch von Unterseiten
+      // funktionieren. Abfangen darf man sie nur auf der Zielseite selbst.
+      const hash = href.startsWith("#")
+        ? href
+        : href.startsWith("/#") && pathname === "/"
+          ? href.slice(1)
+          : null
+      if (!hash || hash === "#") return
 
-      const target = document.getElementById(id)
+      const target = document.querySelector(hash)
       if (!target) return
+
       event.preventDefault()
-      lenis.scrollTo(target, { offset: -80 })
-      history.replaceState(null, "", `#${id}`)
+      // `stopPropagation` zusätzlich zu `preventDefault`: sonst läuft der
+      // Klick weiter zum Router-Handler von `next/link`, der ebenfalls zum
+      // Hash scrollt — und dann scrollen zwei Systeme gleichzeitig auf
+      // dasselbe Ziel, mit unterschiedlichem Offset.
+      event.stopPropagation()
 
-      // preventDefault unterdrückt auch die native Fokusverschiebung. Für
-      // Sprungziele mit tabindex (Skip-Link → #main) muss der Fokus mit,
-      // sonst tabbt man nach dem Sprung weiter im Header.
-      if (target.hasAttribute("tabindex")) {
-        target.focus({ preventScroll: true })
-      }
+      // Die Header-Höhe messen statt konstant 88 anzunehmen: der Header ist
+      // 80 px hoch, und bei einem festen Wert landete die Kapitelüberschrift
+      // rund 280 px zu tief, also auf Bildschirmmitte, mit dem Ende des
+      // Vorkapitels darüber.
+      const header = document.querySelector("header")
+      const offset = -((header?.getBoundingClientRect().height ?? 80) + 16)
+      lenis.scrollTo(target as HTMLElement, { offset })
+
+      const focusable = target as HTMLElement
+      if (focusable.tabIndex < 0) focusable.tabIndex = -1
+      focusable.focus({ preventScroll: true })
+      history.replaceState(null, "", hash)
     }
-    document.addEventListener("click", onClick)
 
+    /*
+     * Capture-Phase, nicht Bubble.
+     *
+     * React 19 delegiert seine Events an den Root-Container, der *unterhalb*
+     * von `document` liegt. In der Bubble-Phase liefe der `onClick` von
+     * `next/link` also vor diesem Handler — die Router-Navigation wäre bereits
+     * angestoßen, bevor `preventDefault()` überhaupt ausgeführt wird. In der
+     * Capture-Phase kommt dieser Handler zuerst.
+     */
+    document.addEventListener("click", onClick, true)
     return () => {
-      document.removeEventListener("click", onClick)
+      document.removeEventListener("click", onClick, true)
       cancelAnimationFrame(frame)
       lenis.destroy()
     }
-  }, [])
+  }, [pathname])
 
   return null
 }

@@ -1,51 +1,49 @@
-import { ScrollProgress } from "@/components/shared/scroll-progress"
-import { SmoothScroll } from "@/components/shared/smooth-scroll"
-import { StickyCta } from "@/components/shared/sticky-cta"
-import { HomeJsonLd } from "@/components/shared/json-ld"
-import { Header } from "@/components/sections/header"
 import { Hero } from "@/components/sections/hero"
-import { TrustMarquee } from "@/components/sections/trust-marquee"
+import { Proof } from "@/components/sections/proof"
 import { Services } from "@/components/sections/services"
-import { Showcase } from "@/components/sections/showcase"
-import { About } from "@/components/sections/about"
-import { Suppliers } from "@/components/sections/suppliers"
-import { Stats } from "@/components/sections/stats"
+import { Gallery } from "@/components/sections/gallery"
 import { Process } from "@/components/sections/process"
-import { Testimonials } from "@/components/sections/testimonials"
-import { ParallaxBand } from "@/components/sections/parallax-band"
+import { Studio } from "@/components/sections/studio"
+import { Reviews } from "@/components/sections/reviews"
 import { Faq } from "@/components/sections/faq"
 import { Contact } from "@/components/sections/contact"
-import { Footer } from "@/components/sections/footer"
+import { JsonLd } from "@/components/shared/json-ld"
+import { faqs } from "@/lib/site"
 
 /**
- * Dramaturgie: Beweis vor Erklärung. Die Galerie ist in dieser Branche das
- * einzige harte Argument und steht deshalb direkt hinter den Leistungen,
- * nicht an neunter Stelle. Die früher drei aufeinanderfolgenden Vertrauens-
- * blöcke (About, Stats, Lieferanten) sind zu einem Abschnitt verdichtet.
+ * Die Startseite als Abfolge der Fragen, die ein Besucher tatsächlich stellt:
+ *
+ *   Hero      → Was ist das und für wen?
+ *   Proof     → Warum sollte ich euch trauen?
+ *   Services  → Was genau bekomme ich?
+ *   Gallery   → Zeigt her.
+ *   Process   → Wie läuft das ab?
+ *   Studio    → Wer macht das, und womit?
+ *   Reviews   → Was sagen andere hinterher?
+ *   Faq       → Was ist mit …?
+ *   Contact   → Was tue ich jetzt?
+ *
+ * Die Reihenfolge ist die eigentliche Designarbeit: der stärkste belegte Fakt
+ * des Betriebs — 5,0 bei 24 Bewertungen — steht direkt nach dem ersten
+ * Scroll, nicht auf halber Seitenhöhe. Alles, was über die Entscheidung
+ * „weiterlesen oder nicht" hinter dieser Schwelle steht, wirkt nur noch auf
+ * die, die ohnehin bleiben.
  */
-export default function Home() {
+export default function HomePage() {
   return (
     <>
-      <HomeJsonLd />
-      <SmoothScroll />
-      <ScrollProgress />
-      <Header />
-      <main id="main" tabIndex={-1}>
-        <Hero />
-        <TrustMarquee />
-        <Services />
-        <Showcase />
-        <About />
-        <Suppliers />
-        <Stats />
-        <Process />
-        <Testimonials />
-        <ParallaxBand />
-        <Faq index="06" />
-        <Contact />
-      </main>
-      <Footer />
-      <StickyCta />
+      {/* Das FAQ ist auf dieser Seite sichtbar, nur deshalb darf FAQPage
+          hier mit in den Graph. */}
+      <JsonLd faqs={faqs} />
+      <Hero />
+      <Proof />
+      <Services />
+      <Gallery />
+      <Process />
+      <Studio />
+      <Reviews />
+      <Faq />
+      <Contact />
     </>
   )
 }

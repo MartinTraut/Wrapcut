@@ -1,45 +1,62 @@
 import type { MetadataRoute } from "next"
-import { site, services } from "@/lib/site"
-import { locations } from "@/lib/landing"
 
-/**
- * Nur indexierbare Seiten. Impressum und Datenschutz tragen robots
- * `index: false` — sie in der Sitemap zu listen wäre ein widersprüchliches
- * Signal an Google.
+import { locations, serviceSlugs } from "@/lib/landing"
+import { site } from "@/lib/site"
+
+/*
+ * Kein `new Date()` als `lastModified`.
+ *
+ * Ein Zeitstempel, der bei jedem Build auf "jetzt" springt, behauptet
+ * gegenüber Google eine Änderung, die nie stattgefunden hat. Nach ein paar
+ * Deploys ohne Inhaltsänderung wird das Feld ignoriert — und dann fehlt es
+ * genau dann, wenn sich wirklich etwas ändert. Stattdessen ein fester Stand,
+ * der beim Inhaltsupdate mitgepflegt wird.
  */
-export default function sitemap(): MetadataRoute.Sitemap {
-  const lastModified = new Date()
+const CONTENT_REVISION = new Date("2026-08-05")
 
+export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
       url: site.url,
-      lastModified,
+      lastModified: CONTENT_REVISION,
       changeFrequency: "monthly",
       priority: 1,
     },
     {
       url: `${site.url}/leistungen`,
-      lastModified,
+      lastModified: CONTENT_REVISION,
       changeFrequency: "monthly",
       priority: 0.9,
     },
-    ...services.map((s) => ({
-      url: `${site.url}/leistungen/${s.slug}`,
-      lastModified,
+    ...serviceSlugs.map((slug) => ({
+      url: `${site.url}/leistungen/${slug}`,
+      lastModified: CONTENT_REVISION,
       changeFrequency: "monthly" as const,
       priority: 0.8,
     })),
     {
       url: `${site.url}/standorte`,
-      lastModified,
+      lastModified: CONTENT_REVISION,
       changeFrequency: "monthly",
       priority: 0.7,
     },
-    ...locations.map((l) => ({
-      url: `${site.url}/standorte/${l.slug}`,
-      lastModified,
+    ...locations.map((location) => ({
+      url: `${site.url}/standorte/${location.slug}`,
+      lastModified: CONTENT_REVISION,
       changeFrequency: "monthly" as const,
       priority: 0.6,
     })),
+    {
+      url: `${site.url}/impressum`,
+      lastModified: CONTENT_REVISION,
+      changeFrequency: "yearly",
+      priority: 0.2,
+    },
+    {
+      url: `${site.url}/datenschutz`,
+      lastModified: CONTENT_REVISION,
+      changeFrequency: "yearly",
+      priority: 0.2,
+    },
   ]
 }
