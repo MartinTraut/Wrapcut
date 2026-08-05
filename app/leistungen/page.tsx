@@ -5,6 +5,7 @@ import { ArrowUpRight } from "lucide-react"
 
 import { Breadcrumbs } from "@/components/shared/breadcrumbs"
 import { Container } from "@/components/shared/container"
+import { HoverReveal } from "@/components/shared/hover-reveal"
 import { JsonLd } from "@/components/shared/json-ld"
 import { LandingCta } from "@/components/shared/landing-cta"
 import { LineRevealInView } from "@/components/shared/line-reveal"
@@ -82,11 +83,11 @@ export default function LeistungenPage() {
                       />
                     </span>
                     {/* Gleiche Mechanik wie in der Leistungsübersicht der
-                        Startseite: ab `lg` steht zunächst nur der Titel auf dem
-                        Foto, beim Überfahren fährt der Text hoch. Darunter
-                        bleibt alles offen, weil es dort kein Hover gibt. */}
-                    <span className="lg:grid lg:grid-rows-[0fr] lg:opacity-0 lg:transition-[grid-template-rows,opacity] lg:duration-[420ms] lg:ease-[var(--ease-premium)] lg:group-hover:grid-rows-[1fr] lg:group-hover:opacity-100 lg:group-focus-visible:grid-rows-[1fr] lg:group-focus-visible:opacity-100">
-                      <span className="block lg:overflow-hidden">
+                        Startseite: auf dem Desktop steht zunächst nur der Titel
+                        auf dem Foto und der Text fährt beim Überfahren hoch, auf
+                        dem Telefon beim Hereinscrollen. */}
+                    <HoverReveal as="span">
+                      <>
                         <span className="mt-3 block max-w-[38ch] leading-relaxed text-muted-foreground">
                           {detail?.lead ?? service.tagline}
                         </span>
@@ -95,8 +96,8 @@ export default function LeistungenPage() {
                             {detail.price.items[0].value}
                           </span>
                         ) : null}
-                      </span>
-                    </span>
+                      </>
+                    </HoverReveal>
                   </Link>
                 </RevealItem>
               )

@@ -3,6 +3,7 @@ import Link from "next/link"
 import { ArrowUpRight, Check } from "lucide-react"
 
 import { Container } from "@/components/shared/container"
+import { HoverReveal } from "@/components/shared/hover-reveal"
 import { SectionHead } from "@/components/shared/section-head"
 import { RevealGroup, RevealItem } from "@/components/shared/reveal"
 import { serviceDetails } from "@/lib/landing"
@@ -107,21 +108,15 @@ export function Services() {
                     />
                   </h3>
                   {/*
-                    Auf großen Schirmen steht zunächst nur die Überschrift auf
-                    dem Foto, beim Überfahren fährt der komplette Textblock
-                    hoch. Umgesetzt über `grid-template-rows: 0fr → 1fr`: das
-                    ist die einzige Technik, die eine *unbekannte* Texthöhe
-                    animierbar macht, ohne eine Maximalhöhe zu raten — und weil
-                    die Karte ihren Inhalt unten ausrichtet, schiebt der
-                    wachsende Block die Überschrift nach oben, statt nach unten
-                    aufzuklappen.
-
-                    Nur ab `lg`: darunter gibt es keinen Hover, dort bliebe der
-                    Text sonst dauerhaft unerreichbar. `group-focus-visible`
-                    öffnet ihn zusätzlich bei Tastaturbedienung.
+                    Der Textblock fährt hoch, statt einfach dazustehen — auf
+                    dem Desktop beim Überfahren, auf dem Telefon beim
+                    Hereinscrollen. Weil die Karte ihren Inhalt unten
+                    ausrichtet, schiebt der wachsende Block die Überschrift
+                    nach oben, statt nach unten aufzuklappen. Die Mechanik
+                    steckt in `HoverReveal`.
                   */}
-                  <div className="lg:grid lg:grid-rows-[0fr] lg:opacity-0 lg:transition-[grid-template-rows,opacity] lg:duration-[420ms] lg:ease-[var(--ease-premium)] lg:group-hover:grid-rows-[1fr] lg:group-hover:opacity-100 lg:group-focus-visible:grid-rows-[1fr] lg:group-focus-visible:opacity-100">
-                    <div className="lg:overflow-hidden">
+                  <HoverReveal>
+                    <>
                       <p className="mt-2.5 text-[0.95rem] text-muted-foreground">
                         {service.tagline}
                       </p>
@@ -157,8 +152,8 @@ export function Services() {
                           </span>
                         ) : null}
                       </span>
-                    </div>
-                  </div>
+                    </>
+                  </HoverReveal>
                 </div>
               </Link>
             </RevealItem>
