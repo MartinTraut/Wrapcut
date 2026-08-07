@@ -16,6 +16,7 @@
     --color-input: var(--input);
     --color-ring: var(--ring);
     --color-destructive: var(--destructive);
+    --color-gold: var(--gold);
 
     --radius-sm: 0.5rem;
     --radius-md: 0.75rem;
@@ -100,6 +101,19 @@
      */
     --brand: oklch(0.8 0.19 205);
     --brand-foreground: oklch(0.1 0.012 255);
+
+    /*
+     * Bewertungsgold — die einzige Farbe der Seite außerhalb der Iridescence.
+     *
+     * Sterne standen vorher in Weiß (Hero, Studio) und in Markencyan
+     * (Bewertungen): drei Auszeichnungen für dieselbe Aussage, und die
+     * cyanfarbene Variante saß direkt neben dem cyanfarbenen Angebotsknopf,
+     * wo sie als Teil des Knopfes gelesen wurde. Gold ist das Zeichen, das
+     * für eine Bewertung ohnehin jeder erkennt, und es ist die einzige
+     * Farbe, die im Layout sonst nirgends vorkommt — genau deshalb springt
+     * sie an.
+     */
+    --gold: oklch(0.84 0.16 88);
 
     /* Ränder tragen jetzt sichtbar: 12 % waren auf diesem Grund praktisch
        unsichtbar, die Karten hatten optisch gar keine Kante. */

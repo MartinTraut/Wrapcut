@@ -106,10 +106,17 @@ export function Studio() {
                 <ArrowRight className="transition-transform duration-[280ms] ease-[var(--ease-premium)] group-hover/button:translate-x-1" />
               </Link>
             </Button>
-            <span className="inline-flex items-center gap-2 text-sm text-muted-foreground">
-              <Star className="size-4 fill-foreground text-foreground" aria-hidden />
-              <span className="nums">5,0</span> bei{" "}
-              <span className="nums">{site.reviews.count}</span> Bewertungen
+            {/* Als Plakette, nicht als Textrest.
+                Frei neben dem Angebotsknopf gesetzt las sich die Bewertung wie
+                eine Fußnote zum Knopf — grauer Text in dessen Schatten. Jetzt
+                trägt sie eine eigene Fläche in Gold und steht damit als der
+                Beleg da, der sie ist. */}
+            <span className="inline-flex items-center gap-2.5 rounded-full border border-gold/35 bg-gold/[0.09] py-2.5 pr-5 pl-4">
+              <Star className="size-4 shrink-0 fill-gold text-gold" aria-hidden />
+              <span className="text-sm text-foreground/85">
+                <span className="nums font-semibold text-gold">5,0</span> bei{" "}
+                <span className="nums">{site.reviews.count}</span> Bewertungen
+              </span>
             </span>
           </div>
         </Reveal>
@@ -127,9 +134,16 @@ export function Studio() {
         helle Kästchen und zwei fast unsichtbare Marken.
       */}
       <Container className="mt-20 lg:mt-28">
-        <div className="grid gap-8 border-t border-border pt-10 lg:grid-cols-12 lg:items-center lg:gap-10">
+        {/* Als eigene Fläche, nicht als Zeile unter einer Trennlinie.
+            Vorher lief das Band als grauer Absatz neben sechs entsättigten
+            Kästchen aus — sechs Herstellernamen, die zusammen das stärkste
+            Qualitätsargument des Betriebs sind, gingen damit als Fußnote
+            unter. Jetzt trägt es dieselbe farbige Fläche wie die Datenblätter
+            der Unterseiten und eine eigene Leitmarke. */}
+        <div className="bg-iris-wash grid gap-8 rounded-3xl border border-brand/25 p-7 sm:p-10 lg:grid-cols-12 lg:items-center lg:gap-12">
           <Reveal className="lg:col-span-4">
-            <p className="leading-relaxed text-muted-foreground text-pretty">
+            <span className="t-label text-iris">Material</span>
+            <p className="mt-5 leading-relaxed text-foreground/85 text-pretty">
               {about.supplierText}
             </p>
           </Reveal>
@@ -144,22 +158,28 @@ export function Studio() {
             {suppliers.map((supplier) =>
               supplier.logo ? (
                 <RevealItem key={supplier.name} variant="rise">
-                  <span className="flex h-14 w-full items-center justify-center rounded-xl bg-white/90 px-3 grayscale transition-[filter,background-color] duration-300 ease-[var(--ease-premium)] hover:bg-white hover:grayscale-0">
+                  {/* Ohne Graufilter und deutlich größer.
+                      Entsättigt und auf 24 px Logohöhe waren die Marken nicht
+                      mehr zu erkennen — und eine Marke, die man nicht erkennt,
+                      belegt nichts. */}
+                  <span className="flex h-16 w-full items-center justify-center rounded-xl bg-white px-4 transition-transform duration-300 ease-[var(--ease-premium)] hover:-translate-y-0.5 lg:h-20">
                     <Image
                       src={supplier.logo}
                       alt={supplier.name}
                       width={220}
                       height={72}
-                      className="max-h-6 w-auto object-contain"
+                      className="max-h-8 w-auto object-contain lg:max-h-10"
                     />
                   </span>
                 </RevealItem>
               ) : (
                 // Für KPMF liegt kein Logo vor — als gesetzter Schriftzug statt
-                // eines erfundenen Markenzeichens, aber im selben Chip-Format,
-                // damit die Lücke nicht wie ein Ladefehler aussieht.
+                // eines erfundenen Markenzeichens, aber auf derselben weißen
+                // Fläche wie die übrigen fünf. Als dunkler Umrisschip war es
+                // vorher das eine Feld in der Reihe, das aussah, als fehle
+                // etwas.
                 <RevealItem key={supplier.name} variant="rise">
-                  <span className="flex h-14 w-full items-center justify-center rounded-xl border border-border text-sm font-bold tracking-[0.12em] text-foreground/60 transition-colors duration-300 hover:border-brand/50 hover:text-foreground">
+                  <span className="flex h-16 w-full items-center justify-center rounded-xl bg-white text-sm font-bold tracking-[0.12em] text-neutral-800 transition-transform duration-300 ease-[var(--ease-premium)] hover:-translate-y-0.5 lg:h-20 lg:text-base">
                     {supplier.name}
                   </span>
                 </RevealItem>

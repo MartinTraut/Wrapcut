@@ -126,6 +126,9 @@ export function Hero() {
               {...(reduce ? {} : enter(0))}
               className="ring-iris mb-9 inline-flex items-center gap-3 rounded-full bg-surface/60 py-2 pr-5 pl-3 backdrop-blur-sm"
             >
+              {/* Sterne hier bewusst in Weiß, anders als im Studio-Kapitel:
+                  Die Plakette trägt den Iridescence-Ring, und Gold darin ist
+                  eine dritte Farbe auf zwei Quadratzentimetern. */}
               <span className="flex items-center gap-0.5" aria-hidden>
                 {Array.from({ length: 5 }).map((_, i) => (
                   <Star key={i} className="size-3.5 fill-foreground text-foreground" />

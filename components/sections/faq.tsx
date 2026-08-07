@@ -32,9 +32,12 @@ export function Faq() {
 
   return (
     <section id="faq" className="section-sm scroll-mt-24">
+      {/* „Antworten, bevor Sie fragen." klang nach Werbespruch und
+          unterstellte dem Leser, seine Frage sei vorhersehbar. Ein
+          Fachbetrieb sagt schlicht, worüber er Auskunft gibt. */}
       <SectionHead
         label="Fragen & Antworten"
-        titleLines={["Antworten, bevor", "Sie fragen."]}
+        titleLines={["Was Kunden uns", "vorher fragen."]}
         lead="Alles Wichtige zu Folierung, Lackschutz, Keramik und Tönung. Ihre Frage ist nicht dabei?"
         action={
           <div className="flex flex-wrap items-center gap-4">
@@ -45,7 +48,10 @@ export function Faq() {
               href={site.contact.phoneHref}
               className="focus-ring inline-flex min-h-11 items-center text-sm text-muted-foreground transition-colors duration-200 hover:text-foreground"
             >
-              oder <span className="nums font-semibold text-foreground">{site.contact.phone}</span>
+              oder{" "}
+              <span className="nums font-semibold text-foreground">
+                {site.contact.phone}
+              </span>
             </a>
           </div>
         }

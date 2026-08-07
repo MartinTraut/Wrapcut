@@ -70,7 +70,7 @@ function ReviewCard({ review }: { review: Testimonial }) {
       <div className="flex items-center justify-between">
         <div className="flex gap-0.5" aria-label="5 von 5 Sternen">
           {Array.from({ length: 5 }).map((_, i) => (
-            <Star key={i} className="size-4 fill-brand text-brand" />
+            <Star key={i} className="size-4 fill-gold text-gold" />
           ))}
         </div>
         <Quote className="size-7 text-brand/35" aria-hidden />
