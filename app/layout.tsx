@@ -79,10 +79,22 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: "#0a0b0e",
-  // Zoom bleibt erlaubt — `maximum-scale` sperrt ihn für Nutzer aus, die ihn
-  // brauchen, und ist eine der häufigsten stillen A11y-Verletzungen.
   width: "device-width",
   initialScale: 1,
+  /*
+   * Zoom gesperrt — ausdrückliche Kundenentscheidung.
+   *
+   * Auf dem Telefon ließ sich die Seite mit zwei Fingern verschieben und
+   * vergrößern; die feste CTA-Leiste blieb dabei an der Bildschirmkante
+   * stehen, der Inhalt lief darunter weg, und das las sich als Fehler.
+   * Der Preis ist bekannt: Nutzer, die Pinch-Zoom zum Lesen brauchen,
+   * verlieren ihn. Abgefedert wird das über den Fließtext, der mit 17,6 px
+   * über dem Browser-Default liegt, und über durchgängig fluide
+   * Schriftgrößen.
+   */
+  maximumScale: 1,
+  userScalable: false,
+  viewportFit: "cover",
 }
 
 export default function RootLayout({
@@ -90,7 +102,11 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="de" className={`${display.variable} ${sans.variable}`}>
-      <body className="antialiased">
+      {/* Platz für die feste CTA-Leiste am Seitenende.
+          Ohne die Reserve endet der Footer exakt unter der Leiste: die
+          letzten Zeilen — Impressum, Datenschutz — lassen sich auf dem
+          Telefon nicht mehr freischeiben und wirken abgeschnitten. */}
+      <body className="antialiased pb-[calc(5.25rem+env(safe-area-inset-bottom))] lg:pb-0">
         {/* `JsonLd` steht bewusst nicht hier, sondern in jeder `page.tsx`:
             im Layout liefe das FAQPage-Objekt der Startseite auf jeder
             Unterseite mit, auch dort, wo gar kein FAQ sichtbar ist. */}

@@ -73,6 +73,16 @@ export function Gallery() {
 
   return (
     <section id="galerie" className="section scroll-mt-24">
+      {/*
+        Instagram in Instagram-Farben, aber nicht als bunte Fläche.
+
+        Weiße Schrift auf dem Verlauf wäre am hellen Ende (#feda75) unlesbar,
+        deshalb trägt nur das Markenzeichen den Verlauf voll — als Kachel wie
+        in der App — und der Rahmen als Haarlinie. Die Fläche bleibt dunkel,
+        der Text damit lesbar. Der Schein darunter ist im Ruhezustand halb da
+        und geht beim Überfahren auf; dauerhaft volle Leuchtkraft hätte ein
+        Randelement lauter gemacht als die Galerie selbst.
+      */}
       <SectionHead
         label="Galerie"
         titleLines={["Arbeiten aus", "unserem Studio."]}
@@ -82,10 +92,26 @@ export function Gallery() {
             href={site.social.instagram}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2.5 rounded-full border border-input px-5 py-3 text-sm transition-colors duration-200 hover:border-brand/70 hover:text-brand focus-ring"
+            className="group/ig focus-ring relative isolate inline-flex rounded-full p-px [background:linear-gradient(100deg,#feda75,#fa7e1e_28%,#d62976_55%,#962fbf_78%,#4f5bd5)] transition-transform duration-[280ms] ease-[var(--ease-premium)] hover:-translate-y-0.5"
           >
-            <InstagramIcon className="size-4" />
-            Laufend neue Arbeiten auf {site.social.instagramHandle}
+            <span
+              aria-hidden
+              className="pointer-events-none absolute -inset-2 -z-10 rounded-full opacity-40 blur-xl transition-opacity duration-[280ms] ease-[var(--ease-premium)] group-hover/ig:opacity-90 [background:linear-gradient(100deg,#fa7e1e,#d62976_50%,#4f5bd5)]"
+            />
+            <span className="inline-flex items-center gap-3 rounded-full bg-background py-2 pr-5 pl-2 text-sm transition-colors duration-[280ms] ease-[var(--ease-premium)] group-hover/ig:bg-background/85">
+              <span className="flex size-8 items-center justify-center rounded-[0.7rem] text-white [background:radial-gradient(circle_at_28%_105%,#feda75,#fa7e1e_18%,#d62976_45%,#962fbf_70%,#4f5bd5_92%)]">
+                <InstagramIcon className="size-[1.15rem]" />
+              </span>
+              {/* Ein einziger Textknoten: im Flex-Container würde ein loses
+                  Leerzeichen zwischen zwei Spans zu einem eigenen Flex-Item
+                  mit `gap-3` links und rechts. */}
+              <span>
+                Laufend neue Arbeiten auf{" "}
+                <span className="font-semibold">
+                  {site.social.instagramHandle}
+                </span>
+              </span>
+            </span>
           </a>
         }
         id="galerie-titel"

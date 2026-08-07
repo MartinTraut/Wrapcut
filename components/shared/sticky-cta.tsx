@@ -24,16 +24,20 @@ export function StickyCta() {
   const { scrollY } = useScroll()
 
   /*
-   * Schwelle vor dem Setter prüfen, nicht danach.
+   * Zwei Schwellen, nicht eine.
    *
-   * `setVisible(value > 700)` läuft bei jedem Scroll-Tick — 60 bis 120 mal
-   * pro Sekunde. React verwirft den identischen Wert zwar, aber der Aufruf
-   * plus Scheduler-Durchlauf passiert trotzdem, und das während Lenis
-   * ohnehin den Main Thread belegt. Der Ref-Vergleich macht daraus zwei
+   * Mit einer einzigen Grenze bei 700 px genügte auf dem Telefon der
+   * Nachschwinger eines Wischers, um sie mehrfach zu kreuzen — die Leiste
+   * fuhr dann im Sekundentakt raus und rein. Sie erscheint jetzt bei 700 px
+   * und verschwindet erst wieder unter 480; dazwischen passiert nichts.
+   *
+   * Die Schwelle wird außerdem vor dem Setter geprüft, nicht danach:
+   * `setVisible(...)` liefe sonst 60 bis 120 mal pro Sekunde durch den
+   * Scheduler, während Lenis ohnehin den Main Thread belegt. So bleiben zwei
    * State-Updates pro Seitenbesuch.
    */
   useMotionValueEvent(scrollY, "change", (value) => {
-    const next = value > 700
+    const next = visibleRef.current ? value > 480 : value > 700
     if (next === visibleRef.current) return
     visibleRef.current = next
     setVisible(next)
@@ -42,12 +46,21 @@ export function StickyCta() {
   return (
     <AnimatePresence>
       {visible ? (
+        /*
+          `transform-gpu` und `will-change` sind hier kein Zierrat.
+          Die Leiste liegt mit `backdrop-blur` über bewegtem Inhalt; ohne
+          eigene Compositing-Ebene rechnet iOS den Blur bei jedem Scroll-Frame
+          auf dem Main Thread neu, und die Leiste zittert gegenüber dem
+          Bildschirmrand. `touch-none` verhindert zusätzlich, dass ein Wisch,
+          der auf der Leiste beginnt, die Seite darunter mitzieht.
+        */
         <motion.div
           initial={{ y: "120%" }}
           animate={{ y: "0%" }}
           exit={{ y: "120%" }}
           transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
-          className="fixed inset-x-0 bottom-0 z-40 border-t border-border bg-background/92 px-4 pt-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] backdrop-blur-xl lg:hidden"
+          style={{ willChange: "transform" }}
+          className="fixed inset-x-0 bottom-0 z-40 transform-gpu touch-none border-t border-border bg-background/92 px-4 pt-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] backdrop-blur-xl lg:hidden"
         >
           {/*
             Drei Wege, einer primär.

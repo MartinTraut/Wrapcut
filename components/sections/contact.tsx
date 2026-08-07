@@ -108,16 +108,28 @@ export function Contact() {
                    gelesen wird. Der Wert liegt in oklch statt beim
                    Original-Hex, damit er zur Helligkeitsreihe der übrigen
                    Farben passt und auf dem dunklen Grund nicht ausbrennt. */
-                className="group relative flex items-center gap-5 overflow-hidden rounded-2xl border border-[oklch(0.72_0.19_150/45%)] bg-[oklch(0.72_0.19_150/9%)] p-6 transition-colors duration-200 hover:border-[oklch(0.72_0.19_150/85%)] hover:bg-[oklch(0.72_0.19_150/16%)] focus-ring"
+                className="group relative flex items-center gap-5 rounded-2xl border border-[oklch(0.72_0.19_150/45%)] bg-[oklch(0.72_0.19_150/9%)] p-6 transition-colors duration-200 hover:border-[oklch(0.72_0.19_150/85%)] hover:bg-[oklch(0.72_0.19_150/16%)] focus-ring"
               >
-                {/* Der Schein sitzt hinter dem Symbol und wächst beim
-                    Überfahren — `scale` statt `width`/`blur`, damit weder
-                    Layout noch Filter neu berechnet werden. */}
+                {/*
+                  Der Schein liegt als Radialverlauf auf der Karte, nicht als
+                  weichgezeichneter Kreis dahinter.
+
+                  Vorher war es ein `size-32`-Kreis mit `blur-2xl`, den
+                  `overflow-hidden` an der Kartenkante abschnitt. Auf 390 px
+                  reichte er über die halbe Karte, und die Schnittkante lief
+                  als sichtbare Linie quer durch den Rahmen — auf dem Telefon
+                  las sich das wie ein zweiter, verrutschter Rahmen. Ein
+                  Verlauf im Hintergrund kann nicht schneiden, braucht keinen
+                  Filter und kostet nichts.
+                */}
                 <span
                   aria-hidden
-                  className="pointer-events-none absolute -top-10 -left-10 size-32 rounded-full bg-[oklch(0.72_0.19_150/22%)] blur-2xl transition-transform duration-[500ms] ease-[var(--ease-premium)] group-hover:scale-150"
+                  className="pointer-events-none absolute inset-0 rounded-2xl opacity-70 transition-opacity duration-[500ms] ease-[var(--ease-premium)] group-hover:opacity-100 [background:radial-gradient(70%_120%_at_12%_0%,oklch(0.72_0.19_150/26%),transparent_70%)]"
                 />
-                <span className="relative flex size-12 shrink-0 items-center justify-center rounded-full border border-[oklch(0.72_0.19_150/55%)] bg-[oklch(0.72_0.19_150/14%)] text-[oklch(0.85_0.19_150)] transition-transform duration-[280ms] ease-[var(--ease-premium)] group-hover:scale-105">
+                {/* Volltonkreis wie bei der Telefonkarte darüber. Als
+                    Umrisskreis stand hier ein Ring in einem Rahmen in einem
+                    Rahmen — drei Konturen auf drei Zentimetern. */}
+                <span className="relative flex size-12 shrink-0 items-center justify-center rounded-full bg-[oklch(0.78_0.19_150)] text-[oklch(0.22_0.05_150)] transition-transform duration-[280ms] ease-[var(--ease-premium)] group-hover:scale-105">
                   <MessageCircle className="size-5" aria-hidden />
                 </span>
                 <span className="relative">

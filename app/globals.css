@@ -192,6 +192,12 @@
            fokussierte Element sonst überdecken. */
         scroll-padding-top: 6rem;
         scroll-padding-bottom: 6.5rem;
+        /* `overflow-x: hidden` steht am `body`, greift dort aber nur, solange
+           das Wurzelelement nicht selbst scrollt. Auf iOS tat es das: ein
+           breites Kind ließ die ganze Seite seitlich verschieben, obwohl der
+           Body geklammert war. */
+        overflow-x: clip;
+        overscroll-behavior: none;
     }
     @media (min-width: 1024px) {
         html {
@@ -201,6 +207,17 @@
     body {
         @apply bg-background text-foreground;
         overflow-x: hidden;
+        /* Kein Gummiband, kein seitliches Wegschieben.
+           Auf iOS ließ sich die Seite über den oberen und unteren Rand
+           hinausziehen — die feste CTA-Leiste bleibt dabei am Viewport
+           kleben, während der Inhalt darunter wegrutscht, und genau das
+           sah aus, als säße die Leiste lose. `overscroll-behavior: none`
+           unterbindet Gummiband und Pull-to-Refresh. */
+        overscroll-behavior: none;
+        /* Schaltet den Doppeltipp-Zoom ab und damit die 300-ms-Wartezeit,
+           die Safari sonst vor jedem Tap einlegt, um zu prüfen, ob ein
+           zweiter folgt. Wischen und Scrollen bleiben unberührt. */
+        touch-action: manipulation;
         /* Grundschriftgröße der Seite. Alles, was mit `text-sm`/`text-base`
            arbeitet, hängt in Tailwind an festen rem-Werten — die beiden
            Regeln darunter heben genau die beiden Stufen an, die den
