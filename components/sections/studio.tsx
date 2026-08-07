@@ -158,11 +158,12 @@ export function Studio() {
             {suppliers.map((supplier) =>
               supplier.logo ? (
                 <RevealItem key={supplier.name} variant="rise">
-                  {/* Ohne Graufilter und deutlich größer.
-                      Entsättigt und auf 24 px Logohöhe waren die Marken nicht
-                      mehr zu erkennen — und eine Marke, die man nicht erkennt,
-                      belegt nichts. */}
-                  <span className="flex h-16 w-full items-center justify-center rounded-xl bg-white px-4 transition-transform duration-300 ease-[var(--ease-premium)] hover:-translate-y-0.5 lg:h-20">
+                  {/* Entsättigt wie zuvor, Farbe erst beim Hover.
+                      Sechs Markenlogos in sechs Eigenfarben (zwei Rot, ein
+                      Blau, ein Schwarz) ergaben nebeneinander ein buntes Band,
+                      das lauter war als das Kapitel darüber. Die Größe bleibt:
+                      auf 24 px Logohöhe war keine Marke mehr zu erkennen. */}
+                  <span className="flex h-16 w-full items-center justify-center rounded-xl bg-white px-4 grayscale transition-[filter,transform] duration-300 ease-[var(--ease-premium)] hover:-translate-y-0.5 hover:grayscale-0 lg:h-20">
                     <Image
                       src={supplier.logo}
                       alt={supplier.name}
